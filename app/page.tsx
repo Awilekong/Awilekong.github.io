@@ -1,312 +1,299 @@
-const navItems = [
-  { label: "About", href: "#about" },
-  { label: "News", href: "#news" },
-  { label: "Publications", href: "#publications" },
-  { label: "Contact", href: "#contact" },
-];
+const publications = {
+  accepted: [
+    {
+      badge: "IROS 2026",
+      badgeColor: "#00369f",
+      image: "/restacvla.png",
+      imageAlt: "Overview of the ResTacVLA method",
+      title:
+        "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation",
+      authors: (
+        <>
+          <strong>Pengwei Zhang</strong>, Bin Xie, Xinpan Meng, Xinyu Guo, Ce
+          Hao, Fang Deng, Long Cheng, and Tiancai Wang
+        </>
+      ),
+      venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026",
+      note: "Accepted",
+      abstract:
+        "ResTacVLA reformulates touch as the residual between visual expectation and physical sensation. Predictive-coding-inspired contact primitives and a surprise-aware gate help VLA policies prioritize tactile information during visually ambiguous contact phases.",
+      links: [
+        { label: "arXiv", href: "https://arxiv.org/abs/2607.03387" },
+        { label: "HTML", href: "https://awilekong.github.io/ResTacVLA/" },
+      ],
+    },
+    {
+      badge: "SCTS 2026",
+      badgeColor: "#00629b",
+      image: "/rehab.png",
+      imageAlt: "Rehabilitation assessment system article preview",
+      title:
+        "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera",
+      authors: (
+        <>
+          <strong>Pengwei Zhang</strong>, Long Cheng, and Yongxiang Zou
+        </>
+      ),
+      venue: "SCIENCE CHINA Technological Sciences, 2026",
+      abstract:
+        "This work combines depth-camera motion capture with YOLOv8-Pose and an interpretable Trajectory-ROM-Smooth scoring algorithm. Evaluation with 21 stroke patients shows close agreement with experienced physicians while capturing subtle rehabilitation progress at a finer granularity.",
+      links: [
+        {
+          label: "Article",
+          href: "https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3",
+        },
+        {
+          label: "DOI",
+          href: "https://doi.org/10.1007/s11431-026-3364-3",
+        },
+      ],
+    },
+  ],
+  preprints: [
+    {
+      badge: "Preprint",
+      badgeColor: "#64748b",
+      image: "/touchthinker.png",
+      imageAlt: "Data overview of the TouchThinker framework",
+      title:
+        "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
+      authors: (
+        <>
+          Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
+          Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
+          Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
+        </>
+      ),
+      venue: "arXiv preprint, 2026",
+      abstract:
+        "TouchThinker introduces a million-scale tactile reasoning dataset spanning 415 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
+      links: [
+        { label: "arXiv", href: "https://arxiv.org/abs/2606.11637" },
+        {
+          label: "CODE",
+          href: "https://github.com/lvkailin0118/TouchThinker",
+        },
+      ],
+    },
+  ],
+};
 
-const news = [
-  {
-    date: "2026.07",
-    text: "ResTacVLA was accepted by IROS 2026.",
-    href: "https://arxiv.org/abs/2607.03387",
-  },
-  {
-    date: "2026",
-    text: "Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR 2026 (Leader).",
-    href: "#award",
-    award: true,
-  },
-  {
-    date: "2026.06",
-    text: "TouchThinker was released on arXiv.",
-    href: "https://arxiv.org/abs/2606.11637",
-  },
-  {
-    date: "2026.05",
-    text: "Our quantitative rehabilitation assessment system was published in SCIENCE CHINA Technological Sciences.",
-    href: "https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3",
-  },
-];
+type Publication = (typeof publications.accepted)[number];
+
+function PublicationCard({ publication }: { publication: Publication }) {
+  return (
+    <li className="publication-card">
+      <div className="publication-row">
+        <div className="publication-preview">
+          <a
+            className="venue-badge"
+            href={publication.links[0].href}
+            style={{ backgroundColor: publication.badgeColor }}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {publication.badge}
+          </a>
+          <a
+            href={publication.links[0].href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img src={publication.image} alt={publication.imageAlt} />
+          </a>
+        </div>
+
+        <div className="publication-details">
+          <h3>{publication.title}</h3>
+          <p className="authors">{publication.authors}</p>
+          <p className="periodical">
+            <em>{publication.venue}</em>
+          </p>
+          {"note" in publication && publication.note ? (
+            <p className="periodical">{publication.note}</p>
+          ) : null}
+          <div className="paper-links">
+            <details>
+              <summary>Abs</summary>
+              <p>{publication.abstract}</p>
+            </details>
+            {publication.links.map((link) => (
+              <a
+                href={link.href}
+                key={link.label}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
 
 export default function Home() {
   return (
-    <main>
+    <main className="page-shell" id="about">
       <a className="skip-link" href="#publications">
         Skip to publications
       </a>
 
-      <header className="site-header">
-        <a className="brand" href="#about">
-          Pengwei Zhang
-        </a>
-        <nav aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <a href={item.href} key={item.label}>
-              {item.label}
+      <article className="about-page">
+        <header className="profile-header">
+          <h1>
+            <strong>Pengwei</strong> Zhang
+          </h1>
+          <p>
+            Ph.D. Student · Robot Learning &amp; Tactile Intelligence ·{" "}
+            <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
+              CASIA
             </a>
-          ))}
-          <a className="cv-link" href="#contact">
-            CV ↗
-          </a>
-        </nav>
-      </header>
+          </p>
+        </header>
 
-      <section className="intro" id="about">
-        <div className="intro-copy">
-          <div className="intro-content">
-            <p className="kicker">ROBOT LEARNING · TACTILE INTELLIGENCE</p>
-            <h1>
-              <strong>Pengwei</strong> Zhang
-            </h1>
-            <p className="role">
-              Researcher in Robot Learning and Contact-Rich Manipulation
-            </p>
-            <p className="bio">
-              I work on tactile perception, vision–touch multimodal learning,
-              and learning-based control for real-world robots. My current
-              research explores how embodied agents can use contact to perceive,
-              reason, and act more reliably in the physical world.
-            </p>
-            <p className="affiliation">
-              Institute of Automation, Chinese Academy of Sciences · University
-              of Chinese Academy of Sciences · Zhongguancun Academy
-            </p>
-
-            <div className="topic-list" aria-label="Research interests">
-              <span>Robot Learning</span>
-              <span>Tactile Perception</span>
-              <span>Vision–Touch Learning</span>
-              <span>Embodied Intelligence</span>
-            </div>
-
-            <div className="profile-links" aria-label="Profile links">
-              <a href="mailto:your.email@institution.edu">Email ↗</a>
-              <a href="#contact">Google Scholar ↗</a>
-              <a href="#contact">GitHub ↗</a>
-              <a href="#contact">CV ↗</a>
-            </div>
-          </div>
-        </div>
-
-        <figure className="portrait">
+        <figure className="profile-photo">
           <img
             src="/profile.jpg"
             alt="Pengwei Zhang holding his cat Xiaoguo"
           />
-          <figcaption>Pengwei &amp; Xiaoguo</figcaption>
         </figure>
-      </section>
 
-      <section className="section news-section" id="news">
-        <div className="section-title">
-          <p>UPDATES</p>
-          <h2>News</h2>
-        </div>
-        <div className="news-list">
-          {news.map((item) => (
-            <a
-              className={item.award ? "news-item award-item" : "news-item"}
-              href={item.href}
-              key={`${item.date}-${item.text}`}
-              target={item.href.startsWith("http") ? "_blank" : undefined}
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-              id={item.award ? "award" : undefined}
-            >
-              <time>{item.date}</time>
-              <p>
-                {item.award && <span className="award-label">AWARD</span>}
-                {item.award ? <strong>{item.text}</strong> : item.text}
-              </p>
-              <span aria-hidden="true">↗</span>
+        <div className="about-intro">
+          <p>
+            I am <strong>Pengwei Zhang</strong>, a Ph.D. student at the Institute
+            of Automation, Chinese Academy of Sciences (
+            <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
+              CASIA
             </a>
-          ))}
-        </div>
-      </section>
+            ). I am fortunate to be supervised by{" "}
+            <a
+              href="https://people.ucas.ac.cn/~chenglong"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Prof. Long Cheng
+            </a>
+            .
+          </p>
+          <p>
+            I received my Bachelor&apos;s degree in Automation from{" "}
+            <a
+              href="https://en.bjtu.edu.cn/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Beijing Jiaotong University
+            </a>
+            . I am also a joint-training student at Zhongguancun Academy (
+            <a
+              href="https://www.bza.edu.cn/en"
+              target="_blank"
+              rel="noreferrer"
+            >
+              ZGCA
+            </a>
+            ), working with{" "}
+            <a
+              href="https://cehao1.github.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Prof. Ce Hao
+            </a>
+            .
+          </p>
+          <p>
+            My research focuses on building{" "}
+            <strong>
+              tactile-aware learning systems for reliable real-world robotic
+              interaction
+            </strong>
+            , with particular interests in contact-rich manipulation,
+            vision-force multimodal learning, force-aware imitation learning,
+            precision assembly, and embodied intelligence.
+          </p>
 
-      <section className="section publications-section" id="publications">
-        <div className="section-title publications-title">
-          <div>
-            <p>RESEARCH</p>
-            <h2>Selected Publications</h2>
+          <div className="research-tags" aria-label="Research interests">
+            <span>Robot Learning</span>
+            <span>Contact-Rich Manipulation</span>
+            <span>Vision-Force Learning</span>
+            <span>Embodied Intelligence</span>
           </div>
-          <a href="#contact">Google Scholar ↗</a>
         </div>
 
-        <article className="publication">
+        <section
+          className="home-section selected-publications"
+          id="publications"
+          aria-labelledby="selected-publications-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">Research</p>
+              <h2 id="selected-publications-title">Selected Publications</h2>
+            </div>
+          </div>
+
+          <div className="publication-group-heading">
+            <h3>Peer-reviewed &amp; Accepted</h3>
+            <span>Published research</span>
+          </div>
+          <ol className="bibliography">
+            {publications.accepted.map((publication) => (
+              <PublicationCard
+                publication={publication}
+                key={publication.title}
+              />
+            ))}
+          </ol>
+
+          <div className="publication-group-heading">
+            <h3>Preprints &amp; Under Review</h3>
+            <span>Latest work</span>
+          </div>
+          <ol className="bibliography">
+            {publications.preprints.map((publication) => (
+              <PublicationCard
+                publication={publication}
+                key={publication.title}
+              />
+            ))}
+          </ol>
+
+          <div className="publication-group-heading recognition-heading">
+            <h3>Selected Recognition</h3>
+          </div>
+          <ul className="recognition-list">
+            <li>
+              <time>2026</time>
+              <strong>
+                Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR
+                2026
+              </strong>
+              <span>— Leader</span>
+            </li>
+          </ul>
+        </section>
+
+        <div className="social-links" aria-label="Social profiles">
           <a
-            className="publication-image"
-            href="https://arxiv.org/abs/2607.03387"
+            href="https://github.com/Awilekong"
             target="_blank"
             rel="noreferrer"
           >
-            <img
-              src="/restacvla.png"
-              alt="Overview of the ResTacVLA method"
-            />
-            <span>IROS 2026</span>
+            GitHub
           </a>
-          <div className="publication-copy">
-            <p className="venue">IROS 2026 · ACCEPTED</p>
-            <h3>
-              Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation
-              via Residual Tactile Representation
-            </h3>
-            <p className="authors">
-              <strong>Pengwei Zhang</strong>, Bin Xie, Xinpan Meng, Xinyu Guo,
-              Ce Hao, Fang Deng, Long Cheng, and Tiancai Wang
-            </p>
-            <div className="paper-links">
-              <details>
-                <summary>Abs</summary>
-                <p>
-                  ResTacVLA reformulates touch as the residual between visual
-                  expectation and physical sensation. Predictive-coding-inspired
-                  contact primitives and a surprise-aware gate help VLA policies
-                  prioritize tactile information during visually ambiguous
-                  contact phases.
-                </p>
-              </details>
-              <a
-                href="https://arxiv.org/abs/2607.03387"
-                target="_blank"
-                rel="noreferrer"
-              >
-                arXiv ↗
-              </a>
-              <a
-                href="https://awilekong.github.io/ResTacVLA/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Project ↗
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article className="publication">
           <a
-            className="publication-image publication-image-light"
-            href="https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3"
+            href="https://www.xiaohongshu.com/user/profile/61112b75000000000101ca18"
             target="_blank"
             rel="noreferrer"
           >
-            <img
-              src="/rehab.png"
-              alt="Article page for the rehabilitation assessment system"
-            />
-            <span>SCTS 2026</span>
+            Xiaohongshu
           </a>
-          <div className="publication-copy">
-            <p className="venue">SCIENCE CHINA TECHNOLOGICAL SCIENCES · 2026</p>
-            <h3>
-              A Fine-Grained, Comprehensive, and Quantitative Rehabilitation
-              Assessment System Based on Depth Camera
-            </h3>
-            <p className="authors">
-              <strong>Pengwei Zhang</strong>, Long Cheng, and Yongxiang Zou
-            </p>
-            <div className="paper-links">
-              <details>
-                <summary>Abs</summary>
-                <p>
-                  This work combines depth-camera motion capture with YOLOv8-Pose
-                  and an interpretable Trajectory–ROM–Smooth scoring algorithm.
-                  Evaluation with 21 stroke patients shows close agreement with
-                  experienced physicians while capturing subtle rehabilitation
-                  progress at a finer granularity.
-                </p>
-              </details>
-              <a
-                href="https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Article ↗
-              </a>
-              <a
-                href="https://doi.org/10.1007/s11431-026-3364-3"
-                target="_blank"
-                rel="noreferrer"
-              >
-                DOI ↗
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article className="publication">
-          <a
-            className="publication-image publication-image-light"
-            href="https://arxiv.org/abs/2606.11637"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              src="/touchthinker.png"
-              alt="Data overview of the TouchThinker framework"
-            />
-            <span>PREPRINT 2026</span>
-          </a>
-          <div className="publication-copy">
-            <p className="venue">ARXIV PREPRINT · 2026</p>
-            <h3>
-              TouchThinker: Scaling Tactile Commonsense Reasoning to the Open
-              World with Large-scale Data and Action-aware Representation
-            </h3>
-            <p className="authors">
-              Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
-              Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
-              Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
-            </p>
-            <div className="paper-links">
-              <details>
-                <summary>Abs</summary>
-                <p>
-                  TouchThinker introduces a million-scale tactile reasoning
-                  dataset spanning 415 objects, eight scenarios, and seven sensor
-                  types. Its action-aware representation focuses reasoning on
-                  informative interaction segments and improves open-world
-                  tactile commonsense reasoning.
-                </p>
-              </details>
-              <a
-                href="https://arxiv.org/abs/2606.11637"
-                target="_blank"
-                rel="noreferrer"
-              >
-                arXiv ↗
-              </a>
-              <a
-                href="https://github.com/lvkailin0118/TouchThinker"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Code &amp; Data ↗
-              </a>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <footer id="contact">
-        <div>
-          <strong>Pengwei Zhang</strong>
-          <p>Robot Learning · Tactile Intelligence</p>
         </div>
-        <div className="footer-links">
-          <a href="mailto:your.email@institution.edu">
-            your.email@institution.edu
-          </a>
-          <a href="#about">Google Scholar</a>
-          <a href="#about">GitHub</a>
-          <a href="#about">CV</a>
-        </div>
-        <p className="placeholder-note">
-          Email, Scholar, GitHub, CV, and Chinese name are ready to replace.
-        </p>
-      </footer>
+      </article>
     </main>
   );
 }
