@@ -57,6 +57,43 @@ export default function CVPage() {
           </div>
           <time>2026</time>
         </div>
+        <div className="cv-entry">
+          <div>
+            <strong>
+              Zhixing Scholarship · Xiaomi Special Scholarship · Beijing
+              Jiaotong University “Star of Self-Strengthening”
+            </strong>
+            <p>
+              Undergraduate honors ·{" "}
+              <a
+                href="https://mp.weixin.qq.com/s/JSoGWFeezXtnz1TpyoM3tw"
+                target="_blank"
+                rel="noreferrer"
+              >
+                BJTU profile
+              </a>
+            </p>
+          </div>
+          <time>Undergraduate</time>
+        </div>
+        <div className="cv-entry">
+          <div>
+            <strong>
+              Ranked 1st in Automation · Three-year average: 92.6/100
+            </strong>
+            <p>
+              Full marks in 24 core courses ·{" "}
+              <a
+                href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Beijing Daily profile
+              </a>
+            </p>
+          </div>
+          <time>Undergraduate</time>
+        </div>
       </section>
 
       <section className="cv-section">

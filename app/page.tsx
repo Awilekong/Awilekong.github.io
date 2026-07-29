@@ -1,3 +1,6 @@
+import { FaGithub } from "react-icons/fa6";
+import { SiXiaohongshu } from "react-icons/si";
+
 const publications = {
   accepted: [
     {
@@ -274,23 +277,61 @@ export default function Home() {
               </strong>
               <span>— Leader</span>
             </li>
+            <li>
+              <span className="recognition-date">Undergraduate</span>
+              <strong>
+                Zhixing Scholarship · Xiaomi Special Scholarship · Beijing
+                Jiaotong University “Star of Self-Strengthening”
+              </strong>
+              <span className="recognition-source">
+                <a
+                  href="https://mp.weixin.qq.com/s/JSoGWFeezXtnz1TpyoM3tw"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Profile ↗
+                </a>
+              </span>
+            </li>
+            <li>
+              <span className="recognition-date">Undergraduate</span>
+              <strong>
+                Ranked 1st in Automation, with a three-year average of 92.6/100
+                and full marks in 24 core courses
+              </strong>
+              <span className="recognition-source">
+                <a
+                  href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Profile ↗
+                </a>
+              </span>
+            </li>
           </ul>
         </section>
 
         <div className="social-links" aria-label="Social profiles">
           <a
+            className="github-icon"
             href="https://github.com/Awilekong"
             target="_blank"
             rel="noreferrer"
+            title="GitHub"
           >
-            GitHub
+            <FaGithub aria-hidden="true" />
+            <span className="sr-only">GitHub</span>
           </a>
           <a
+            className="xiaohongshu-icon"
             href="https://www.xiaohongshu.com/user/profile/61112b75000000000101ca18"
             target="_blank"
             rel="noreferrer"
+            title="Xiaohongshu"
           >
-            Xiaohongshu
+            <SiXiaohongshu aria-hidden="true" />
+            <span className="sr-only">Xiaohongshu</span>
           </a>
         </div>
       </article>

@@ -76,6 +76,18 @@ img {
   transform: translateY(0);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .site-nav {
   position: fixed;
   inset: 0 0 auto;
@@ -431,27 +443,46 @@ img {
 }
 
 .recognition-list time,
-.recognition-list span {
+.recognition-date,
+.recognition-list > li > span {
   color: var(--text-light);
   font-size: 0.78rem;
+}
+
+.recognition-source a {
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.recognition-source a:hover,
+.recognition-source a:focus-visible {
+  color: var(--accent);
 }
 
 .social-links {
   display: flex;
   margin-top: 3.5rem;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 0.45rem;
 }
 
 .social-links a {
-  min-width: 7.4rem;
-  padding: 0.55rem 0.8rem;
-  border: 1px solid var(--card-border);
-  border-radius: 999px;
+  display: inline-flex;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
   color: var(--text);
-  font-size: 0.78rem;
-  font-weight: 650;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.social-links svg {
+  width: 2rem;
+  height: 2rem;
 }
 
 .social-links a:hover,
@@ -459,6 +490,12 @@ img {
   background: var(--surface);
   color: var(--accent);
   text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.social-links .xiaohongshu-icon:hover,
+.social-links .xiaohongshu-icon:focus-visible {
+  color: #ff2442;
 }
 
 .site-footer {
@@ -573,8 +610,12 @@ img {
     grid-template-columns: 3.5rem minmax(0, 1fr);
   }
 
-  .recognition-list span {
+  .recognition-list > li > span:not(.recognition-date) {
     grid-column: 2;
+  }
+
+  .recognition-date {
+    grid-column: 1;
   }
 
   .cv-entry {
