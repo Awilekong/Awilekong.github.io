@@ -145,19 +145,6 @@ export default function RootLayout({
       <body>
         <SiteChrome />
         {children}
-        <footer className="site-footer">
-          <p>
-            © Copyright 2026 Pengwei Zhang. Academic layout inspired by the{" "}
-            <a
-              href="https://github.com/alshedivat/al-folio"
-              target="_blank"
-              rel="noreferrer"
-            >
-              al-folio
-            </a>{" "}
-            theme.
-          </p>
-        </footer>
       </body>
     </html>
   );

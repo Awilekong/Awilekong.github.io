@@ -498,24 +498,6 @@ img {
   color: #ff2442;
 }
 
-.site-footer {
-  margin-top: 4rem;
-  padding: 1.5rem 15px;
-  border-top: 1px solid var(--divider);
-  background: var(--surface);
-  color: var(--text-light);
-  font-size: 0.78rem;
-  text-align: center;
-}
-
-.site-footer p {
-  margin: 0;
-}
-
-.site-footer a {
-  color: var(--text);
-}
-
 .cv-page {
   max-width: 800px;
   min-height: calc(100vh - 190px);
