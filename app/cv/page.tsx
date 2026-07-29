@@ -83,7 +83,7 @@ export default function CVPage() {
         </div>
         <div className="cv-entry">
           <div>
-            <strong>北京日报报道：专业第一！不内耗、勇敢冲！交大张鹏伟！</strong>
+            <strong>北京日报人物报道｜在学习与成长中寻找自己的方向</strong>
             <p>
               <a
                 href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
