@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "Your Name · Robot Learning Researcher";
+const title = "Pengwei Zhang · Robot Learning & Tactile Intelligence";
 const description =
-  "An academic homepage for a robot learning researcher working on contact-rich manipulation, force-aware learning, and embodied intelligence.";
+  "Academic homepage of Pengwei Zhang, working on robot learning, tactile intelligence, contact-rich manipulation, and embodied AI.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     icons: {
-      icon: "/og.png",
+      icon: "/profile.jpg",
     },
     openGraph: {
       title,
@@ -31,10 +31,10 @@ export async function generateMetadata(): Promise<Metadata> {
       url: origin,
       images: [
         {
-          url: `${origin}/og.png`,
+          url: `${origin}/og-v2.png`,
           width: 1536,
           height: 1024,
-          alt: "Your Name — Robot Learning Researcher",
+          alt: "Pengwei Zhang — Robot Learning and Tactile Intelligence",
         },
       ],
     },
@@ -42,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: [`${origin}/og.png`],
+      images: [`${origin}/og-v2.png`],
     },
   };
 }
