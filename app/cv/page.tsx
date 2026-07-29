@@ -78,11 +78,8 @@ export default function CVPage() {
         </div>
         <div className="cv-entry">
           <div>
-            <strong>
-              Ranked 1st in Automation · Three-year average: 92.6/100
-            </strong>
+            <strong>北京日报报道：专业第一！不内耗、勇敢冲！交大张鹏伟！</strong>
             <p>
-              Full marks in 24 core courses ·{" "}
               <a
                 href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
                 target="_blank"
@@ -92,7 +89,7 @@ export default function CVPage() {
               </a>
             </p>
           </div>
-          <time>Undergraduate</time>
+          <time>Media</time>
         </div>
       </section>
 

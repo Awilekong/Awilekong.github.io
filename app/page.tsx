@@ -294,10 +294,9 @@ export default function Home() {
               </span>
             </li>
             <li>
-              <span className="recognition-date">Undergraduate</span>
+              <span className="recognition-date">Media</span>
               <strong>
-                Ranked 1st in Automation, with a three-year average of 92.6/100
-                and full marks in 24 core courses
+                北京日报报道：专业第一！不内耗、勇敢冲！交大张鹏伟！
               </strong>
               <span className="recognition-source">
                 <a
@@ -305,7 +304,7 @@ export default function Home() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Profile ↗
+                  Read ↗
                 </a>
               </span>
             </li>
