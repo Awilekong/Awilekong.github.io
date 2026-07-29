@@ -1,6 +1,11 @@
-export const metadata = {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "CV · Pengwei Zhang",
   description: "Curriculum vitae of Pengwei Zhang.",
+  alternates: {
+    canonical: "/cv/",
+  },
 };
 
 export default function CVPage() {
