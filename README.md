@@ -26,5 +26,5 @@ npm install
 npm run dev
 ```
 
-GitHub Pages deployment is handled automatically by the workflow in
-`.github/workflows/deploy-pages.yml`.
+Run `npm run build:pages` to create the static site in `out/`. The published
+website is served from the repository's `gh-pages` branch.
