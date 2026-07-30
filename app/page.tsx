@@ -1,4 +1,4 @@
-import { FaGithub } from "react-icons/fa6";
+import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiXiaohongshu } from "react-icons/si";
 
 const publications = {
@@ -382,6 +382,14 @@ export default function Home() {
         </section>
 
         <div className="social-links" aria-label="Social profiles">
+          <a
+            className="email-icon"
+            href="mailto:zhangpengwei2024@ia.ac.cn"
+            title="Email: zhangpengwei2024@ia.ac.cn / pweiii@163.com"
+            aria-label="Email Pengwei Zhang at zhangpengwei2024@ia.ac.cn; alternate address pweiii@163.com"
+          >
+            <FaEnvelope aria-hidden="true" />
+          </a>
           <a
             className="github-icon"
             href="https://github.com/Awilekong"

@@ -64,6 +64,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /Published research|Latest work/);
   assert.doesNotMatch(html, /Scholar Search/);
   assert.doesNotMatch(html, /class="profile-links"/);
+  assert.match(html, /mailto:zhangpengwei2024@ia\.ac\.cn/);
+  assert.match(html, /pweiii@163\.com/);
   assert.match(siteChrome, /localStorage\.getItem\("pengwei-theme"\)/);
   assert.match(siteChrome, /localStorage\.setItem\("pengwei-theme"/);
 });
