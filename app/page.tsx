@@ -1,5 +1,6 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiXiaohongshu } from "react-icons/si";
+import LikeButton from "./LikeButton";
 
 const publications = {
   accepted: [
@@ -389,6 +390,8 @@ export default function Home() {
             </li>
           </ul>
         </section>
+
+        <LikeButton />
 
         <div className="social-links" aria-label="Social profiles">
           <a

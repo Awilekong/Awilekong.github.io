@@ -45,9 +45,10 @@ test("renders indexable homepage metadata", async () => {
 });
 
 test("renders the v1 layout with the selected enhancements", async () => {
-  const [response, siteChrome] = await Promise.all([
+  const [response, siteChrome, likeButton] = await Promise.all([
     render(),
     readFile(new URL("../app/SiteChrome.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/LikeButton.tsx", import.meta.url), "utf8"),
   ]);
   const html = await response.text();
 
@@ -69,6 +70,10 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /pweiii@163\.com/);
   assert.match(siteChrome, /localStorage\.getItem\("pengwei-theme"\)/);
   assert.match(siteChrome, /localStorage\.setItem\("pengwei-theme"/);
+  assert.match(html, />Like</);
+  assert.match(likeButton, /Liked/);
+  assert.match(likeButton, /pengwei-homepage-liked/);
+  assert.match(likeButton, /like-button-burst/);
 });
 
 test("keeps the compact v1 web CV", async () => {
