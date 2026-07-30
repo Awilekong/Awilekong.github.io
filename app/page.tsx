@@ -399,7 +399,6 @@ export default function Home() {
           >
             <FaEnvelope aria-hidden="true" />
           </a>
-          <ShareButton />
           <a
             className="github-icon"
             href="https://github.com/Awilekong"
@@ -420,6 +419,7 @@ export default function Home() {
             <SiXiaohongshu aria-hidden="true" />
             <span className="sr-only">Xiaohongshu</span>
           </a>
+          <ShareButton />
         </div>
       </article>
     </main>

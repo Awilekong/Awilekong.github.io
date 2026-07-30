@@ -87,6 +87,10 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(likeButton, /INITIAL_LIKE_COUNT = 7/);
   assert.match(likeButton, /api\.counterapi\.dev/);
   assert.match(html, /Share Pengwei Zhang/);
+  assert.ok(
+    html.indexOf('title="Xiaohongshu"') <
+      html.indexOf('title="Share homepage"'),
+  );
   assert.match(shareButton, /navigator\.share/);
   assert.match(shareButton, /navigator\.clipboard\.writeText/);
   assert.match(html, /class="reading-progress"/);
