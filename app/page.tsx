@@ -261,76 +261,78 @@ export default function Home() {
           </p>
         </header>
 
-        <ProfilePhoto />
+        <div className="profile-overview">
+          <ProfilePhoto />
 
-        <div className="about-intro">
-          <p>
-            I am <strong>Pengwei Zhang</strong>, a Ph.D. student at the Institute
-            of Automation, Chinese Academy of Sciences (
-            <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
-              CASIA
-            </a>
-            ). I am fortunate to be supervised by{" "}
-            <a
-              href="https://people.ucas.ac.cn/~chenglong"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Prof. Long Cheng
-            </a>
-            .
-          </p>
-          <p>
-            I received my Bachelor&apos;s degree in Automation from{" "}
-            <a
-              href="https://en.bjtu.edu.cn/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Beijing Jiaotong University
-            </a>
-            . I am also a joint-training student at Zhongguancun Academy (
-            <a
-              href="https://www.bza.edu.cn/en"
-              target="_blank"
-              rel="noreferrer"
-            >
-              ZGCA
-            </a>
-            ), working with{" "}
-            <a
-              href="https://cehao1.github.io/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Prof. Ce Hao
-            </a>
-            .
-          </p>
-          <p>
-            My research focuses on building{" "}
-            <strong>
-              tactile-aware learning systems for reliable real-world robotic
-              interaction
-            </strong>
-            , with particular interests in contact-rich manipulation,
-            vision-tactile multimodal learning, force-aware imitation learning,
-            and precision assembly.
-          </p>
+          <div className="about-intro">
+            <p>
+              I am <strong>Pengwei Zhang</strong>, a Ph.D. student at the
+              Institute of Automation, Chinese Academy of Sciences (
+              <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
+                CASIA
+              </a>
+              ). I am fortunate to be supervised by{" "}
+              <a
+                href="https://people.ucas.ac.cn/~chenglong"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Prof. Long Cheng
+              </a>
+              .
+            </p>
+            <p>
+              I received my Bachelor&apos;s degree in Automation from{" "}
+              <a
+                href="https://en.bjtu.edu.cn/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Beijing Jiaotong University
+              </a>
+              . I am also a joint-training student at Zhongguancun Academy (
+              <a
+                href="https://www.bza.edu.cn/en"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ZGCA
+              </a>
+              ), working with{" "}
+              <a
+                href="https://cehao1.github.io/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Prof. Ce Hao
+              </a>
+              .
+            </p>
+            <p>
+              My research focuses on building{" "}
+              <strong>
+                tactile-aware learning systems for reliable real-world robotic
+                interaction
+              </strong>
+              , with particular interests in contact-rich manipulation,
+              vision-tactile multimodal learning, force-aware imitation
+              learning, and precision assembly.
+            </p>
 
-          <p className="intro-contact">
-            <strong>Email</strong>
-            <a href="mailto:zhangpengwei2024@ia.ac.cn">
-              zhangpengwei2024@ia.ac.cn
-            </a>
-            <span aria-hidden="true">/</span>
-            <a href="mailto:pweiii@163.com">pweiii@163.com</a>
-          </p>
+            <p className="intro-contact">
+              <strong>Email</strong>
+              <a href="mailto:zhangpengwei2024@ia.ac.cn">
+                zhangpengwei2024@ia.ac.cn
+              </a>
+              <span aria-hidden="true">/</span>
+              <a href="mailto:pweiii@163.com">pweiii@163.com</a>
+            </p>
 
-          <div className="research-tags" aria-label="Research interests">
-            <span>Contact-Rich Manipulation</span>
-            <span>Vision-Tactile Learning</span>
-            <span>Embodied Intelligence</span>
+            <div className="research-tags" aria-label="Research interests">
+              <span>Contact-Rich Manipulation</span>
+              <span>Vision-Tactile Learning</span>
+              <span>Embodied Intelligence</span>
+            </div>
           </div>
         </div>
 

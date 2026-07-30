@@ -265,11 +265,19 @@ img {
   font-weight: 600;
 }
 
+.profile-overview {
+  display: grid;
+  grid-template-areas: "intro photo";
+  grid-template-columns: minmax(0, 1fr) clamp(220px, 29%, 290px);
+  gap: 1.5rem;
+  align-items: start;
+}
+
 .profile-photo {
   position: relative;
-  float: right;
-  width: clamp(220px, 29%, 290px);
-  margin: 0 0 1.25rem 1.5rem;
+  grid-area: photo;
+  width: 100%;
+  margin: 0;
 }
 
 .profile-photo-button {
@@ -399,7 +407,9 @@ img {
 }
 
 .about-intro {
-  max-width: 84ch;
+  grid-area: intro;
+  min-width: 0;
+  max-width: none;
 }
 
 .about-intro p {
@@ -1184,9 +1194,16 @@ img {
   }
 
   .profile-photo {
-    float: none;
     width: 100%;
     margin: 0 0 1.5rem;
+  }
+
+  .profile-overview {
+    grid-template-areas:
+      "photo"
+      "intro";
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .profile-photo img {
