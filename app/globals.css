@@ -140,6 +140,72 @@ img {
   text-align: center;
 }
 
+.reading-progress {
+  position: fixed;
+  inset: 55px 0 auto;
+  z-index: 101;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.reading-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #ef6680);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 42%, transparent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 80ms linear;
+}
+
+.back-to-top {
+  position: fixed;
+  right: max(1rem, calc((100vw - var(--content-width)) / 2 - 3.4rem));
+  bottom: 1.15rem;
+  z-index: 90;
+  display: inline-flex;
+  width: 2.55rem;
+  height: 2.55rem;
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+  box-shadow: 0 12px 30px var(--shadow);
+  color: var(--text-light);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0.75rem) scale(0.92);
+  backdrop-filter: blur(12px);
+  transition:
+    opacity 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.back-to-top svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
 .page-shell {
   width: min(calc(100% - 30px), var(--content-width));
   margin: 0 auto;
@@ -189,9 +255,26 @@ img {
 }
 
 .profile-photo {
+  position: relative;
   float: right;
   width: clamp(220px, 29%, 290px);
   margin: 0 0 1.25rem 2.25rem;
+}
+
+.profile-photo-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.profile-photo-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 52%, transparent);
+  outline-offset: 3px;
 }
 
 .profile-photo img {
@@ -202,6 +285,105 @@ img {
   box-shadow: 0 18px 45px var(--shadow);
   object-fit: cover;
   object-position: 50% 58%;
+  transition:
+    filter 260ms ease,
+    transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+.profile-photo.is-celebrating img {
+  filter: saturate(1.08) brightness(1.04);
+  transform: scale(1.018) rotate(-0.35deg);
+}
+
+.xiaoguo-easter-egg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  pointer-events: none;
+}
+
+.xiaoguo-message {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+  left: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid color-mix(in srgb, #fff 22%, transparent);
+  border-radius: 0.8rem;
+  background: color-mix(in srgb, #101114 72%, transparent);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+  color: #f8f8f8;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  animation: xiaoguo-message-in 420ms cubic-bezier(0.2, 0.9, 0.3, 1.15)
+    both;
+}
+
+.paw-trail svg {
+  position: absolute;
+  width: 1.05rem;
+  height: 1.05rem;
+  color: rgba(255, 255, 255, 0.78);
+  opacity: 0;
+  animation: paw-float 1.6s ease-out both;
+}
+
+.paw-trail svg:nth-child(1) {
+  right: 16%;
+  bottom: 18%;
+  transform: rotate(-18deg);
+}
+
+.paw-trail svg:nth-child(2) {
+  right: 27%;
+  bottom: 29%;
+  animation-delay: 110ms;
+  transform: rotate(12deg);
+}
+
+.paw-trail svg:nth-child(3) {
+  right: 18%;
+  bottom: 42%;
+  animation-delay: 220ms;
+  transform: rotate(-12deg);
+}
+
+.paw-trail svg:nth-child(4) {
+  right: 31%;
+  bottom: 55%;
+  animation-delay: 330ms;
+  transform: rotate(18deg);
+}
+
+@keyframes xiaoguo-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.65rem) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes paw-float {
+  0% {
+    opacity: 0;
+    translate: 0 0.5rem;
+    scale: 0.6;
+  }
+  25%,
+  70% {
+    opacity: 0.82;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -1.1rem;
+    scale: 1.08;
+  }
 }
 
 .about-intro {
@@ -585,6 +767,14 @@ img {
   height: 100%;
 }
 
+.like-count {
+  min-width: 1.15rem;
+  padding-left: 0.45rem;
+  border-left: 1px solid color-mix(in srgb, currentColor 24%, transparent);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
 .like-button.is-liked .like-button-icon {
   animation: like-heart-pop 620ms cubic-bezier(0.2, 0.9, 0.3, 1.35);
 }
@@ -698,7 +888,8 @@ img {
   gap: 0.45rem;
 }
 
-.social-links a {
+.social-links a,
+.share-button {
   display: inline-flex;
   width: 2.8rem;
   height: 2.8rem;
@@ -709,16 +900,19 @@ img {
   transition:
     background 160ms ease,
     color 160ms ease,
-    transform 160ms ease;
+  transform 160ms ease;
 }
 
-.social-links svg {
+.social-links svg,
+.share-button svg {
   width: 2rem;
   height: 2rem;
 }
 
 .social-links a:hover,
-.social-links a:focus-visible {
+.social-links a:focus-visible,
+.share-button:hover,
+.share-button:focus-visible {
   background: var(--surface);
   color: var(--accent);
   text-decoration: none;
@@ -728,6 +922,44 @@ img {
 .social-links .xiaohongshu-icon:hover,
 .social-links .xiaohongshu-icon:focus-visible {
   color: #ff2442;
+}
+
+.share-control {
+  position: relative;
+  display: inline-flex;
+}
+
+.share-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.share-feedback {
+  position: absolute;
+  bottom: calc(100% + 0.45rem);
+  left: 50%;
+  min-width: max-content;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--card-border);
+  border-radius: 0.45rem;
+  background: var(--surface);
+  box-shadow: 0 8px 20px var(--shadow);
+  color: var(--text);
+  font-size: 0.7rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.25rem);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+}
+
+.share-feedback:not(:empty) {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .cv-page {
@@ -784,6 +1016,15 @@ img {
     height: 52px;
   }
 
+  .reading-progress {
+    top: 51px;
+  }
+
+  .back-to-top {
+    right: 0.8rem;
+    bottom: 0.8rem;
+  }
+
   .page-shell {
     width: min(calc(100% - 24px), var(--content-width));
     padding-top: 2rem;
@@ -813,6 +1054,11 @@ img {
     aspect-ratio: auto;
     border-radius: 1.1rem;
     object-position: 50% 48%;
+  }
+
+  .profile-photo-button,
+  .xiaoguo-easter-egg {
+    border-radius: 1.1rem;
   }
 
   .about-intro p:first-child {

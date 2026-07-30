@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import PageProgress from "./PageProgress";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
 
@@ -150,6 +151,7 @@ export default function RootLayout({
       </head>
       <body>
         <SiteChrome />
+        <PageProgress />
         {children}
       </body>
     </html>

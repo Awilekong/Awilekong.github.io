@@ -45,10 +45,20 @@ test("renders indexable homepage metadata", async () => {
 });
 
 test("renders the v1 layout with the selected enhancements", async () => {
-  const [response, siteChrome, likeButton] = await Promise.all([
+  const [
+    response,
+    siteChrome,
+    likeButton,
+    shareButton,
+    pageProgress,
+    profilePhoto,
+  ] = await Promise.all([
     render(),
     readFile(new URL("../app/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/LikeButton.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ShareButton.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/PageProgress.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ProfilePhoto.tsx", import.meta.url), "utf8"),
   ]);
   const html = await response.text();
 
@@ -74,6 +84,16 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(likeButton, /Liked/);
   assert.match(likeButton, /pengwei-homepage-liked/);
   assert.match(likeButton, /like-button-burst/);
+  assert.match(likeButton, /INITIAL_LIKE_COUNT = 7/);
+  assert.match(likeButton, /api\.counterapi\.dev/);
+  assert.match(html, /Share Pengwei Zhang/);
+  assert.match(shareButton, /navigator\.share/);
+  assert.match(shareButton, /navigator\.clipboard\.writeText/);
+  assert.match(html, /class="reading-progress"/);
+  assert.match(pageProgress, /Back to top/);
+  assert.match(pageProgress, /window\.scrollTo/);
+  assert.match(html, /Activate for a small surprise/);
+  assert.match(profilePhoto, /Xiaoguo approves this research/);
 });
 
 test("keeps the compact v1 web CV", async () => {

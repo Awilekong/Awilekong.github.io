@@ -1,6 +1,8 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiXiaohongshu } from "react-icons/si";
 import LikeButton from "./LikeButton";
+import ProfilePhoto from "./ProfilePhoto";
+import ShareButton from "./ShareButton";
 
 const publications = {
   accepted: [
@@ -208,12 +210,7 @@ export default function Home() {
           </p>
         </header>
 
-        <figure className="profile-photo">
-          <img
-            src="/profile.jpg"
-            alt="Pengwei Zhang holding his cat Xiaoguo"
-          />
-        </figure>
+        <ProfilePhoto />
 
         <div className="about-intro">
           <p>
@@ -402,6 +399,7 @@ export default function Home() {
           >
             <FaEnvelope aria-hidden="true" />
           </a>
+          <ShareButton />
           <a
             className="github-icon"
             href="https://github.com/Awilekong"
