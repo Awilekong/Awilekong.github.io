@@ -159,8 +159,7 @@ const news = [
     date: "2026",
     content: (
       <>
-        Third Prize at the ManiSkill-ViTac 2026 Challenge at CVPR 2026
-        (Team Leader).
+        Third Prize at the ManiSkill-ViTac 2026 Challenge at CVPR 2026.
       </>
     ),
   },
@@ -403,7 +402,7 @@ export default function Home() {
                 Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR
                 2026
               </strong>
-              <span>— Leader</span>
+              <time dateTime="2026">2026</time>
             </li>
             <li>
               <span className="recognition-date">Profile</span>
@@ -419,6 +418,7 @@ export default function Home() {
                   Jiaotong University “Star of Self-Strengthening”
                 </a>
               </strong>
+              <time dateTime="2024">2024</time>
             </li>
             <li>
               <span className="recognition-date">Media</span>
@@ -433,6 +433,7 @@ export default function Home() {
                   北京日报人物报道｜在学习与成长中寻找自己的方向
                 </a>
               </strong>
+              <time dateTime="2024">2024</time>
             </li>
           </ul>
         </section>

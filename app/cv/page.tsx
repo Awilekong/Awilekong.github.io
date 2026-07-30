@@ -58,9 +58,8 @@ export default function CVPage() {
             <strong>
               Third Prize Winner, ManiSkill-ViTac 2026 Challenge at CVPR 2026
             </strong>
-            <p>Team Leader</p>
           </div>
-          <time>Challenge</time>
+          <time dateTime="2026">2026</time>
         </div>
         <div className="cv-entry">
           <div>
@@ -79,7 +78,7 @@ export default function CVPage() {
               </a>
             </p>
           </div>
-          <time>Profile</time>
+          <time dateTime="2024">2024</time>
         </div>
         <div className="cv-entry">
           <div>
@@ -94,7 +93,7 @@ export default function CVPage() {
               </a>
             </p>
           </div>
-          <time>Media</time>
+          <time dateTime="2024">2024</time>
         </div>
       </section>
 
