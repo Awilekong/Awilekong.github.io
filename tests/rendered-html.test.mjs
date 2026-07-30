@@ -44,6 +44,22 @@ test("renders indexable homepage metadata", async () => {
   assert.doesNotMatch(html, /noindex/i);
 });
 
+test("bundles the intended academic typography", async () => {
+  const [layout, styles, packageJson] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../package.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(layout, /@fontsource-variable\/ibm-plex-sans/);
+  assert.match(layout, /@fontsource-variable\/source-sans-3/);
+  assert.match(styles, /"IBM Plex Sans Variable"/);
+  assert.match(styles, /"Source Sans 3 Variable"/);
+  assert.doesNotMatch(styles, /font-family:\s*Roboto/);
+  assert.match(packageJson, /"@fontsource-variable\/ibm-plex-sans"/);
+  assert.match(packageJson, /"@fontsource-variable\/source-sans-3"/);
+});
+
 test("renders the v1 layout with the selected enhancements", async () => {
   const [
     response,

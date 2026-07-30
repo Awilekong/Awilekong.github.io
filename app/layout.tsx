@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/ibm-plex-sans";
+import "@fontsource-variable/source-sans-3";
 import PageProgress from "./PageProgress";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
