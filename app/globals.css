@@ -221,6 +221,23 @@ img {
   font-weight: 700;
 }
 
+.about-intro .intro-contact {
+  display: flex;
+  margin-top: 0.25rem;
+  color: var(--text-light);
+  font-size: 0.86rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.55rem;
+}
+
+.intro-contact strong {
+  color: var(--text);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .research-tags {
   display: flex;
   flex-wrap: wrap;

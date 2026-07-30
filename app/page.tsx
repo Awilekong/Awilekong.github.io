@@ -269,6 +269,15 @@ export default function Home() {
             precision assembly, and embodied intelligence.
           </p>
 
+          <p className="intro-contact">
+            <strong>Email</strong>
+            <a href="mailto:zhangpengwei2024@ia.ac.cn">
+              zhangpengwei2024@ia.ac.cn
+            </a>
+            <span aria-hidden="true">/</span>
+            <a href="mailto:pweiii@163.com">pweiii@163.com</a>
+          </p>
+
           <div className="research-tags" aria-label="Research interests">
             <span>Robot Learning</span>
             <span>Contact-Rich Manipulation</span>
