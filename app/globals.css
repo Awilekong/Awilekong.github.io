@@ -269,7 +269,7 @@ img {
   position: relative;
   float: right;
   width: clamp(220px, 29%, 290px);
-  margin: 0 0 1.25rem 2.25rem;
+  margin: 0 0 1.25rem 1.5rem;
 }
 
 .profile-photo-button {
@@ -399,7 +399,7 @@ img {
 }
 
 .about-intro {
-  max-width: 70ch;
+  max-width: 84ch;
 }
 
 .about-intro p {
