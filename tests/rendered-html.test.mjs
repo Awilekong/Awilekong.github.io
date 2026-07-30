@@ -92,6 +92,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.doesNotMatch(html, /precision assembly, and embodied intelligence/i);
   assert.match(html, />Challenge</);
   assert.match(html, />Profile</);
+  assert.match(html, /class="recognition-title-link"/);
+  assert.doesNotMatch(html, /Profile ↗|Read ↗/);
   assert.match(html, /Paper/);
   assert.match(html, /Project/);
   assert.match(html, /Code/);

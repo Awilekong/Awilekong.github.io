@@ -408,35 +408,31 @@ export default function Home() {
             <li>
               <span className="recognition-date">Profile</span>
               <strong>
-                Zhixing Scholarship · Xiaomi Special Scholarship · Beijing
-                Jiaotong University “Star of Self-Strengthening”
-              </strong>
-              <span className="recognition-source">
                 <a
+                  className="recognition-title-link"
                   href="https://mp.weixin.qq.com/s/JSoGWFeezXtnz1TpyoM3tw"
                   target="_blank"
                   rel="noreferrer"
                   data-analytics-event="recognition-bjtu-profile"
                 >
-                  Profile ↗
+                  Zhixing Scholarship · Xiaomi Special Scholarship · Beijing
+                  Jiaotong University “Star of Self-Strengthening”
                 </a>
-              </span>
+              </strong>
             </li>
             <li>
               <span className="recognition-date">Media</span>
               <strong>
-                北京日报人物报道｜在学习与成长中寻找自己的方向
-              </strong>
-              <span className="recognition-source">
                 <a
+                  className="recognition-title-link"
                   href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
                   target="_blank"
                   rel="noreferrer"
                   data-analytics-event="recognition-beijing-daily"
                 >
-                  Read ↗
+                  北京日报人物报道｜在学习与成长中寻找自己的方向
                 </a>
-              </span>
+              </strong>
             </li>
           </ul>
         </section>

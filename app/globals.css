@@ -748,13 +748,15 @@ img {
   font-size: 0.78rem;
 }
 
-.recognition-source a {
-  color: var(--text-light);
-  white-space: nowrap;
+.recognition-title-link {
+  color: var(--text);
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
 }
 
-.recognition-source a:hover,
-.recognition-source a:focus-visible {
+.recognition-title-link:hover,
+.recognition-title-link:focus-visible {
   color: var(--accent);
 }
 
