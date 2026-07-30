@@ -277,7 +277,6 @@ export default function Home() {
           </p>
 
           <div className="research-tags" aria-label="Research interests">
-            <span>Robot Learning</span>
             <span>Contact-Rich Manipulation</span>
             <span>Vision-Force Learning</span>
             <span>Embodied Intelligence</span>

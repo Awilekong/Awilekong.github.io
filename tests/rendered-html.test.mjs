@@ -82,6 +82,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, />News<\/h2>/);
   assert.match(html, /I am fortunate to be supervised by/);
   assert.match(html, /I am also a joint-training student/);
+  assert.doesNotMatch(html, /<span>Robot Learning<\/span>/);
   assert.match(html, /Paper/);
   assert.match(html, /Project/);
   assert.match(html, /Code/);
