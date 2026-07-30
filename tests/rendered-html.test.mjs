@@ -39,6 +39,7 @@ test("renders indexable homepage metadata", async () => {
   );
   assert.match(html, /<script type="application\/ld\+json">/i);
   assert.match(html, /"@type":"Person"/i);
+  assert.match(html, /"@type":"ScholarlyArticle"/i);
   assert.match(html, /"alternateName":"张鹏伟"/i);
   assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
@@ -66,6 +67,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
     siteChrome,
     likeButton,
     shareButton,
+    citationMenu,
+    analytics,
     pageProgress,
     profilePhoto,
   ] = await Promise.all([
@@ -73,6 +76,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
     readFile(new URL("../app/SiteChrome.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/LikeButton.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ShareButton.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/CitationMenu.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/Analytics.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/PageProgress.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ProfilePhoto.tsx", import.meta.url), "utf8"),
   ]);
@@ -83,12 +88,19 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /I am fortunate to be supervised by/);
   assert.match(html, /I am also a joint-training student/);
   assert.doesNotMatch(html, /<span>Robot Learning<\/span>/);
+  assert.match(html, /vision-tactile multimodal learning/i);
+  assert.doesNotMatch(html, /precision assembly, and embodied intelligence/i);
+  assert.match(html, />Challenge</);
+  assert.match(html, />Profile</);
   assert.match(html, /Paper/);
   assert.match(html, /Project/);
   assert.match(html, /Code/);
   assert.match(html, /DOI/);
   assert.match(html, /BibTeX/);
   assert.match(html, />Abs</);
+  assert.match(html, />Cite</);
+  assert.match(html, /loading="lazy"/);
+  assert.match(html, /restacvla\.webp/);
   assert.match(html, /Published research|Latest work/);
   assert.doesNotMatch(html, /Scholar Search/);
   assert.doesNotMatch(html, /class="profile-links"/);
@@ -110,6 +122,12 @@ test("renders the v1 layout with the selected enhancements", async () => {
   );
   assert.match(shareButton, /navigator\.share/);
   assert.match(shareButton, /navigator\.clipboard\.writeText/);
+  assert.match(shareButton, /QRCodeSVG/);
+  assert.match(shareButton, /Pengwei-Zhang\.vcf/);
+  assert.match(citationMenu, /Copy Citation/);
+  assert.match(citationMenu, /Copy BibTeX/);
+  assert.match(analytics, /navigator\.doNotTrack/);
+  assert.match(analytics, /data-analytics-event/);
   assert.match(html, /class="reading-progress"/);
   assert.match(pageProgress, /Back to top/);
   assert.match(pageProgress, /window\.scrollTo/);

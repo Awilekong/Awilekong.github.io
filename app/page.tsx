@@ -1,5 +1,6 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiXiaohongshu } from "react-icons/si";
+import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
 import ShareButton from "./ShareButton";
@@ -7,9 +8,12 @@ import ShareButton from "./ShareButton";
 const publications = {
   accepted: [
     {
+      id: "restacvla",
       badge: "IROS 2026",
       badgeColor: "#00369f",
-      image: "/restacvla.png",
+      image: "/restacvla.webp",
+      imageWidth: 996,
+      imageHeight: 1030,
       imageAlt: "Overview of the ResTacVLA method",
       title:
         "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation",
@@ -23,6 +27,14 @@ const publications = {
       note: "Accepted",
       abstract:
         "ResTacVLA reformulates touch as the residual between visual expectation and physical sensation. Predictive-coding-inspired contact primitives and a surprise-aware gate help VLA policies prioritize tactile information during visually ambiguous contact phases.",
+      citation:
+        'Pengwei Zhang, Bin Xie, Xinpan Meng, Xinyu Guo, Ce Hao, Fang Deng, Long Cheng, and Tiancai Wang. "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026.',
+      bibtex: `@inproceedings{zhang2026restacvla,
+  title={Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation},
+  author={Zhang, Pengwei and Xie, Bin and Meng, Xinpan and Guo, Xinyu and Hao, Ce and Deng, Fang and Cheng, Long and Wang, Tiancai},
+  booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year={2026}
+}`,
       links: [
         { label: "Paper", href: "https://arxiv.org/abs/2607.03387" },
         { label: "Project", href: "https://awilekong.github.io/ResTacVLA/" },
@@ -30,9 +42,12 @@ const publications = {
       ],
     },
     {
+      id: "rehabilitation-assessment",
       badge: "SCTS 2026",
       badgeColor: "#00629b",
-      image: "/rehab.png",
+      image: "/rehab.webp",
+      imageWidth: 1100,
+      imageHeight: 520,
       imageAlt: "Rehabilitation assessment system article preview",
       title:
         "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera",
@@ -44,6 +59,15 @@ const publications = {
       venue: "SCIENCE CHINA Technological Sciences, 2026",
       abstract:
         "This work combines depth-camera motion capture with YOLOv8-Pose and an interpretable Trajectory-ROM-Smooth scoring algorithm. Evaluation with 21 stroke patients shows close agreement with experienced physicians while capturing subtle rehabilitation progress at a finer granularity.",
+      citation:
+        'Pengwei Zhang, Long Cheng, and Yongxiang Zou. "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera." SCIENCE CHINA Technological Sciences, 2026. https://doi.org/10.1007/s11431-026-3364-3.',
+      bibtex: `@article{zhang2026rehabilitation,
+  title={A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera},
+  author={Zhang, Pengwei and Cheng, Long and Zou, Yongxiang},
+  journal={SCIENCE CHINA Technological Sciences},
+  year={2026},
+  doi={10.1007/s11431-026-3364-3}
+}`,
       links: [
         {
           label: "Paper",
@@ -58,9 +82,12 @@ const publications = {
   ],
   preprints: [
     {
+      id: "touchthinker",
       badge: "Preprint",
       badgeColor: "#64748b",
-      image: "/touchthinker.png",
+      image: "/touchthinker.webp",
+      imageWidth: 793,
+      imageHeight: 198,
       imageAlt: "Data overview of the TouchThinker framework",
       title:
         "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
@@ -74,6 +101,14 @@ const publications = {
       venue: "arXiv preprint, 2026",
       abstract:
         "TouchThinker introduces a million-scale tactile reasoning dataset spanning 415 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
+      citation:
+        'Kailin Lyu, Di Wu, Pengwei Zhang, Yuhang Zheng, Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu, Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan. "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation." arXiv preprint arXiv:2606.11637, 2026.',
+      bibtex: `@article{lyu2026touchthinker,
+  title={TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation},
+  author={Lyu, Kailin and Wu, Di and Zhang, Pengwei and Zheng, Yuhang and Lai, Yingxin and Xiao, Long and Wu, Kangyi and Li, Pengna and Gao, Chen and Hu, Lianyu and Hu, Xiaobin and Hao, Jie and Hao, Ce and Yuan, Weihao and Yan, Shuicheng},
+  journal={arXiv preprint arXiv:2606.11637},
+  year={2026}
+}`,
       links: [
         { label: "Paper", href: "https://arxiv.org/abs/2606.11637" },
         {
@@ -95,6 +130,7 @@ const news = [
           href="https://arxiv.org/abs/2607.03387"
           target="_blank"
           rel="noreferrer"
+          data-analytics-event="news-restacvla"
         >
           ResTacVLA
         </a>{" "}
@@ -111,6 +147,7 @@ const news = [
           href="https://doi.org/10.1007/s11431-026-3364-3"
           target="_blank"
           rel="noreferrer"
+          data-analytics-event="news-rehabilitation-assessment"
         >
           SCIENCE CHINA Technological Sciences
         </a>
@@ -142,6 +179,7 @@ function PublicationCard({ publication }: { publication: Publication }) {
             style={{ backgroundColor: publication.badgeColor }}
             target="_blank"
             rel="noreferrer"
+            data-analytics-event={`${publication.id}-badge`}
           >
             {publication.badge}
           </a>
@@ -149,8 +187,16 @@ function PublicationCard({ publication }: { publication: Publication }) {
             href={publication.links[0].href}
             target="_blank"
             rel="noreferrer"
+            data-analytics-event={`${publication.id}-thumbnail`}
           >
-            <img src={publication.image} alt={publication.imageAlt} />
+            <img
+              src={publication.image}
+              alt={publication.imageAlt}
+              width={publication.imageWidth}
+              height={publication.imageHeight}
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         </div>
 
@@ -174,10 +220,16 @@ function PublicationCard({ publication }: { publication: Publication }) {
                 key={link.label}
                 target="_blank"
                 rel="noreferrer"
+                data-analytics-event={`${publication.id}-${link.label.toLowerCase()}`}
               >
                 {link.label}
               </a>
             ))}
+            <CitationMenu
+              bibtex={publication.bibtex}
+              citation={publication.citation}
+              publicationId={publication.id}
+            />
           </div>
         </div>
       </div>
@@ -263,8 +315,8 @@ export default function Home() {
               interaction
             </strong>
             , with particular interests in contact-rich manipulation,
-            vision-force multimodal learning, force-aware imitation learning,
-            precision assembly, and embodied intelligence.
+            vision-tactile multimodal learning, force-aware imitation learning,
+            and precision assembly.
           </p>
 
           <p className="intro-contact">
@@ -346,7 +398,7 @@ export default function Home() {
           </div>
           <ul className="recognition-list">
             <li>
-              <time>2026</time>
+              <span className="recognition-date">Challenge</span>
               <strong>
                 Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR
                 2026
@@ -354,7 +406,7 @@ export default function Home() {
               <span>— Leader</span>
             </li>
             <li>
-              <span className="recognition-date">Undergraduate</span>
+              <span className="recognition-date">Profile</span>
               <strong>
                 Zhixing Scholarship · Xiaomi Special Scholarship · Beijing
                 Jiaotong University “Star of Self-Strengthening”
@@ -364,6 +416,7 @@ export default function Home() {
                   href="https://mp.weixin.qq.com/s/JSoGWFeezXtnz1TpyoM3tw"
                   target="_blank"
                   rel="noreferrer"
+                  data-analytics-event="recognition-bjtu-profile"
                 >
                   Profile ↗
                 </a>
@@ -379,6 +432,7 @@ export default function Home() {
                   href="https://peking.bjd.com.cn/content/s669a55f0e4b064178156eac7.html"
                   target="_blank"
                   rel="noreferrer"
+                  data-analytics-event="recognition-beijing-daily"
                 >
                   Read ↗
                 </a>
@@ -395,6 +449,7 @@ export default function Home() {
             href="mailto:zhangpengwei2024@ia.ac.cn"
             title="Email: zhangpengwei2024@ia.ac.cn / pweiii@163.com"
             aria-label="Email Pengwei Zhang at zhangpengwei2024@ia.ac.cn; alternate address pweiii@163.com"
+            data-analytics-event="contact-email"
           >
             <FaEnvelope aria-hidden="true" />
           </a>
@@ -404,6 +459,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
             title="GitHub"
+            data-analytics-event="profile-github"
           >
             <FaGithub aria-hidden="true" />
             <span className="sr-only">GitHub</span>
@@ -414,6 +470,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
             title="Xiaohongshu"
+            data-analytics-event="profile-xiaohongshu"
           >
             <SiXiaohongshu aria-hidden="true" />
             <span className="sr-only">Xiaohongshu</span>

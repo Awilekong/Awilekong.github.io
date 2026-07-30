@@ -650,12 +650,15 @@ img {
 }
 
 .paper-links > a,
-.paper-links summary {
+.paper-links summary,
+.citation-panel button {
   margin: 0;
   padding: 0.24rem 0.62rem;
   border: 1px solid var(--card-border);
   border-radius: 999px;
+  background: transparent;
   color: var(--text-light);
+  font-family: inherit;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.025em;
@@ -671,18 +674,21 @@ img {
 .paper-links > a:hover,
 .paper-links > a:focus-visible,
 .paper-links summary:hover,
-.paper-links summary:focus-visible {
+.paper-links summary:focus-visible,
+.citation-panel button:hover,
+.citation-panel button:focus-visible {
   background: var(--surface);
   color: var(--accent);
+  outline: none;
   text-decoration: none;
 }
 
-.paper-links details[open] {
+.paper-links > details[open] {
   width: 100%;
   order: 10;
 }
 
-.paper-links details p {
+.paper-links > details > p {
   margin: 0.65rem 0 0;
   padding: 0.75rem 0.9rem;
   border-left: 2px solid var(--accent);
@@ -690,6 +696,29 @@ img {
   color: var(--text-light);
   font-size: 0.78rem;
   line-height: 1.6;
+}
+
+.citation-panel {
+  display: flex;
+  margin-top: 0.6rem;
+  padding: 0.65rem 0.75rem;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.citation-panel button {
+  cursor: pointer;
+}
+
+.citation-panel span {
+  min-width: 6rem;
+  margin-left: auto;
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-align: right;
 }
 
 .recognition-heading {
@@ -964,6 +993,74 @@ img {
   cursor: pointer;
 }
 
+.share-menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.65rem);
+  z-index: 120;
+  display: grid;
+  width: 12.5rem;
+  padding: 0.45rem;
+  border: 1px solid var(--card-border);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--background) 96%, transparent);
+  box-shadow: 0 16px 42px var(--shadow);
+  backdrop-filter: blur(16px);
+  gap: 0.15rem;
+}
+
+.share-menu > button {
+  display: flex;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.8rem;
+  text-align: left;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.share-menu > button:hover,
+.share-menu > button:focus-visible {
+  background: var(--surface);
+  color: var(--accent);
+  outline: none;
+}
+
+.share-menu > button svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.share-qr {
+  display: grid;
+  margin: 0.3rem 0.15rem 0.15rem;
+  padding: 0.8rem;
+  border-top: 1px solid var(--divider);
+  color: var(--text);
+  place-items: center;
+  gap: 0.45rem;
+}
+
+.share-qr svg {
+  width: 132px;
+  height: 132px;
+  padding: 0.35rem;
+  border-radius: 0.55rem;
+  background: #fff;
+  color: #111318;
+}
+
+.share-qr span {
+  color: var(--text-light);
+  font-size: 0.7rem;
+}
+
 .share-feedback {
   position: absolute;
   bottom: calc(100% + 0.45rem);
@@ -1085,10 +1182,10 @@ img {
   }
 
   .profile-photo img {
-    height: 290px;
+    height: 245px;
     aspect-ratio: auto;
     border-radius: 1.1rem;
-    object-position: 50% 48%;
+    object-position: 50% 46%;
   }
 
   .profile-photo-button,
@@ -1141,15 +1238,32 @@ img {
   }
 
   .recognition-list li {
-    grid-template-columns: 3.5rem minmax(0, 1fr);
+    padding: 0.55rem 0;
+    grid-template-columns: 1fr;
+    gap: 0.18rem;
   }
 
   .recognition-list > li > span:not(.recognition-date) {
-    grid-column: 2;
+    grid-column: 1;
   }
 
   .recognition-date {
     grid-column: 1;
+  }
+
+  .recognition-list strong {
+    grid-column: 1;
+  }
+
+  .citation-panel span {
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .share-menu {
+    right: -0.25rem;
   }
 
   .cv-entry {

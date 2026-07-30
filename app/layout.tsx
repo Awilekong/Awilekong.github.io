@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@fontsource-variable/ibm-plex-sans";
 import "@fontsource-variable/source-sans-3";
+import Analytics from "./Analytics";
 import PageProgress from "./PageProgress";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
@@ -66,6 +67,76 @@ const structuredData = {
         "@id": `${siteUrl}/#person`,
       },
     },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#restacvla`,
+      headline:
+        "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation",
+      author: [
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Bin Xie" },
+        { "@type": "Person", name: "Xinpan Meng" },
+        { "@type": "Person", name: "Xinyu Guo" },
+        { "@type": "Person", name: "Ce Hao" },
+        { "@type": "Person", name: "Fang Deng" },
+        { "@type": "Person", name: "Long Cheng" },
+        { "@type": "Person", name: "Tiancai Wang" },
+      ],
+      datePublished: "2026",
+      url: "https://arxiv.org/abs/2607.03387",
+      sameAs: "https://arxiv.org/abs/2607.03387",
+      isPartOf: {
+        "@type": "CreativeWork",
+        name: "Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2026",
+      },
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#rehabilitation-assessment`,
+      headline:
+        "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera",
+      author: [
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Long Cheng" },
+        { "@type": "Person", name: "Yongxiang Zou" },
+      ],
+      datePublished: "2026",
+      url: "https://doi.org/10.1007/s11431-026-3364-3",
+      sameAs:
+        "https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3",
+      identifier: "https://doi.org/10.1007/s11431-026-3364-3",
+      isPartOf: {
+        "@type": "Periodical",
+        name: "SCIENCE CHINA Technological Sciences",
+      },
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#touchthinker`,
+      headline:
+        "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
+      author: [
+        { "@type": "Person", name: "Kailin Lyu" },
+        { "@type": "Person", name: "Di Wu" },
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Yuhang Zheng" },
+        { "@type": "Person", name: "Yingxin Lai" },
+        { "@type": "Person", name: "Long Xiao" },
+        { "@type": "Person", name: "Kangyi Wu" },
+        { "@type": "Person", name: "Pengna Li" },
+        { "@type": "Person", name: "Chen Gao" },
+        { "@type": "Person", name: "Lianyu Hu" },
+        { "@type": "Person", name: "Xiaobin Hu" },
+        { "@type": "Person", name: "Jie Hao" },
+        { "@type": "Person", name: "Ce Hao" },
+        { "@type": "Person", name: "Weihao Yuan" },
+        { "@type": "Person", name: "Shuicheng Yan" },
+      ],
+      datePublished: "2026",
+      url: "https://arxiv.org/abs/2606.11637",
+      sameAs: "https://arxiv.org/abs/2606.11637",
+      identifier: "arXiv:2606.11637",
+    },
   ],
 };
 
@@ -115,7 +186,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     images: [
       {
-        url: `${siteUrl}/og-v2.png`,
+        url: `${siteUrl}/og-v2.jpg`,
         width: 1536,
         height: 1024,
         alt: "Pengwei Zhang — Robot Learning and Tactile Intelligence",
@@ -126,7 +197,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [`${siteUrl}/og-v2.png`],
+    images: [`${siteUrl}/og-v2.jpg`],
   },
 };
 
@@ -154,6 +225,7 @@ export default function RootLayout({
       <body>
         <SiteChrome />
         <PageProgress />
+        <Analytics />
         {children}
       </body>
     </html>

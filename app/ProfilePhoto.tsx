@@ -34,10 +34,15 @@ export default function ProfilePhoto() {
         type="button"
         onClick={revealEasterEgg}
         aria-label="Pengwei Zhang holding his cat Xiaoguo. Activate for a small surprise."
+        data-analytics-event="xiaoguo-easter-egg"
       >
         <img
           src="/profile.jpg"
           alt="Pengwei Zhang holding his cat Xiaoguo"
+          width="898"
+          height="1596"
+          decoding="async"
+          fetchPriority="high"
         />
       </button>
       {celebration ? (

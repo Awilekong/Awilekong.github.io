@@ -60,7 +60,7 @@ export default function CVPage() {
             </strong>
             <p>Team Leader</p>
           </div>
-          <time>2026</time>
+          <time>Challenge</time>
         </div>
         <div className="cv-entry">
           <div>
@@ -79,7 +79,7 @@ export default function CVPage() {
               </a>
             </p>
           </div>
-          <time>Undergraduate</time>
+          <time>Profile</time>
         </div>
         <div className="cv-entry">
           <div>

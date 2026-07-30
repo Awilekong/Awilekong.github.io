@@ -94,6 +94,7 @@ export default function LikeButton() {
         onClick={handleLike}
         aria-pressed={liked}
         title={liked ? "Thank you for the encouragement" : "Like this page"}
+        data-analytics-event="homepage-like"
       >
         <span className="like-button-icon" aria-hidden="true">
           <FaHeart />
