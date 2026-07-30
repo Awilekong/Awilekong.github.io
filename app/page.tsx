@@ -1,8 +1,5 @@
-import { FaFileLines, FaGithub } from "react-icons/fa6";
-import { SiGooglescholar, SiXiaohongshu } from "react-icons/si";
-
-const scholarSearchUrl =
-  "https://scholar.google.com/scholar?q=%22Pengwei+Zhang%22+ResTacVLA";
+import { FaGithub } from "react-icons/fa6";
+import { SiXiaohongshu } from "react-icons/si";
 
 const publications = {
   accepted: [
@@ -20,6 +17,7 @@ const publications = {
         </>
       ),
       venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026",
+      note: "Accepted",
       abstract:
         "ResTacVLA reformulates touch as the residual between visual expectation and physical sensation. Predictive-coding-inspired contact primitives and a surprise-aware gate help VLA policies prioritize tactile information during visually ambiguous contact phases.",
       links: [
@@ -159,9 +157,12 @@ function PublicationCard({ publication }: { publication: Publication }) {
           <p className="periodical">
             <em>{publication.venue}</em>
           </p>
+          {"note" in publication && publication.note ? (
+            <p className="periodical">{publication.note}</p>
+          ) : null}
           <div className="paper-links">
             <details>
-              <summary>Abstract</summary>
+              <summary>Abs</summary>
               <p>{publication.abstract}</p>
             </details>
             {publication.links.map((link) => (
@@ -220,7 +221,7 @@ export default function Home() {
             <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
               CASIA
             </a>
-            ), supervised by{" "}
+            ). I am fortunate to be supervised by{" "}
             <a
               href="https://people.ucas.ac.cn/~chenglong"
               target="_blank"
@@ -228,23 +229,26 @@ export default function Home() {
             >
               Prof. Long Cheng
             </a>
-            . I received my Bachelor&apos;s degree in Automation from{" "}
+            .
+          </p>
+          <p>
+            I received my Bachelor&apos;s degree in Automation from{" "}
             <a
               href="https://en.bjtu.edu.cn/"
               target="_blank"
               rel="noreferrer"
             >
               Beijing Jiaotong University
-            </a>{" "}
-            and am a joint-training student at{" "}
+            </a>
+            . I am also a joint-training student at Zhongguancun Academy (
             <a
               href="https://www.bza.edu.cn/en"
               target="_blank"
               rel="noreferrer"
             >
-              Zhongguancun Academy
+              ZGCA
             </a>
-            , working with{" "}
+            ), working with{" "}
             <a
               href="https://cehao1.github.io/"
               target="_blank"
@@ -264,35 +268,6 @@ export default function Home() {
             vision-force multimodal learning, force-aware imitation learning,
             precision assembly, and embodied intelligence.
           </p>
-
-          <nav className="profile-links" aria-label="Academic and social links">
-            <a href={scholarSearchUrl} target="_blank" rel="noreferrer">
-              <SiGooglescholar aria-hidden="true" />
-              Scholar Search
-            </a>
-            <a
-              href="https://github.com/Awilekong"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaGithub aria-hidden="true" />
-              GitHub
-            </a>
-            <a href="/cv/">
-              <FaFileLines aria-hidden="true" />
-              CV
-            </a>
-            <span className="profile-link-divider" aria-hidden="true" />
-            <a
-              className="personal-profile-link"
-              href="https://www.xiaohongshu.com/user/profile/61112b75000000000101ca18"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <SiXiaohongshu aria-hidden="true" />
-              Xiaohongshu
-            </a>
-          </nav>
 
           <div className="research-tags" aria-label="Research interests">
             <span>Robot Learning</span>
@@ -336,6 +311,7 @@ export default function Home() {
 
           <div className="publication-group-heading">
             <h3>Peer-reviewed &amp; Accepted</h3>
+            <span>Published research</span>
           </div>
           <ol className="bibliography">
             {publications.accepted.map((publication) => (
@@ -347,7 +323,8 @@ export default function Home() {
           </ol>
 
           <div className="publication-group-heading">
-            <h3>Preprints</h3>
+            <h3>Preprints &amp; Under Review</h3>
+            <span>Latest work</span>
           </div>
           <ol className="bibliography">
             {publications.preprints.map((publication) => (
@@ -403,6 +380,29 @@ export default function Home() {
             </li>
           </ul>
         </section>
+
+        <div className="social-links" aria-label="Social profiles">
+          <a
+            className="github-icon"
+            href="https://github.com/Awilekong"
+            target="_blank"
+            rel="noreferrer"
+            title="GitHub"
+          >
+            <FaGithub aria-hidden="true" />
+            <span className="sr-only">GitHub</span>
+          </a>
+          <a
+            className="xiaohongshu-icon"
+            href="https://www.xiaohongshu.com/user/profile/61112b75000000000101ca18"
+            target="_blank"
+            rel="noreferrer"
+            title="Xiaohongshu"
+          >
+            <SiXiaohongshu aria-hidden="true" />
+            <span className="sr-only">Xiaohongshu</span>
+          </a>
+        </div>
       </article>
     </main>
   );

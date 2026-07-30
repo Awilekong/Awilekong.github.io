@@ -40,11 +40,11 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /<script type="application\/ld\+json">/i);
   assert.match(html, /"@type":"Person"/i);
   assert.match(html, /"alternateName":"张鹏伟"/i);
-  assert.match(html, /<html lang="en" data-theme="light"/i);
+  assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
 });
 
-test("renders the v1.1 academic homepage structure", async () => {
+test("renders the v1 layout with the selected enhancements", async () => {
   const [response, siteChrome] = await Promise.all([
     render(),
     readFile(new URL("../app/SiteChrome.tsx", import.meta.url), "utf8"),
@@ -53,27 +53,33 @@ test("renders the v1.1 academic homepage structure", async () => {
 
   assert.match(html, /张鹏伟/);
   assert.match(html, />News<\/h2>/);
-  assert.match(html, /Scholar Search/);
+  assert.match(html, /I am fortunate to be supervised by/);
+  assert.match(html, /I am also a joint-training student/);
   assert.match(html, /Paper/);
   assert.match(html, /Project/);
+  assert.match(html, /Code/);
+  assert.match(html, /DOI/);
   assert.match(html, /BibTeX/);
-  assert.doesNotMatch(html, />Abs</);
-  assert.doesNotMatch(html, /Published research|Latest work/);
+  assert.match(html, />Abs</);
+  assert.match(html, /Published research|Latest work/);
+  assert.doesNotMatch(html, /Scholar Search/);
+  assert.doesNotMatch(html, /class="profile-links"/);
   assert.match(siteChrome, /localStorage\.getItem\("pengwei-theme"\)/);
   assert.match(siteChrome, /localStorage\.setItem\("pengwei-theme"/);
 });
 
-test("renders a substantive web CV", async () => {
+test("keeps the compact v1 web CV", async () => {
   const response = await render("/cv");
   assert.equal(response.status, 200);
 
   const html = await response.text();
   assert.match(html, /Curriculum Vitae/);
   assert.match(html, /Education &amp; Training/);
-  assert.match(html, /Research Focus/);
-  assert.match(html, /Selected Publications/);
-  assert.match(html, /Feeling the Unexpected: ResTacVLA/);
-  assert.match(html, /TouchThinker/);
+  assert.match(html, /Research Interests/);
+  assert.match(html, /Selected Recognition/);
+  assert.match(html, />Profiles</);
+  assert.doesNotMatch(html, /Scholar Search/);
+  assert.doesNotMatch(html, /Selected Publications/);
   assert.match(
     html,
     /<link rel="canonical" href="https:\/\/awilekong\.github\.io\/cv\/"\/>/i,

@@ -8,7 +8,7 @@ type Theme = "light" | "dark";
 
 export default function SiteChrome() {
   const pathname = usePathname();
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("pengwei-theme");
