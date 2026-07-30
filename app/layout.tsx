@@ -133,8 +133,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{const theme=localStorage.getItem("pengwei-theme");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme}}catch{}',
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

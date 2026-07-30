@@ -4,13 +4,33 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+type Theme = "light" | "dark";
+
 export default function SiteChrome() {
   const pathname = usePathname();
-  const [light, setLight] = useState(false);
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    document.documentElement.dataset.theme = light ? "light" : "dark";
-  }, [light]);
+    const savedTheme = window.localStorage.getItem("pengwei-theme");
+    const currentTheme =
+      savedTheme === "dark" || savedTheme === "light"
+        ? savedTheme
+        : document.documentElement.dataset.theme === "dark"
+          ? "dark"
+          : "light";
+    const frame = window.requestAnimationFrame(() => setTheme(currentTheme));
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  function toggleTheme() {
+    setTheme((currentTheme) => {
+      const nextTheme = currentTheme === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = nextTheme;
+      window.localStorage.setItem("pengwei-theme", nextTheme);
+      return nextTheme;
+    });
+  }
 
   return (
     <header className="site-nav">
@@ -27,11 +47,11 @@ export default function SiteChrome() {
         <button
           className="theme-toggle"
           type="button"
-          onClick={() => setLight((value) => !value)}
-          aria-label={light ? "Use dark theme" : "Use light theme"}
-          title={light ? "Use dark theme" : "Use light theme"}
+          onClick={toggleTheme}
+          aria-label={theme === "light" ? "Use dark theme" : "Use light theme"}
+          title={theme === "light" ? "Use dark theme" : "Use light theme"}
         >
-          {light ? "☀" : "☾"}
+          {theme === "light" ? "☀" : "☾"}
         </button>
       </nav>
     </header>
