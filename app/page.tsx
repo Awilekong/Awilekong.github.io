@@ -124,6 +124,7 @@ const publications = {
 const news = [
   {
     date: "Jul 2026",
+    dateTime: "2026-07",
     content: (
       <>
         <a
@@ -139,7 +140,17 @@ const news = [
     ),
   },
   {
-    date: "2026",
+    date: "Jun 2026",
+    dateTime: "2026-06",
+    content: (
+      <>
+        Third Prize at the ManiSkill-ViTac 2026 Challenge at CVPR 2026.
+      </>
+    ),
+  },
+  {
+    date: "May 2026",
+    dateTime: "2026-05",
     content: (
       <>
         Our rehabilitation assessment work was published in{" "}
@@ -155,21 +166,23 @@ const news = [
       </>
     ),
   },
-  {
-    date: "2026",
-    content: (
-      <>
-        Third Prize at the ManiSkill-ViTac 2026 Challenge at CVPR 2026.
-      </>
-    ),
-  },
 ];
 
 type Publication = (typeof publications.accepted)[number];
 
-function PublicationCard({ publication }: { publication: Publication }) {
+function PublicationCard({
+  publication,
+  revealDelay = 0,
+}: {
+  publication: Publication;
+  revealDelay?: number;
+}) {
   return (
-    <li className="publication-card">
+    <li
+      className="publication-card"
+      data-reveal="up"
+      data-reveal-delay={revealDelay}
+    >
       <div className="publication-row">
         <div className="publication-preview">
           <a
@@ -244,7 +257,7 @@ export default function Home() {
       </a>
 
       <article className="about-page">
-        <header className="profile-header">
+        <header className="profile-header" data-reveal="up">
           <h1>
             <span>
               <strong>Pengwei</strong> Zhang
@@ -264,7 +277,7 @@ export default function Home() {
         <div className="profile-overview">
           <ProfilePhoto />
 
-          <div className="about-intro">
+          <div className="about-intro" data-reveal="up">
             <p>
               I am <strong>Pengwei Zhang</strong>, a Ph.D. student at the
               Institute of Automation, Chinese Academy of Sciences (
@@ -340,7 +353,7 @@ export default function Home() {
           className="home-section news-section"
           aria-labelledby="news-title"
         >
-          <div className="section-heading compact-heading">
+          <div className="section-heading compact-heading" data-reveal="up">
             <div>
               <p className="section-kicker">Updates</p>
               <h2 id="news-title">News</h2>
@@ -348,8 +361,12 @@ export default function Home() {
           </div>
           <ul className="news-list">
             {news.map((item, index) => (
-              <li key={`${item.date}-${index}`}>
-                <time>{item.date}</time>
+              <li
+                key={`${item.date}-${index}`}
+                data-reveal="up"
+                data-reveal-delay={index}
+              >
+                <time dateTime={item.dateTime}>{item.date}</time>
                 <span>{item.content}</span>
               </li>
             ))}
@@ -361,44 +378,49 @@ export default function Home() {
           id="publications"
           aria-labelledby="selected-publications-title"
         >
-          <div className="section-heading">
+          <div className="section-heading" data-reveal="up">
             <div>
               <p className="section-kicker">Research</p>
               <h2 id="selected-publications-title">Selected Publications</h2>
             </div>
           </div>
 
-          <div className="publication-group-heading">
+          <div className="publication-group-heading" data-reveal="up">
             <h3>Peer-reviewed &amp; Accepted</h3>
             <span>Published research</span>
           </div>
           <ol className="bibliography">
-            {publications.accepted.map((publication) => (
+            {publications.accepted.map((publication, index) => (
               <PublicationCard
                 publication={publication}
                 key={publication.title}
+                revealDelay={index}
               />
             ))}
           </ol>
 
-          <div className="publication-group-heading">
+          <div className="publication-group-heading" data-reveal="up">
             <h3>Preprints &amp; Under Review</h3>
             <span>Latest work</span>
           </div>
           <ol className="bibliography">
-            {publications.preprints.map((publication) => (
+            {publications.preprints.map((publication, index) => (
               <PublicationCard
                 publication={publication}
                 key={publication.title}
+                revealDelay={index}
               />
             ))}
           </ol>
 
-          <div className="publication-group-heading recognition-heading">
+          <div
+            className="publication-group-heading recognition-heading"
+            data-reveal="up"
+          >
             <h3>Selected Recognition</h3>
           </div>
           <ul className="recognition-list">
-            <li>
+            <li data-reveal="up">
               <span className="recognition-date">Challenge</span>
               <strong>
                 Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR
@@ -406,7 +428,7 @@ export default function Home() {
               </strong>
               <time dateTime="2026">2026</time>
             </li>
-            <li>
+            <li data-reveal="up" data-reveal-delay="1">
               <span className="recognition-date">Profile</span>
               <strong>
                 <a
@@ -422,7 +444,7 @@ export default function Home() {
               </strong>
               <time dateTime="2024">2024</time>
             </li>
-            <li>
+            <li data-reveal="up" data-reveal-delay="2">
               <span className="recognition-date">Media</span>
               <strong>
                 <a
@@ -442,7 +464,11 @@ export default function Home() {
 
         <LikeButton />
 
-        <div className="social-links" aria-label="Social profiles">
+        <div
+          className="social-links"
+          aria-label="Social profiles"
+          data-reveal="up"
+        >
           <a
             className="email-icon"
             href="mailto:zhangpengwei2024@ia.ac.cn"

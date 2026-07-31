@@ -28,6 +28,8 @@ export default function ProfilePhoto() {
   return (
     <figure
       className={`profile-photo${celebration ? " is-celebrating" : ""}`}
+      data-reveal="scale"
+      data-reveal-delay="1"
     >
       <button
         className="profile-photo-button"

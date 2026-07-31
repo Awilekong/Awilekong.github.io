@@ -15,7 +15,7 @@ recognition, and a concise curriculum vitae.
 - Robot Learning
 - Contact-Rich Manipulation
 - Force-Aware Imitation Learning
-- Vision-Force Multimodal Learning
+- Vision-Tactile Multimodal Learning
 - Precision Assembly
 - Embodied Intelligence
 

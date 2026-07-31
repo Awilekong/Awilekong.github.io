@@ -3,12 +3,13 @@ import "@fontsource-variable/ibm-plex-sans";
 import "@fontsource-variable/source-sans-3";
 import Analytics from "./Analytics";
 import PageProgress from "./PageProgress";
+import RevealOnScroll from "./RevealOnScroll";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
 
 const title = "Pengwei Zhang · Robot Learning & Tactile Intelligence";
 const description =
-  "Academic homepage of Pengwei Zhang, a Ph.D. student at CASIA working on robot learning, tactile intelligence, contact-rich manipulation, and embodied AI.";
+  "Academic homepage of Pengwei Zhang, a Ph.D. student at CASIA working on robot learning, vision-tactile multimodal learning, contact-rich manipulation, force-aware imitation learning, and precision assembly.";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://awilekong.github.io";
 
@@ -48,11 +49,11 @@ const structuredData = {
       ],
       knowsAbout: [
         "Robot Learning",
+        "Tactile Intelligence",
         "Contact-Rich Manipulation",
         "Force-Aware Imitation Learning",
-        "Vision-Force Multimodal Learning",
-        "Precision Assembly and Insertion",
-        "Reinforcement Learning",
+        "Vision-Tactile Multimodal Learning",
+        "Precision Assembly",
         "Embodied Intelligence",
       ],
     },
@@ -155,7 +156,7 @@ export const metadata: Metadata = {
     "tactile intelligence",
     "contact-rich manipulation",
     "force-aware imitation learning",
-    "vision-force multimodal learning",
+    "vision-tactile multimodal learning",
     "precision assembly",
     "embodied intelligence",
     "CASIA",
@@ -216,6 +217,12 @@ export default function RootLayout({
           }}
         />
         <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'document.documentElement.classList.add("reveal-loading");setTimeout(()=>document.documentElement.classList.remove("reveal-loading"),2000)',
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
@@ -225,6 +232,7 @@ export default function RootLayout({
       <body>
         <SiteChrome />
         <PageProgress />
+        <RevealOnScroll />
         <Analytics />
         {children}
       </body>

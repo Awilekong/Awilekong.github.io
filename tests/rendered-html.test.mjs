@@ -41,6 +41,8 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /"@type":"Person"/i);
   assert.match(html, /"@type":"ScholarlyArticle"/i);
   assert.match(html, /"alternateName":"张鹏伟"/i);
+  assert.match(html, /Vision-Tactile Multimodal Learning/i);
+  assert.doesNotMatch(html, /Vision-Force Multimodal Learning/i);
   assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
 });
@@ -71,6 +73,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
     analytics,
     pageProgress,
     profilePhoto,
+    revealOnScroll,
+    styles,
   ] = await Promise.all([
     render(),
     readFile(new URL("../app/SiteChrome.tsx", import.meta.url), "utf8"),
@@ -80,11 +84,16 @@ test("renders the v1 layout with the selected enhancements", async () => {
     readFile(new URL("../app/Analytics.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/PageProgress.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ProfilePhoto.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/RevealOnScroll.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   const html = await response.text();
 
   assert.match(html, /张鹏伟/);
   assert.match(html, />News<\/h2>/);
+  assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
+  assert.match(html, /dateTime="2026-05">May 2026<\/time>/);
+  assert.match(html, /dateTime="2026-06">Jun 2026<\/time>/);
   assert.match(html, /I am fortunate to be supervised by/);
   assert.match(html, /I am also a joint-training student/);
   assert.doesNotMatch(html, /<span>Robot Learning<\/span>/);
@@ -138,6 +147,11 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(pageProgress, /window\.scrollTo/);
   assert.match(html, /Activate for a small surprise/);
   assert.match(profilePhoto, /Xiaoguo approves this research/);
+  assert.match(html, /data-reveal="up"/);
+  assert.match(revealOnScroll, /IntersectionObserver/);
+  assert.match(revealOnScroll, /prefers-reduced-motion/);
+  assert.match(styles, /content-reveal-up/);
+  assert.match(styles, /translate:\s*0 18px/);
 });
 
 test("keeps the compact v1 web CV", async () => {
@@ -148,6 +162,8 @@ test("keeps the compact v1 web CV", async () => {
   assert.match(html, /Curriculum Vitae/);
   assert.match(html, /Education &amp; Training/);
   assert.match(html, /Research Interests/);
+  assert.match(html, /Vision-Tactile Multimodal Learning/);
+  assert.doesNotMatch(html, /Vision-Force Multimodal Learning/);
   assert.match(html, /Selected Recognition/);
   assert.match(html, />Profiles</);
   assert.doesNotMatch(html, /Scholar Search/);

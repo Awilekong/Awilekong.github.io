@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 export default function CVPage() {
   return (
     <main className="page-shell cv-page">
-      <h1>Curriculum Vitae</h1>
-      <p className="cv-intro">
+      <h1 data-reveal="up">Curriculum Vitae</h1>
+      <p className="cv-intro" data-reveal="up" data-reveal-delay="1">
         Pengwei Zhang · Ph.D. Student in Robot Learning
       </p>
 
-      <section className="cv-section">
+      <section className="cv-section" data-reveal="up">
         <h2>Education &amp; Training</h2>
         <div className="cv-entry">
           <div>
@@ -42,16 +42,16 @@ export default function CVPage() {
         </div>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-section" data-reveal="up">
         <h2>Research Interests</h2>
         <p>
           Robot Learning · Contact-Rich Manipulation · Force-Aware Imitation
-          Learning · Vision-Force Multimodal Learning · Precision Assembly ·
+          Learning · Vision-Tactile Multimodal Learning · Precision Assembly ·
           Embodied Intelligence
         </p>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-section" data-reveal="up">
         <h2>Selected Recognition</h2>
         <div className="cv-entry">
           <div>
@@ -97,7 +97,7 @@ export default function CVPage() {
         </div>
       </section>
 
-      <section className="cv-section">
+      <section className="cv-section" data-reveal="up">
         <h2>Profiles</h2>
         <p>
           <a

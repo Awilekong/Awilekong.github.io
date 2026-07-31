@@ -87,7 +87,7 @@ export default function LikeButton() {
   }
 
   return (
-    <div className="like-control">
+    <div className="like-control" data-reveal="up">
       <button
         className={`like-button${liked ? " is-liked" : ""}`}
         type="button"
