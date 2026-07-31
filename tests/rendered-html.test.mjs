@@ -150,6 +150,9 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /data-reveal="up"/);
   assert.match(revealOnScroll, /IntersectionObserver/);
   assert.match(revealOnScroll, /prefers-reduced-motion/);
+  assert.match(revealOnScroll, /dataset\.revealState = "visible"/);
+  assert.doesNotMatch(revealOnScroll, /classList\.add\("is-revealed"\)/);
+  assert.match(revealOnScroll, /rootMargin: "0px 0px -12px 0px"/);
   assert.match(styles, /content-reveal-up/);
   assert.match(styles, /translate:\s*0 18px/);
 });

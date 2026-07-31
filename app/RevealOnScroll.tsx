@@ -19,7 +19,9 @@ export default function RevealOnScroll() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       !("IntersectionObserver" in window)
     ) {
-      elements.forEach((element) => element.classList.add("is-revealed"));
+      elements.forEach((element) => {
+        element.dataset.revealState = "visible";
+      });
       return;
     }
 
@@ -30,18 +32,20 @@ export default function RevealOnScroll() {
             return;
           }
 
-          entry.target.classList.add("is-revealed");
+          if (entry.target instanceof HTMLElement) {
+            entry.target.dataset.revealState = "visible";
+          }
           observer.unobserve(entry.target);
         });
       },
       {
-        rootMargin: "0px 0px -8% 0px",
-        threshold: 0.12,
+        rootMargin: "0px 0px -12px 0px",
+        threshold: 0.06,
       },
     );
 
     elements.forEach((element) => {
-      if (!element.classList.contains("is-revealed")) {
+      if (element.dataset.revealState !== "visible") {
         observer.observe(element);
       }
     });
