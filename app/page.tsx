@@ -1,5 +1,6 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiXiaohongshu } from "react-icons/si";
+import AbstractDisclosure from "./AbstractDisclosure";
 import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
@@ -196,6 +197,7 @@ function PublicationCard({
             {publication.badge}
           </a>
           <a
+            className="publication-image-link"
             href={publication.links[0].href}
             target="_blank"
             rel="noreferrer"
@@ -222,10 +224,10 @@ function PublicationCard({
             <p className="periodical">{publication.note}</p>
           ) : null}
           <div className="paper-links">
-            <details>
-              <summary>Abs</summary>
-              <p>{publication.abstract}</p>
-            </details>
+            <AbstractDisclosure
+              text={publication.abstract}
+              publicationId={publication.id}
+            />
             {publication.links.map((link) => (
               <a
                 href={link.href}
@@ -351,6 +353,7 @@ export default function Home() {
 
         <section
           className="home-section news-section"
+          id="news"
           aria-labelledby="news-title"
         >
           <div className="section-heading compact-heading" data-reveal="up">

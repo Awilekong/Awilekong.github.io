@@ -74,6 +74,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
     pageProgress,
     profilePhoto,
     revealOnScroll,
+    abstractDisclosure,
     styles,
   ] = await Promise.all([
     render(),
@@ -85,6 +86,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
     readFile(new URL("../app/PageProgress.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/ProfilePhoto.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/RevealOnScroll.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/AbstractDisclosure.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   const html = await response.text();
@@ -123,6 +125,19 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /pweiii@163\.com/);
   assert.match(siteChrome, /localStorage\.getItem\("pengwei-theme"\)/);
   assert.match(siteChrome, /localStorage\.setItem\("pengwei-theme"/);
+  assert.match(siteChrome, /data-nav-section="news"/);
+  assert.match(siteChrome, /data-nav-section="publications"/);
+  assert.match(siteChrome, /setActiveSection/);
+  assert.match(siteChrome, /is-condensed/);
+  assert.match(siteChrome, /startViewTransition/);
+  assert.match(siteChrome, /::view-transition-new\(root\)/);
+  assert.match(siteChrome, /HOME_SCROLL_KEY/);
+  assert.match(siteChrome, /sessionStorage\.setItem\(HOME_RESTORE_KEY/);
+  assert.match(siteChrome, /window\.scrollTo\(\{ top: savedPosition/);
+  assert.match(html, /id="news"/);
+  assert.match(html, /class="publication-image-link"/);
+  assert.match(abstractDisclosure, /aria-expanded=\{isOpen\}/);
+  assert.match(abstractDisclosure, /abstract-panel-inner/);
   assert.match(html, />Like</);
   assert.match(likeButton, /Liked/);
   assert.match(likeButton, /pengwei-homepage-liked/);
@@ -155,6 +170,12 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(revealOnScroll, /rootMargin: "0px 0px -12px 0px"/);
   assert.match(styles, /content-reveal-up/);
   assert.match(styles, /translate:\s*0 18px/);
+  assert.match(styles, /site-nav-indicator/);
+  assert.match(styles, /site-nav\.is-condensed/);
+  assert.match(styles, /publication-image-focus/);
+  assert.match(styles, /grid-template-rows:\s*0fr/);
+  assert.match(styles, /grid-template-rows:\s*1fr/);
+  assert.match(styles, /::view-transition-new\(root\)/);
 });
 
 test("keeps the compact v1 web CV", async () => {
