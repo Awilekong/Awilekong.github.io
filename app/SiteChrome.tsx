@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { flushSync } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -145,7 +146,7 @@ export default function SiteChrome() {
   function applyTheme(nextTheme: Theme) {
     document.documentElement.dataset.theme = nextTheme;
     window.localStorage.setItem("pengwei-theme", nextTheme);
-    setTheme(nextTheme);
+    flushSync(() => setTheme(nextTheme));
   }
 
   function toggleTheme(event: MouseEvent<HTMLButtonElement>) {
@@ -154,7 +155,10 @@ export default function SiteChrome() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
     const viewTransitionDocument = document as Document & {
-      startViewTransition?: (update: () => void) => { ready: Promise<void> };
+      startViewTransition?: (update: () => void) => {
+        ready: Promise<void>;
+        finished: Promise<void>;
+      };
     };
 
     if (!viewTransitionDocument.startViewTransition || prefersReducedMotion) {
@@ -169,9 +173,19 @@ export default function SiteChrome() {
       Math.max(centerX, window.innerWidth - centerX),
       Math.max(centerY, window.innerHeight - centerY),
     );
-    const transition = viewTransitionDocument.startViewTransition(() => {
+    const root = document.documentElement;
+    root.classList.add("theme-transition-active");
+
+    let transition;
+    try {
+      transition = viewTransitionDocument.startViewTransition(() => {
+        applyTheme(nextTheme);
+      });
+    } catch {
+      root.classList.remove("theme-transition-active");
       applyTheme(nextTheme);
-    });
+      return;
+    }
 
     transition.ready
       .then(() => {
@@ -183,13 +197,17 @@ export default function SiteChrome() {
             ],
           },
           {
-            duration: 560,
-            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            duration: 520,
+            easing: "cubic-bezier(0.32, 0.72, 0, 1)",
             pseudoElement: "::view-transition-new(root)",
           } as KeyframeAnimationOptions & { pseudoElement: string },
         );
       })
       .catch(() => undefined);
+
+    transition.finished.finally(() => {
+      root.classList.remove("theme-transition-active");
+    });
   }
 
   function rememberHomePosition() {

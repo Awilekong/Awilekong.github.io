@@ -131,6 +131,9 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(siteChrome, /is-condensed/);
   assert.match(siteChrome, /startViewTransition/);
   assert.match(siteChrome, /::view-transition-new\(root\)/);
+  assert.match(siteChrome, /flushSync/);
+  assert.match(siteChrome, /theme-transition-active/);
+  assert.match(siteChrome, /transition\.finished\.finally/);
   assert.match(siteChrome, /HOME_SCROLL_KEY/);
   assert.match(siteChrome, /sessionStorage\.setItem\(HOME_RESTORE_KEY/);
   assert.match(siteChrome, /window\.scrollTo\(\{ top: savedPosition/);
@@ -176,6 +179,10 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(styles, /grid-template-rows:\s*0fr/);
   assert.match(styles, /grid-template-rows:\s*1fr/);
   assert.match(styles, /::view-transition-new\(root\)/);
+  assert.match(styles, /::view-transition-group\(root\)/);
+  assert.match(styles, /\.theme-transition-active \*/);
+  assert.match(styles, /\.abstract-disclosure\s*\{\s*display:\s*contents/);
+  assert.match(styles, /order:\s*100/);
 });
 
 test("keeps the compact v1 web CV", async () => {
