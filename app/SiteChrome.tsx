@@ -157,7 +157,6 @@ export default function SiteChrome() {
     const viewTransitionDocument = document as Document & {
       startViewTransition?: (update: () => void) => {
         ready: Promise<void>;
-        finished: Promise<void>;
       };
     };
 
@@ -189,7 +188,7 @@ export default function SiteChrome() {
 
     transition.ready
       .then(() => {
-        document.documentElement.animate(
+        const revealAnimation = document.documentElement.animate(
           {
             clipPath: [
               `circle(0px at ${centerX}px ${centerY}px)`,
@@ -197,17 +196,18 @@ export default function SiteChrome() {
             ],
           },
           {
-            duration: 520,
-            easing: "cubic-bezier(0.32, 0.72, 0, 1)",
+            duration: 480,
+            easing: "linear",
             pseudoElement: "::view-transition-new(root)",
           } as KeyframeAnimationOptions & { pseudoElement: string },
         );
-      })
-      .catch(() => undefined);
 
-    transition.finished.finally(() => {
-      root.classList.remove("theme-transition-active");
-    });
+        return revealAnimation.finished;
+      })
+      .catch(() => undefined)
+      .finally(() => {
+        root.classList.remove("theme-transition-active");
+      });
   }
 
   function rememberHomePosition() {

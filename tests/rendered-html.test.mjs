@@ -133,7 +133,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(siteChrome, /::view-transition-new\(root\)/);
   assert.match(siteChrome, /flushSync/);
   assert.match(siteChrome, /theme-transition-active/);
-  assert.match(siteChrome, /transition\.finished\.finally/);
+  assert.match(siteChrome, /revealAnimation\.finished/);
+  assert.match(siteChrome, /easing:\s*"linear"/);
   assert.match(siteChrome, /HOME_SCROLL_KEY/);
   assert.match(siteChrome, /sessionStorage\.setItem\(HOME_RESTORE_KEY/);
   assert.match(siteChrome, /window\.scrollTo\(\{ top: savedPosition/);
@@ -180,6 +181,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(styles, /grid-template-rows:\s*1fr/);
   assert.match(styles, /::view-transition-new\(root\)/);
   assert.match(styles, /::view-transition-group\(root\)/);
+  assert.match(styles, /animation-duration:\s*480ms/);
   assert.match(styles, /\.theme-transition-active \*/);
   assert.match(styles, /\.abstract-disclosure\s*\{\s*display:\s*contents/);
   assert.match(styles, /order:\s*100/);

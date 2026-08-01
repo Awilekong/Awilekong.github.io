@@ -267,11 +267,15 @@ img {
   text-align: center;
 }
 
-::view-transition-group(root),
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+::view-transition-group(root) {
+  animation-duration: 480ms;
+  animation-timing-function: linear;
 }
 
 ::view-transition-old(root) {
