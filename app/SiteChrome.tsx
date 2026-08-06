@@ -20,7 +20,10 @@ export default function SiteChrome() {
   const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
   const pillRef = useRef<HTMLDivElement>(null);
   const isRestoringRef = useRef(false);
-  const activeNav: NavSection = pathname === "/cv" ? "cv" : activeSection;
+  const normalizedPathname =
+    pathname === "/" ? pathname : pathname.replace(/\/+$/, "");
+  const activeNav: NavSection =
+    normalizedPathname === "/cv" ? "cv" : activeSection;
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("pengwei-theme");

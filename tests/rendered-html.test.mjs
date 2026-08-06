@@ -128,6 +128,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(siteChrome, /localStorage\.setItem\("pengwei-theme"/);
   assert.match(siteChrome, /data-nav-section="news"/);
   assert.match(siteChrome, /data-nav-section="publications"/);
+  assert.match(siteChrome, /pathname\.replace\(\/\\\/\+\$\/, ""\)/);
+  assert.match(siteChrome, /normalizedPathname === "\/cv"/);
   assert.match(siteChrome, /setActiveSection/);
   assert.match(siteChrome, /is-condensed/);
   assert.match(siteChrome, /startViewTransition/);
