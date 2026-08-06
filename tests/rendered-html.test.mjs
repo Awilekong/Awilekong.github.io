@@ -37,6 +37,7 @@ test("renders indexable homepage metadata", async () => {
     html,
     /<link rel="canonical" href="https:\/\/awilekong\.github\.io\/"\/>/i,
   );
+  assert.match(html, /<meta name="google-site-verification" content="[^"]+"\/>/i);
   assert.match(html, /<script type="application\/ld\+json">/i);
   assert.match(html, /"@type":"Person"/i);
   assert.match(html, /"@type":"ScholarlyArticle"/i);

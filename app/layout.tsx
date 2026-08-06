@@ -164,6 +164,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  verification: {
+    google: "UNMfLNrqM8WtR_oAe5rbG7_ny5pltU2eUDJix3jh6CQ",
+  },
   robots: {
     index: true,
     follow: true,
