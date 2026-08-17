@@ -40,12 +40,19 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /<meta name="google-site-verification" content="[^"]+"\/>/i);
   assert.match(html, /<script type="application\/ld\+json">/i);
   assert.match(html, /"@type":"Person"/i);
+  assert.match(html, /"givenName":"Pengwei"/i);
+  assert.match(html, /"familyName":"Zhang"/i);
+  assert.match(html, /"@type":"ProfilePage"/i);
+  assert.match(html, /"name":"Pengwei Zhang"/i);
+  assert.match(html, /"alternateName":\["张鹏伟","Zhang Pengwei","Awilekong"\]/i);
+  assert.match(html, /"alternateName":\["张鹏伟","Pengwei Zhang Academic Homepage","awilekong.github.io"\]/i);
   assert.match(html, /"@type":"ScholarlyArticle"/i);
-  assert.match(html, /"alternateName":"张鹏伟"/i);
   assert.match(html, /Vision-Tactile Multimodal Learning/i);
   assert.doesNotMatch(html, /Vision-Force Multimodal Learning/i);
   assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
+  assert.match(html, /href="https:\/\/awilekong\.github\.io\/favicon\.png"/i);
+  assert.doesNotMatch(html, /rel="icon" href="[^"]*profile\.jpg"/i);
 });
 
 test("bundles the intended academic typography", async () => {
@@ -204,6 +211,10 @@ test("keeps the compact v1 web CV", async () => {
 
   const html = await response.text();
   assert.match(html, /Curriculum Vitae/);
+  assert.match(html, /<title>Curriculum Vitae \| Pengwei Zhang<\/title>/i);
+  assert.match(html, /property="og:title" content="Curriculum Vitae \| Pengwei Zhang"/i);
+  assert.match(html, /name="twitter:title" content="Curriculum Vitae \| Pengwei Zhang"/i);
+  assert.doesNotMatch(html, /og-v2\.jpg/i);
   assert.match(html, /Education &amp; Training/);
   assert.match(html, /Research Interests/);
   assert.match(html, /Vision-Tactile Multimodal Learning/);
@@ -231,4 +242,5 @@ test("publishes crawler discovery files", async () => {
   );
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/cv\/<\/loc>/);
+  assert.match(sitemap, /<lastmod>2026-08-17<\/lastmod>/);
 });

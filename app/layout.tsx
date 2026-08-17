@@ -10,6 +10,8 @@ import "./globals.css";
 const title = "Pengwei Zhang · Robot Learning & Tactile Intelligence";
 const description =
   "Academic homepage of Pengwei Zhang, a Ph.D. student at CASIA working on robot learning, vision-tactile multimodal learning, contact-rich manipulation, force-aware imitation learning, and precision assembly.";
+const profileDescription =
+  "Pengwei Zhang is a Ph.D. student at the Institute of Automation, Chinese Academy of Sciences (CASIA), researching robot learning and tactile intelligence.";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://awilekong.github.io";
 
@@ -20,10 +22,16 @@ const structuredData = {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
       name: "Pengwei Zhang",
-      alternateName: "张鹏伟",
+      givenName: "Pengwei",
+      familyName: "Zhang",
+      alternateName: ["张鹏伟", "Zhang Pengwei", "Awilekong"],
+      description: profileDescription,
       url: `${siteUrl}/`,
       image: `${siteUrl}/profile.jpg`,
       jobTitle: "Ph.D. Student",
+      mainEntityOfPage: {
+        "@id": `${siteUrl}/#profile-page`,
+      },
       affiliation: [
         {
           "@type": "Organization",
@@ -61,10 +69,28 @@ const structuredData = {
       "@type": "WebSite",
       "@id": `${siteUrl}/#website`,
       url: `${siteUrl}/`,
-      name: title,
+      name: "Pengwei Zhang",
+      alternateName: [
+        "张鹏伟",
+        "Pengwei Zhang Academic Homepage",
+        "awilekong.github.io",
+      ],
       description,
-      inLanguage: ["en", "zh-CN"],
+      inLanguage: "en",
       publisher: {
+        "@id": `${siteUrl}/#person`,
+      },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": `${siteUrl}/#profile-page`,
+      url: `${siteUrl}/`,
+      name: "Pengwei Zhang — Academic Profile",
+      alternateName: "张鹏伟个人学术主页",
+      description: profileDescription,
+      inLanguage: "en",
+      dateModified: "2026-08-17",
+      mainEntity: {
         "@id": `${siteUrl}/#person`,
       },
     },
@@ -145,6 +171,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title,
   description,
+  applicationName: "Pengwei Zhang",
   authors: [{ name: "Pengwei Zhang", url: `${siteUrl}/` }],
   creator: "Pengwei Zhang",
   publisher: "Pengwei Zhang",
@@ -179,13 +206,27 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/profile.jpg",
-    shortcut: "/profile.jpg",
-    apple: "/profile.jpg",
+    icon: [
+      {
+        url: "/favicon.png",
+        type: "image/png",
+        sizes: "192x192",
+      },
+    ],
+    shortcut: "/favicon.png",
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        type: "image/png",
+        sizes: "180x180",
+      },
+    ],
   },
   openGraph: {
     title,
     description,
+    siteName: "Pengwei Zhang",
+    locale: "en_US",
     type: "website",
     url: siteUrl,
     images: [

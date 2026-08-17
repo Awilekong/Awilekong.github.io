@@ -1,10 +1,27 @@
 import type { Metadata } from "next";
 
+const cvTitle = "Curriculum Vitae | Pengwei Zhang";
+const cvDescription =
+  "Curriculum vitae of Pengwei Zhang, a Ph.D. student at CASIA researching robot learning and tactile intelligence.";
+
 export const metadata: Metadata = {
-  title: "CV · Pengwei Zhang",
-  description: "Curriculum vitae of Pengwei Zhang.",
+  title: cvTitle,
+  description: cvDescription,
   alternates: {
     canonical: "/cv/",
+  },
+  openGraph: {
+    title: cvTitle,
+    description: cvDescription,
+    url: "/cv/",
+    type: "profile",
+    images: [],
+  },
+  twitter: {
+    card: "summary",
+    title: cvTitle,
+    description: cvDescription,
+    images: [],
   },
 };
 
