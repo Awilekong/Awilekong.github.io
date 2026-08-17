@@ -174,7 +174,9 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(profilePhoto, /event\.pointerType === "mouse"/);
   assert.match(styles, /profile-photo-button:hover \.profile-photo-wink/);
   assert.match(styles, /profile-photo\.is-touch-winking \.profile-photo-wink/);
-  assert.match(styles, /clip-path:\s*ellipse/);
+  assert.match(styles, /mask-image:\s*radial-gradient/);
+  assert.match(styles, /ellipse 6\.5% 3\.4% at 38% 20\.5%/);
+  assert.doesNotMatch(styles, /clip-path:\s*ellipse\(14% 8\.5%/);
   assert.match(html, /data-reveal="up"/);
   assert.match(revealOnScroll, /IntersectionObserver/);
   assert.match(revealOnScroll, /prefers-reduced-motion/);

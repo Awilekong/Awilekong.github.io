@@ -464,11 +464,20 @@ img {
   inset: 0;
   border: 0;
   box-shadow: none;
-  clip-path: ellipse(14% 8.5% at 38% 36.5%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 6.5% 3.4% at 38% 20.5%,
+    #000 52%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 6.5% 3.4% at 38% 20.5%,
+    #000 52%,
+    transparent 100%
+  );
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 150ms ease,
+    opacity 90ms ease-out,
     filter 260ms ease,
     transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
@@ -1510,6 +1519,19 @@ img {
     aspect-ratio: auto;
     border-radius: 1.1rem;
     object-position: 50% 46%;
+  }
+
+  .profile-photo .profile-photo-wink {
+    -webkit-mask-image: radial-gradient(
+      ellipse 6.5% 7.5% at 38% 9%,
+      #000 52%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 6.5% 7.5% at 38% 9%,
+      #000 52%,
+      transparent 100%
+    );
   }
 
   .profile-photo-button {
