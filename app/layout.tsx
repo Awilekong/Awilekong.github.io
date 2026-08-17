@@ -7,17 +7,30 @@ import RevealOnScroll from "./RevealOnScroll";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
 
-const title = "Pengwei Zhang · Robot Learning & Tactile Intelligence";
+const title = "Pengwei Zhang (张鹏伟) · Robot Learning & Tactile Intelligence";
 const description =
-  "Academic homepage of Pengwei Zhang, a Ph.D. student at CASIA working on robot learning, vision-tactile multimodal learning, contact-rich manipulation, force-aware imitation learning, and precision assembly.";
+  "Pengwei Zhang (张鹏伟) is a Ph.D. student at CASIA working on robot learning, vision-tactile multimodal learning, contact-rich manipulation, force-aware imitation learning, and precision assembly.";
 const profileDescription =
-  "Pengwei Zhang is a Ph.D. student at the Institute of Automation, Chinese Academy of Sciences (CASIA), researching robot learning and tactile intelligence.";
+  "Pengwei Zhang (张鹏伟) is a Ph.D. student at the Institute of Automation, Chinese Academy of Sciences (CASIA), researching robot learning and tactile intelligence.";
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://awilekong.github.io";
+const profileImageUrl = `${siteUrl}/profile-search.jpg`;
 
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "ImageObject",
+      "@id": `${siteUrl}/#profile-image`,
+      url: profileImageUrl,
+      contentUrl: profileImageUrl,
+      thumbnailUrl: profileImageUrl,
+      width: 900,
+      height: 900,
+      caption: "Pengwei Zhang (张鹏伟) with his cat Xiaoguo",
+      representativeOfPage: true,
+      inLanguage: "en",
+    },
     {
       "@type": "Person",
       "@id": `${siteUrl}/#person`,
@@ -27,7 +40,9 @@ const structuredData = {
       alternateName: ["张鹏伟", "Zhang Pengwei", "Awilekong"],
       description: profileDescription,
       url: `${siteUrl}/`,
-      image: `${siteUrl}/profile.jpg`,
+      image: {
+        "@id": `${siteUrl}/#profile-image`,
+      },
       jobTitle: "Ph.D. Student",
       mainEntityOfPage: {
         "@id": `${siteUrl}/#profile-page`,
@@ -80,6 +95,9 @@ const structuredData = {
       publisher: {
         "@id": `${siteUrl}/#person`,
       },
+      image: {
+        "@id": `${siteUrl}/#profile-image`,
+      },
     },
     {
       "@type": "ProfilePage",
@@ -90,6 +108,9 @@ const structuredData = {
       description: profileDescription,
       inLanguage: "en",
       dateModified: "2026-08-17",
+      primaryImageOfPage: {
+        "@id": `${siteUrl}/#profile-image`,
+      },
       mainEntity: {
         "@id": `${siteUrl}/#person`,
       },
@@ -254,6 +275,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
+        <link rel="image_src" href={profileImageUrl} />
         <script
           dangerouslySetInnerHTML={{
             __html:

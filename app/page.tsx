@@ -281,7 +281,7 @@ export default function Home() {
 
           <div className="about-intro" data-reveal="up">
             <p>
-              I am <strong>Pengwei Zhang</strong>, a Ph.D. student at the
+              I am <strong>Pengwei Zhang (张鹏伟)</strong>, a Ph.D. student at the
               Institute of Automation, Chinese Academy of Sciences (
               <a href="https://ia.cas.cn/" target="_blank" rel="noreferrer">
                 CASIA

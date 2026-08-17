@@ -62,6 +62,7 @@ export default function ProfilePhoto() {
         <img
           src="/profile.jpg"
           alt="Pengwei Zhang holding his cat Xiaoguo"
+          itemProp="image"
           width="898"
           height="1596"
           decoding="async"

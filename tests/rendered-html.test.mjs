@@ -31,7 +31,7 @@ test("renders indexable homepage metadata", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /<title>Pengwei Zhang · Robot Learning &amp; Tactile Intelligence<\/title>/i,
+    /<title>Pengwei Zhang \(张鹏伟\) · Robot Learning &amp; Tactile Intelligence<\/title>/i,
   );
   assert.match(
     html,
@@ -52,7 +52,11 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
   assert.match(html, /href="https:\/\/awilekong\.github\.io\/favicon\.png"/i);
-  assert.doesNotMatch(html, /rel="icon" href="[^"]*profile\.jpg"/i);
+  assert.match(html, /rel="image_src" href="https:\/\/awilekong\.github\.io\/profile-search\.jpg"/i);
+  assert.match(html, /"@type":"ImageObject"/i);
+  assert.match(html, /"primaryImageOfPage":\{"@id":"https:\/\/awilekong\.github\.io\/#profile-image"\}/i);
+  assert.match(html, /Pengwei Zhang \(张鹏伟\) is a Ph\.D\. student/i);
+  assert.doesNotMatch(html, /rel="icon" href="[^"]*profile-search\.jpg"/i);
 });
 
 test("bundles the intended academic typography", async () => {
