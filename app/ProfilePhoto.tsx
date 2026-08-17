@@ -1,16 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { FaPaw } from "react-icons/fa6";
 
 export default function ProfilePhoto() {
   const [celebration, setCelebration] = useState(0);
+  const [isTouchWinking, setIsTouchWinking] = useState(false);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const winkTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(
     () => () => {
       if (hideTimer.current) {
         clearTimeout(hideTimer.current);
+      }
+      if (winkTimer.current) {
+        clearTimeout(winkTimer.current);
       }
     },
     [],
@@ -25,9 +35,19 @@ export default function ProfilePhoto() {
     hideTimer.current = setTimeout(() => setCelebration(0), 2600);
   }
 
+  function revealTouchWink(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (event.pointerType === "mouse") return;
+
+    setIsTouchWinking(true);
+    if (winkTimer.current) {
+      clearTimeout(winkTimer.current);
+    }
+    winkTimer.current = setTimeout(() => setIsTouchWinking(false), 900);
+  }
+
   return (
     <figure
-      className={`profile-photo${celebration ? " is-celebrating" : ""}`}
+      className={`profile-photo${celebration ? " is-celebrating" : ""}${isTouchWinking ? " is-touch-winking" : ""}`}
       data-reveal="scale"
       data-reveal-delay="1"
     >
@@ -35,6 +55,7 @@ export default function ProfilePhoto() {
         className="profile-photo-button"
         type="button"
         onClick={revealEasterEgg}
+        onPointerDown={revealTouchWink}
         aria-label="Pengwei Zhang holding his cat Xiaoguo. Activate for a small surprise."
         data-analytics-event="xiaoguo-easter-egg"
       >
@@ -45,6 +66,15 @@ export default function ProfilePhoto() {
           height="1596"
           decoding="async"
           fetchPriority="high"
+        />
+        <img
+          className="profile-photo-wink"
+          src="/profile-wink.jpg"
+          alt=""
+          width="941"
+          height="1672"
+          decoding="async"
+          aria-hidden="true"
         />
       </button>
       {celebration ? (
