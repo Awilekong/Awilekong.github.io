@@ -51,7 +51,10 @@ test("renders indexable homepage metadata", async () => {
   assert.doesNotMatch(html, /Vision-Force Multimodal Learning/i);
   assert.match(html, /<html lang="en" data-theme="dark"/i);
   assert.doesNotMatch(html, /noindex/i);
-  assert.match(html, /href="https:\/\/awilekong\.github\.io\/favicon\.png"/i);
+  assert.match(
+    html,
+    /href="https:\/\/awilekong\.github\.io\/favicon-portrait\.png"/i,
+  );
   assert.match(html, /rel="image_src" href="https:\/\/awilekong\.github\.io\/profile-search\.jpg"/i);
   assert.match(html, /"@type":"ImageObject"/i);
   assert.match(html, /"primaryImageOfPage":\{"@id":"https:\/\/awilekong\.github\.io\/#profile-image"\}/i);
@@ -243,5 +246,5 @@ test("publishes crawler discovery files", async () => {
   );
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/cv\/<\/loc>/);
-  assert.match(sitemap, /<lastmod>2026-08-17<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-08-23<\/lastmod>/);
 });
