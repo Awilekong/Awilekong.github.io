@@ -110,10 +110,13 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, />News<\/h2>/);
   assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
   assert.match(html, /dateTime="2026-07-29">Jul 2026<\/time>/);
-  assert.match(html, /ResTacVLA was featured by Zhongguancun Academy/);
   assert.match(
     html,
-    /IROS 2026系列成果之②｜ResTacVLA：让机器人感知视觉之外的“意外”/,
+    /Beijing Zhongguancun Academy spotlighted our ResTacVLA work in an official feature on frontier advances in vision–tactile embodied intelligence\./,
+  );
+  assert.match(
+    html,
+    /北京中关村学院官方聚焦｜ResTacVLA：迈向更可靠的视觉–触觉具身智能新范式/,
   );
   assert.match(html, /Q_Q9xwdPnEaffNV-SNBlyQ/);
   assert.match(html, /dateTime="2026-05">May 2026<\/time>/);

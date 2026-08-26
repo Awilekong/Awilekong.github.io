@@ -134,9 +134,10 @@ const news = [
           rel="noreferrer"
           data-analytics-event="news-restacvla-zgca-feature"
         >
-          ResTacVLA was featured by Zhongguancun Academy
-        </a>{" "}
-        in its IROS 2026 research series.
+          Beijing Zhongguancun Academy spotlighted our ResTacVLA work in an
+          official feature on frontier advances in vision–tactile embodied
+          intelligence.
+        </a>
       </>
     ),
   },
@@ -458,7 +459,7 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-restacvla-zgca"
                 >
-                  IROS 2026系列成果之②｜ResTacVLA：让机器人感知视觉之外的“意外”
+                  北京中关村学院官方聚焦｜ResTacVLA：迈向更可靠的视觉–触觉具身智能新范式
                 </a>
               </strong>
               <time dateTime="2026">2026</time>
