@@ -125,6 +125,23 @@ const publications = {
 const news = [
   {
     date: "Jul 2026",
+    dateTime: "2026-07-29",
+    content: (
+      <>
+        <a
+          href="https://mp.weixin.qq.com/s/Q_Q9xwdPnEaffNV-SNBlyQ"
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="news-restacvla-zgca-feature"
+        >
+          ResTacVLA was featured by Zhongguancun Academy
+        </a>{" "}
+        in its IROS 2026 research series.
+      </>
+    ),
+  },
+  {
+    date: "Jul 2026",
     dateTime: "2026-07",
     content: (
       <>
@@ -432,6 +449,21 @@ export default function Home() {
               <time dateTime="2026">2026</time>
             </li>
             <li data-reveal="up" data-reveal-delay="1">
+              <span className="recognition-date">Media</span>
+              <strong>
+                <a
+                  className="recognition-title-link"
+                  href="https://mp.weixin.qq.com/s/Q_Q9xwdPnEaffNV-SNBlyQ"
+                  target="_blank"
+                  rel="noreferrer"
+                  data-analytics-event="recognition-restacvla-zgca"
+                >
+                  IROS 2026系列成果之②｜ResTacVLA：让机器人感知视觉之外的“意外”
+                </a>
+              </strong>
+              <time dateTime="2026">2026</time>
+            </li>
+            <li data-reveal="up" data-reveal-delay="2">
               <span className="recognition-date">Profile</span>
               <strong>
                 <a
@@ -447,7 +479,7 @@ export default function Home() {
               </strong>
               <time dateTime="2024">2024</time>
             </li>
-            <li data-reveal="up" data-reveal-delay="2">
+            <li data-reveal="up" data-reveal-delay="3">
               <span className="recognition-date">Media</span>
               <strong>
                 <a

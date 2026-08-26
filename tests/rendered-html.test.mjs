@@ -109,6 +109,13 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /张鹏伟/);
   assert.match(html, />News<\/h2>/);
   assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
+  assert.match(html, /dateTime="2026-07-29">Jul 2026<\/time>/);
+  assert.match(html, /ResTacVLA was featured by Zhongguancun Academy/);
+  assert.match(
+    html,
+    /IROS 2026系列成果之②｜ResTacVLA：让机器人感知视觉之外的“意外”/,
+  );
+  assert.match(html, /Q_Q9xwdPnEaffNV-SNBlyQ/);
   assert.match(html, /dateTime="2026-05">May 2026<\/time>/);
   assert.match(html, /dateTime="2026-06">Jun 2026<\/time>/);
   assert.match(html, /I am fortunate to be supervised by/);
@@ -246,5 +253,5 @@ test("publishes crawler discovery files", async () => {
   );
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/cv\/<\/loc>/);
-  assert.match(sitemap, /<lastmod>2026-08-23<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-08-26<\/lastmod>/);
 });
