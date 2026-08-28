@@ -1247,6 +1247,11 @@ img {
   color: #ff2442;
 }
 
+.social-links .scholar-icon:hover,
+.social-links .scholar-icon:focus-visible {
+  color: #4285f4;
+}
+
 .share-control {
   position: relative;
   display: inline-flex;

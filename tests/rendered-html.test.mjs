@@ -59,6 +59,10 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /"@type":"ImageObject"/i);
   assert.match(html, /"primaryImageOfPage":\{"@id":"https:\/\/awilekong\.github\.io\/#profile-image"\}/i);
   assert.match(html, /Pengwei Zhang \(张鹏伟\) is a Ph\.D\. student/i);
+  assert.match(
+    html,
+    /https:\/\/scholar\.google\.com\/citations\?user=Fb-JqDYAAAAJ&amp;hl=zh-CN/i,
+  );
   assert.doesNotMatch(html, /rel="icon" href="[^"]*profile-search\.jpg"/i);
 });
 
@@ -176,6 +180,11 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(likeButton, /INITIAL_LIKE_COUNT = 7/);
   assert.match(likeButton, /api\.counterapi\.dev/);
   assert.match(html, /Share Pengwei Zhang/);
+  assert.match(html, /title="Google Scholar"/);
+  assert.ok(
+    html.indexOf('title="Google Scholar"') <
+      html.indexOf('title="GitHub"'),
+  );
   assert.ok(
     html.indexOf('title="Xiaohongshu"') <
       html.indexOf('title="Share homepage"'),

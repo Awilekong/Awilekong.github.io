@@ -67,6 +67,7 @@ const structuredData = {
         url: "https://en.bjtu.edu.cn/",
       },
       sameAs: [
+        "https://scholar.google.com/citations?user=Fb-JqDYAAAAJ&hl=zh-CN",
         "https://github.com/Awilekong",
         "https://www.xiaohongshu.com/user/profile/61112b75000000000101ca18",
       ],

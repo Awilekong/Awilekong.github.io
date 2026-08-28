@@ -1,5 +1,5 @@
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
-import { SiXiaohongshu } from "react-icons/si";
+import { SiGooglescholar, SiXiaohongshu } from "react-icons/si";
 import AbstractDisclosure from "./AbstractDisclosure";
 import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
@@ -513,6 +513,17 @@ export default function Home() {
             data-analytics-event="contact-email"
           >
             <FaEnvelope aria-hidden="true" />
+          </a>
+          <a
+            className="scholar-icon"
+            href="https://scholar.google.com/citations?user=Fb-JqDYAAAAJ&hl=zh-CN"
+            target="_blank"
+            rel="me noreferrer"
+            title="Google Scholar"
+            data-analytics-event="profile-google-scholar"
+          >
+            <SiGooglescholar aria-hidden="true" />
+            <span className="sr-only">Google Scholar</span>
           </a>
           <a
             className="github-icon"
