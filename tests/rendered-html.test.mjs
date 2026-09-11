@@ -113,10 +113,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /张鹏伟/);
   assert.match(html, />News<\/h2>/);
   assert.match(html, /dateTime="2026-09-10">Sep 2026<\/time>/);
-  assert.match(
-    html,
-    /IEEE Spectrum featured ResTacVLA in “Robots Are Learning to Feel,” highlighting our surprise-aware approach to tactile intelligence for contact-rich manipulation\./,
-  );
+  assert.match(html, />IEEE Spectrum<\/a>/);
+  assert.match(html, /featured ResTacVLA in “Robots Are Learning to Feel,”/);
   assert.match(
     html,
     /IEEE Spectrum 专题报道｜Robots Are Learning to Feel：ResTacVLA 迈向触觉驱动的 Physical AI/,
@@ -124,10 +122,8 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /spectrum\.ieee\.org\/tactile-data-robots/);
   assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
   assert.match(html, /dateTime="2026-07-29">Jul 2026<\/time>/);
-  assert.match(
-    html,
-    /Beijing Zhongguancun Academy spotlighted our ResTacVLA work in an official feature on frontier advances in vision–tactile embodied intelligence\./,
-  );
+  assert.match(html, />Beijing Zhongguancun Academy<\/a>/);
+  assert.match(html, /spotlighted our ResTacVLA work in an official feature/);
   assert.match(
     html,
     /北京中关村学院官方聚焦｜ResTacVLA：迈向更可靠的视觉–触觉具身智能新范式/,

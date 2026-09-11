@@ -134,10 +134,11 @@ const news = [
           rel="noreferrer"
           data-analytics-event="news-restacvla-ieee-spectrum"
         >
-          IEEE Spectrum featured ResTacVLA in “Robots Are Learning to Feel,”
-          highlighting our surprise-aware approach to tactile intelligence for
-          contact-rich manipulation.
-        </a>
+          IEEE Spectrum
+        </a>{" "}
+        featured ResTacVLA in “Robots Are Learning to Feel,” highlighting our
+        surprise-aware approach to tactile intelligence for contact-rich
+        manipulation.
       </>
     ),
   },
@@ -152,10 +153,10 @@ const news = [
           rel="noreferrer"
           data-analytics-event="news-restacvla-zgca-feature"
         >
-          Beijing Zhongguancun Academy spotlighted our ResTacVLA work in an
-          official feature on frontier advances in vision–tactile embodied
-          intelligence.
-        </a>
+          Beijing Zhongguancun Academy
+        </a>{" "}
+        spotlighted our ResTacVLA work in an official feature on frontier
+        advances in vision–tactile embodied intelligence.
       </>
     ),
   },
