@@ -124,6 +124,24 @@ const publications = {
 
 const news = [
   {
+    date: "Sep 2026",
+    dateTime: "2026-09-10",
+    content: (
+      <>
+        <a
+          href="https://spectrum.ieee.org/tactile-data-robots"
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="news-restacvla-ieee-spectrum"
+        >
+          IEEE Spectrum featured ResTacVLA in “Robots Are Learning to Feel,”
+          highlighting our surprise-aware approach to tactile intelligence for
+          contact-rich manipulation.
+        </a>
+      </>
+    ),
+  },
+  {
     date: "Jul 2026",
     dateTime: "2026-07-29",
     content: (
@@ -442,6 +460,22 @@ export default function Home() {
           </div>
           <ul className="recognition-list">
             <li data-reveal="up">
+              <span className="recognition-date">Media</span>
+              <strong>
+                <a
+                  className="recognition-title-link"
+                  href="https://spectrum.ieee.org/tactile-data-robots"
+                  target="_blank"
+                  rel="noreferrer"
+                  data-analytics-event="recognition-restacvla-ieee-spectrum"
+                >
+                  IEEE Spectrum 专题报道｜Robots Are Learning to Feel：ResTacVLA
+                  迈向触觉驱动的 Physical AI
+                </a>
+              </strong>
+              <time dateTime="2026">2026</time>
+            </li>
+            <li data-reveal="up" data-reveal-delay="1">
               <span className="recognition-date">Challenge</span>
               <strong>
                 Third Prize Winner of the ManiSkill-ViTac 2026 Challenge at CVPR
@@ -449,7 +483,7 @@ export default function Home() {
               </strong>
               <time dateTime="2026">2026</time>
             </li>
-            <li data-reveal="up" data-reveal-delay="1">
+            <li data-reveal="up" data-reveal-delay="2">
               <span className="recognition-date">Media</span>
               <strong>
                 <a
@@ -464,7 +498,7 @@ export default function Home() {
               </strong>
               <time dateTime="2026">2026</time>
             </li>
-            <li data-reveal="up" data-reveal-delay="2">
+            <li data-reveal="up" data-reveal-delay="3">
               <span className="recognition-date">Profile</span>
               <strong>
                 <a
@@ -480,7 +514,7 @@ export default function Home() {
               </strong>
               <time dateTime="2024">2024</time>
             </li>
-            <li data-reveal="up" data-reveal-delay="3">
+            <li data-reveal="up" data-reveal-delay="4">
               <span className="recognition-date">Media</span>
               <strong>
                 <a

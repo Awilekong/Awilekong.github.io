@@ -112,6 +112,16 @@ test("renders the v1 layout with the selected enhancements", async () => {
 
   assert.match(html, /张鹏伟/);
   assert.match(html, />News<\/h2>/);
+  assert.match(html, /dateTime="2026-09-10">Sep 2026<\/time>/);
+  assert.match(
+    html,
+    /IEEE Spectrum featured ResTacVLA in “Robots Are Learning to Feel,” highlighting our surprise-aware approach to tactile intelligence for contact-rich manipulation\./,
+  );
+  assert.match(
+    html,
+    /IEEE Spectrum 专题报道｜Robots Are Learning to Feel：ResTacVLA 迈向触觉驱动的 Physical AI/,
+  );
+  assert.match(html, /spectrum\.ieee\.org\/tactile-data-robots/);
   assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
   assert.match(html, /dateTime="2026-07-29">Jul 2026<\/time>/);
   assert.match(
@@ -265,5 +275,5 @@ test("publishes crawler discovery files", async () => {
   );
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/cv\/<\/loc>/);
-  assert.match(sitemap, /<lastmod>2026-08-26<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-09-12<\/lastmod>/);
 });
