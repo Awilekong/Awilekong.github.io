@@ -151,7 +151,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, />Abs</);
   assert.match(html, />Cite</);
   assert.match(html, /loading="lazy"/);
-  assert.match(html, /restacvla\.webp/);
+  assert.match(html, /restacvla-architecture\.webp/);
   assert.match(html, />First-author Papers<\/h3>/);
   assert.doesNotMatch(html, /Scholar Search/);
   assert.doesNotMatch(html, /class="profile-links"/);

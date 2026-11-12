@@ -787,8 +787,9 @@ img {
   height: 118px;
   border: 1px solid var(--divider);
   border-radius: 0.75rem;
-  background: #f2f3f2;
-  object-fit: cover;
+  background: #fff;
+  object-fit: contain;
+  padding: 5px;
   transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: filter, opacity, scale;
 }
