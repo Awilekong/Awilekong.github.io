@@ -26,5 +26,11 @@ npm install
 npm run dev
 ```
 
-Run `npm run build:pages` to create the static site in `out/`. The published
-website is served from the repository's `gh-pages` branch.
+Run `GITHUB_ACTIONS=true npm run build:pages` to export the static site to `out/`.
+
+GitHub Pages uses **Deploy from a branch**, with `gh-pages` and `/` as its
+publishing source. To publish an update, copy the contents of `out/` into a
+clean worktree of `gh-pages`, preserving its `.git` entry and `.nojekyll` file,
+then commit and push that branch. GitHub's built-in Pages workflow deploys
+these static files. Application source stays on `main`; a push to `main`
+alone does not update the live site in this configuration.
