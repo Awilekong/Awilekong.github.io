@@ -149,6 +149,46 @@ const publications: { accepted: Publication[]; preprints: Publication[] } = {
         },
       ],
     },
+    {
+      id: "mipd",
+      badge: "T-ITS 2025",
+      badgeColor: "#00629b",
+      image: "/mipd.webp",
+      imageWidth: 1400,
+      imageHeight: 716,
+      imageAlt: "MIPD multi-sensor vehicle platform and sensor observations",
+      title:
+        "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving",
+      authors: (
+        <>
+          Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang,{" "}
+          <strong>Pengwei Zhang</strong>, Wenzhuo Liu, Qiaoning Yang, Tianyu
+          Shen, Kunfeng Wang, and Huaping Liu
+        </>
+      ),
+      venue: "IEEE Transactions on Intelligent Transportation Systems, 26(11): 21320–21334, 2025",
+      abstract:
+        "MIPD combines camera, LiDAR, and 4D radar observations with sound, light intensity, vibration, and vehicle speed for embodied driving perception. The dataset contains 126 sequences and more than 8,500 synchronized, annotated frames covering challenging road and lighting conditions.",
+      citation:
+        'Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang, Pengwei Zhang, Wenzhuo Liu, Qiaoning Yang, Tianyu Shen, Kunfeng Wang, and Huaping Liu. "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving." IEEE Transactions on Intelligent Transportation Systems, vol. 26, no. 11, pp. 21320–21334, 2025. https://doi.org/10.1109/TITS.2025.3593298.',
+      bibtex: `@article{li2025mipd,
+  title={{MIPD}: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving},
+  author={Li, Zhiwei and Zhang, Tingzhen and Zhou, Meihua and Tang, Dandan and Zhang, Pengwei and Liu, Wenzhuo and Yang, Qiaoning and Shen, Tianyu and Wang, Kunfeng and Liu, Huaping},
+  journal={IEEE Transactions on Intelligent Transportation Systems},
+  volume={26},
+  number={11},
+  pages={21320--21334},
+  year={2025},
+  doi={10.1109/TITS.2025.3593298},
+  url={https://doi.org/10.1109/TITS.2025.3593298}
+}`,
+      links: [
+        { label: "Paper", href: "https://ieeexplore.ieee.org/document/11112801/" },
+        { label: "arXiv", href: "https://arxiv.org/abs/2411.05881" },
+        { label: "Code", href: "https://github.com/BUCT-IUSRC/Dataset__MIPD" },
+        { label: "DOI", href: "https://doi.org/10.1109/TITS.2025.3593298" },
+      ],
+    },
   ],
   preprints: [
     {

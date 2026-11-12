@@ -201,6 +201,44 @@ const structuredData = {
     },
     {
       "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#mipd`,
+      headline:
+        "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving",
+      author: [
+        { "@type": "Person", name: "Zhiwei Li" },
+        { "@type": "Person", name: "Tingzhen Zhang" },
+        { "@type": "Person", name: "Meihua Zhou" },
+        { "@type": "Person", name: "Dandan Tang" },
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Wenzhuo Liu" },
+        { "@type": "Person", name: "Qiaoning Yang" },
+        { "@type": "Person", name: "Tianyu Shen" },
+        { "@type": "Person", name: "Kunfeng Wang" },
+        { "@type": "Person", name: "Huaping Liu" },
+      ],
+      datePublished: "2025-11",
+      url: "https://doi.org/10.1109/TITS.2025.3593298",
+      sameAs: [
+        "https://ieeexplore.ieee.org/document/11112801/",
+        "https://arxiv.org/abs/2411.05881",
+      ],
+      identifier: "https://doi.org/10.1109/TITS.2025.3593298",
+      pagination: "21320–21334",
+      isPartOf: {
+        "@type": "PublicationIssue",
+        issueNumber: "11",
+        isPartOf: {
+          "@type": "PublicationVolume",
+          volumeNumber: "26",
+          isPartOf: {
+            "@type": "Periodical",
+            name: "IEEE Transactions on Intelligent Transportation Systems",
+          },
+        },
+      },
+    },
+    {
+      "@type": "ScholarlyArticle",
       "@id": `${siteUrl}/#dm0`,
       headline:
         "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI",
