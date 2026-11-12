@@ -60,8 +60,13 @@ export default function RoamingCat() {
       const point = position.current ?? { x: left, y: floor };
       const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
       lastTime = now;
+      const minY = Math.max(70, floor - 82);
       point.x = Math.max(left, Math.min(maxX, point.x));
-      point.y = Math.max(Math.max(70, floor - 82), Math.min(floor, point.y));
+      point.y = Math.max(minY, Math.min(floor, point.y));
+      if (target) {
+        target.x = Math.max(left, Math.min(maxX, target.x));
+        target.y = Math.max(minY, Math.min(floor, target.y));
+      }
       if (needsLayout) measureLinks();
 
       const loved = now < attention.current.loveUntil;
@@ -139,8 +144,8 @@ export default function RoamingCat() {
     }
 
     function layoutChanged() {
+      // Scrolling moves page links, not this fixed-position cat's destination.
       needsLayout = true;
-      target = null;
       start();
     }
 
