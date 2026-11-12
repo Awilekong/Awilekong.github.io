@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiGooglescholar, SiXiaohongshu } from "react-icons/si";
 import AbstractDisclosure from "./AbstractDisclosure";
@@ -6,7 +6,6 @@ import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
 import ShareButton from "./ShareButton";
-import { submissions } from "./submissions";
 
 type Publication = {
   id: string;
@@ -23,68 +22,160 @@ type Publication = {
   abstract?: string;
   citation: string;
   bibtex: string;
-  links: { label: string; href: string }[];
+  links: [{ label: string; href: string }, ...{ label: string; href: string }[]];
 };
 
-const publications: { accepted: Publication[]; preprints: Publication[] } = {
-  accepted: [
-    {
-      id: "restacvla",
-      badge: "IROS 2026",
-      badgeColor: "#00369f",
-      image: "/restacvla.webp",
-      imageWidth: 996,
-      imageHeight: 1030,
-      imageAlt: "Overview of the ResTacVLA method",
-      title:
-        "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation",
-      authors: (
-        <>
-          <strong>Pengwei Zhang</strong>, Bin Xie, Xinpan Meng, Xinyu Guo, Ce
-          Hao, Fang Deng, Long Cheng, and Tiancai Wang
-        </>
-      ),
-      venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026",
-      note: "Accepted",
-      abstract:
-        "ResTacVLA reformulates touch as the residual between visual expectation and physical sensation. Predictive-coding-inspired contact primitives and a surprise-aware gate help VLA policies prioritize tactile information during visually ambiguous contact phases.",
-      citation:
-        'Pengwei Zhang, Bin Xie, Xinpan Meng, Xinyu Guo, Ce Hao, Fang Deng, Long Cheng, and Tiancai Wang. "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026.',
-      bibtex: `@inproceedings{zhang2026restacvla,
+// Include only public arXiv or publisher records. Lead with first-author papers,
+// then DM0, then collaborations ordered by author position and recency.
+const publicationGroups: { id: string; title: string; papers: Publication[] }[] = [
+  {
+    id: "first-author-papers",
+    title: "First-author Papers",
+    papers: [
+      {
+        id: "restacvla",
+        badge: "IROS 2026",
+        badgeColor: "#00369f",
+        image: "/restacvla.webp",
+        imageWidth: 996,
+        imageHeight: 1030,
+        imageAlt: "Overview of the ResTacVLA method",
+        title:
+          "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation",
+        authors: (
+          <>
+            <strong>Pengwei Zhang</strong>, Bin Xie, Xinpan Meng, Xinyu Guo, Ce
+            Hao, Fang Deng, Long Cheng, and Tiancai Wang
+          </>
+        ),
+        venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026",
+        note: "Accepted",
+        abstract:
+          "ResTacVLA reformulates touch as the residual between visual expectation and physical sensation. Predictive-coding-inspired contact primitives and a surprise-aware gate help VLA policies prioritize tactile information during visually ambiguous contact phases.",
+        citation:
+          'Pengwei Zhang, Bin Xie, Xinpan Meng, Xinyu Guo, Ce Hao, Fang Deng, Long Cheng, and Tiancai Wang. "Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation." IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026.',
+        bibtex: `@inproceedings{zhang2026restacvla,
   title={Feeling the Unexpected: ResTacVLA for Contact-Rich Manipulation via Residual Tactile Representation},
   author={Zhang, Pengwei and Xie, Bin and Meng, Xinpan and Guo, Xinyu and Hao, Ce and Deng, Fang and Cheng, Long and Wang, Tiancai},
   booktitle={IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
   year={2026}
 }`,
-      links: [
-        { label: "Paper", href: "https://arxiv.org/abs/2607.03387" },
-        { label: "Project", href: "https://awilekong.github.io/ResTacVLA/" },
-        { label: "BibTeX", href: "https://arxiv.org/bibtex/2607.03387" },
-      ],
-    },
-    {
-      id: "touchthinker",
-      badge: "EMNLP 2026",
-      badgeColor: "#7253a2",
-      image: "/touchthinker.webp",
-      imageWidth: 793,
-      imageHeight: 198,
-      imageAlt: "Data overview of the TouchThinker framework",
-      title:
-        "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
-      authors: (
-        <>
-          Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
-          Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
-          Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
-        </>
-      ),
-      venue: "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
-      abstract:
-        "TouchThinker introduces a million-scale tactile reasoning dataset spanning 410 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
-      citation:
-        'Kailin Lyu, Di Wu, Pengwei Zhang, Yuhang Zheng, Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu, Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan. "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation." Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing, pages 43841–43858. Association for Computational Linguistics, 2026. https://doi.org/10.18653/2026.emnlp-main.1925.',
-      bibtex: `@inproceedings{lyu-etal-2026-touchthinker,
+        links: [
+          { label: "Paper", href: "https://arxiv.org/abs/2607.03387" },
+          { label: "Project", href: "https://awilekong.github.io/ResTacVLA/" },
+          { label: "BibTeX", href: "https://arxiv.org/bibtex/2607.03387" },
+        ],
+      },
+      {
+        id: "rehabilitation-assessment",
+        badge: "SCTS 2026",
+        badgeColor: "#00629b",
+        image: "/rehab.webp",
+        imageWidth: 1100,
+        imageHeight: 520,
+        imageAlt: "Rehabilitation assessment system article preview",
+        title:
+          "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera",
+        authors: (
+          <>
+            <strong>Pengwei Zhang</strong>, Long Cheng, and Yongxiang Zou
+          </>
+        ),
+        venue: "SCIENCE CHINA Technological Sciences, 2026",
+        abstract:
+          "This work combines depth-camera motion capture with YOLOv8-Pose and an interpretable Trajectory-ROM-Smooth scoring algorithm. Evaluation with 21 stroke patients shows close agreement with experienced physicians while capturing subtle rehabilitation progress at a finer granularity.",
+        citation:
+          'Pengwei Zhang, Long Cheng, and Yongxiang Zou. "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera." SCIENCE CHINA Technological Sciences, 2026. https://doi.org/10.1007/s11431-026-3364-3.',
+        bibtex: `@article{zhang2026rehabilitation,
+  title={A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera},
+  author={Zhang, Pengwei and Cheng, Long and Zou, Yongxiang},
+  journal={SCIENCE CHINA Technological Sciences},
+  year={2026},
+  doi={10.1007/s11431-026-3364-3}
+}`,
+        links: [
+          {
+            label: "Paper",
+            href: "https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3",
+          },
+          {
+            label: "DOI",
+            href: "https://doi.org/10.1007/s11431-026-3364-3",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "technical-reports",
+    title: "Technical Report",
+    papers: [
+      {
+        id: "dm0",
+        badge: "Technical Report",
+        badgeColor: "#64748b",
+        image: "/dm0.webp",
+        imageWidth: 1600,
+        imageHeight: 528,
+        imageAlt: "DM0 architecture connecting a vision-language backbone with a flow-matching action expert",
+        title:
+          "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI",
+        authors: (
+          <>
+            En Yu, Haoran Lv, Jianjian Sun, …, <strong>Pengwei Zhang</strong>,
+            …, Tiancai Wang
+          </>
+        ),
+        venue: "Technical report · arXiv:2602.14974, 2026",
+        abstract:
+          "DM0 unifies robotic manipulation and navigation through joint learning from web, autonomous driving, and embodied data. A vision-language backbone, flow-matching action expert, and spatial reasoning strategy connect semantic understanding with continuous robot control.",
+        citation:
+          'En Yu, Haoran Lv, Jianjian Sun, Kangheng Lin, Ruitao Zhang, Yukang Shi, Yuyang Chen, Ze Chen, Ziheng Zhang, Fan Jia, Kaixin Liu, Meng Zhang, Ruitao Hao, Saike Huang, Songhan Xie, Yu Liu, Zhao Wu, Bin Xie, Pengwei Zhang, Qi Yang, Xianchi Deng, Yunfei Wei, Enwen Zhang, Hongyang Peng, Jie Zhao, Kai Liu, Wei Sun, Yajun Wei, Yi Yang, Yunqiao Zhang, Ziwei Yan, Haitao Yang, Hao Liu, Haoqiang Fan, Haowei Zhang, Junwen Huang, Yang Chen, Yunchao Ma, Yunhuan Yang, Zhengyuan Du, Ziming Liu, Jiahui Niu, Yucheng Zhao, Daxin Jiang, Wenbin Tang, Xiangyu Zhang, Zheng Ge, Erjin Zhou, and Tiancai Wang. "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI." Technical report, arXiv:2602.14974, 2026. https://arxiv.org/abs/2602.14974.',
+        bibtex: `@misc{yu2026dm0,
+  title={DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI},
+  author={Yu, En and Lv, Haoran and Sun, Jianjian and Lin, Kangheng and Zhang, Ruitao and Shi, Yukang and Chen, Yuyang and Chen, Ze and Zhang, Ziheng and Jia, Fan and Liu, Kaixin and Zhang, Meng and Hao, Ruitao and Huang, Saike and Xie, Songhan and Liu, Yu and Wu, Zhao and Xie, Bin and Zhang, Pengwei and Yang, Qi and Deng, Xianchi and Wei, Yunfei and Zhang, Enwen and Peng, Hongyang and Zhao, Jie and Liu, Kai and Sun, Wei and Wei, Yajun and Yang, Yi and Zhang, Yunqiao and Yan, Ziwei and Yang, Haitao and Liu, Hao and Fan, Haoqiang and Zhang, Haowei and Huang, Junwen and Chen, Yang and Ma, Yunchao and Yang, Yunhuan and Du, Zhengyuan and Liu, Ziming and Niu, Jiahui and Zhao, Yucheng and Jiang, Daxin and Tang, Wenbin and Zhang, Xiangyu and Ge, Zheng and Zhou, Erjin and Wang, Tiancai},
+  year={2026},
+  note={Technical report},
+  eprint={2602.14974},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2602.14974}
+}`,
+        links: [
+          { label: "Paper", href: "https://arxiv.org/abs/2602.14974" },
+          { label: "Code", href: "https://github.com/Dexmal/dexbotic" },
+          { label: "BibTeX", href: "https://arxiv.org/bibtex/2602.14974" },
+        ],
+      },
+    ],
+  },
+  {
+    id: "co-authored-papers",
+    title: "Co-authored Papers",
+    papers: [
+      {
+        id: "touchthinker",
+        badge: "EMNLP 2026",
+        badgeColor: "#7253a2",
+        image: "/touchthinker.webp",
+        imageWidth: 793,
+        imageHeight: 198,
+        imageAlt: "Data overview of the TouchThinker framework",
+        title:
+          "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
+        authors: (
+          <>
+            Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
+            Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
+            Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
+          </>
+        ),
+        venue: "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+        abstract:
+          "TouchThinker introduces a million-scale tactile reasoning dataset spanning 410 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
+        citation:
+          'Kailin Lyu, Di Wu, Pengwei Zhang, Yuhang Zheng, Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu, Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan. "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation." Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing, pages 43841–43858. Association for Computational Linguistics, 2026. https://doi.org/10.18653/2026.emnlp-main.1925.',
+        bibtex: `@inproceedings{lyu-etal-2026-touchthinker,
   title={{T}ouch{T}hinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation},
   author={Lyu, Kailin and Wu, Di and Zhang, Pengwei and Zheng, Yuhang and Lai, Yingxin and Xiao, Long and Wu, Kangyi and Li, Pengna and Gao, Chen and Hu, Lianyu and Hu, Xiaobin and Hao, Jie and Hao, Ce and Yuan, Weihao and Yan, Shuicheng},
   booktitle={Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
@@ -96,83 +187,75 @@ const publications: { accepted: Publication[]; preprints: Publication[] } = {
   url={https://aclanthology.org/2026.emnlp-main.1925/},
   doi={10.18653/2026.emnlp-main.1925}
 }`,
-      links: [
-        {
-          label: "Paper",
-          href: "https://aclanthology.org/2026.emnlp-main.1925/",
-        },
-        { label: "arXiv", href: "https://arxiv.org/abs/2606.11637" },
-        {
-          label: "Code",
-          href: "https://github.com/lvkailin0118/TouchThinker",
-        },
-        {
-          label: "BibTeX",
-          href: "https://aclanthology.org/2026.emnlp-main.1925.bib",
-        },
-      ],
-    },
-    {
-      id: "rehabilitation-assessment",
-      badge: "SCTS 2026",
-      badgeColor: "#00629b",
-      image: "/rehab.webp",
-      imageWidth: 1100,
-      imageHeight: 520,
-      imageAlt: "Rehabilitation assessment system article preview",
-      title:
-        "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera",
-      authors: (
-        <>
-          <strong>Pengwei Zhang</strong>, Long Cheng, and Yongxiang Zou
-        </>
-      ),
-      venue: "SCIENCE CHINA Technological Sciences, 2026",
-      abstract:
-        "This work combines depth-camera motion capture with YOLOv8-Pose and an interpretable Trajectory-ROM-Smooth scoring algorithm. Evaluation with 21 stroke patients shows close agreement with experienced physicians while capturing subtle rehabilitation progress at a finer granularity.",
-      citation:
-        'Pengwei Zhang, Long Cheng, and Yongxiang Zou. "A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera." SCIENCE CHINA Technological Sciences, 2026. https://doi.org/10.1007/s11431-026-3364-3.',
-      bibtex: `@article{zhang2026rehabilitation,
-  title={A Fine-Grained, Comprehensive, and Quantitative Rehabilitation Assessment System Based on Depth Camera},
-  author={Zhang, Pengwei and Cheng, Long and Zou, Yongxiang},
-  journal={SCIENCE CHINA Technological Sciences},
-  year={2026},
-  doi={10.1007/s11431-026-3364-3}
+        links: [
+          {
+            label: "Paper",
+            href: "https://aclanthology.org/2026.emnlp-main.1925/",
+          },
+          { label: "arXiv", href: "https://arxiv.org/abs/2606.11637" },
+          {
+            label: "Code",
+            href: "https://github.com/lvkailin0118/TouchThinker",
+          },
+          {
+            label: "BibTeX",
+            href: "https://aclanthology.org/2026.emnlp-main.1925.bib",
+          },
+        ],
+      },
+      {
+        id: "monocular-depth-ranging",
+        badge: "ICCE-Taiwan 2023",
+        badgeColor: "#00629b",
+        title: "Customized Training and Application of Monocular Depth Ranging for Assisted Driving",
+        authors: (
+          <>
+            Jingwen Li, Chuhan Wang, <strong>Pengwei Zhang</strong>, Ruipeng Gao,
+            and Dan Tao
+          </>
+        ),
+        venue: "International Conference on Consumer Electronics – Taiwan (ICCE-Taiwan), pp. 391–392, 2023",
+        abstract:
+          "This work integrates monocular depth estimation with a Jetson Nano-based robot car. A depth model fine-tuned on KITTI converts camera images into depth maps, with experiments evaluating the combined hardware and software system for assisted driving.",
+        citation:
+          'Jingwen Li, Chuhan Wang, Pengwei Zhang, Ruipeng Gao, and Dan Tao. "Customized Training and Application of Monocular Depth Ranging for Assisted Driving." 2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan), pp. 391–392, 2023. https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619.',
+        bibtex: `@inproceedings{li2023monocular,
+  title={Customized Training and Application of Monocular Depth Ranging for Assisted Driving},
+  author={Li, Jingwen and Wang, Chuhan and Zhang, Pengwei and Gao, Ruipeng and Tao, Dan},
+  booktitle={2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan)},
+  pages={391--392},
+  year={2023},
+  doi={10.1109/ICCE-Taiwan58799.2023.10226619},
+  url={https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619}
 }`,
-      links: [
-        {
-          label: "Paper",
-          href: "https://www.sciengine.com/SCTS/doi/10.1007/s11431-026-3364-3",
-        },
-        {
-          label: "DOI",
-          href: "https://doi.org/10.1007/s11431-026-3364-3",
-        },
-      ],
-    },
-    {
-      id: "mipd",
-      badge: "T-ITS 2025",
-      badgeColor: "#00629b",
-      image: "/mipd.webp",
-      imageWidth: 1400,
-      imageHeight: 716,
-      imageAlt: "MIPD multi-sensor vehicle platform and sensor observations",
-      title:
-        "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving",
-      authors: (
-        <>
-          Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang,{" "}
-          <strong>Pengwei Zhang</strong>, Wenzhuo Liu, Qiaoning Yang, Tianyu
-          Shen, Kunfeng Wang, and Huaping Liu
-        </>
-      ),
-      venue: "IEEE Transactions on Intelligent Transportation Systems, 26(11): 21320–21334, 2025",
-      abstract:
-        "MIPD combines camera, LiDAR, and 4D radar observations with sound, light intensity, vibration, and vehicle speed for embodied driving perception. The dataset contains 126 sequences and more than 8,500 synchronized, annotated frames covering challenging road and lighting conditions.",
-      citation:
-        'Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang, Pengwei Zhang, Wenzhuo Liu, Qiaoning Yang, Tianyu Shen, Kunfeng Wang, and Huaping Liu. "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving." IEEE Transactions on Intelligent Transportation Systems, vol. 26, no. 11, pp. 21320–21334, 2025. https://doi.org/10.1109/TITS.2025.3593298.',
-      bibtex: `@article{li2025mipd,
+        links: [
+          { label: "Paper", href: "https://ieeexplore.ieee.org/document/10226619/" },
+          { label: "DOI", href: "https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619" },
+        ],
+      },
+      {
+        id: "mipd",
+        badge: "T-ITS 2025",
+        badgeColor: "#00629b",
+        image: "/mipd.webp",
+        imageWidth: 1400,
+        imageHeight: 716,
+        imageAlt: "MIPD multi-sensor vehicle platform and sensor observations",
+        title:
+          "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving",
+        authors: (
+          <>
+            Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang,{" "}
+            <strong>Pengwei Zhang</strong>, Wenzhuo Liu, Qiaoning Yang, Tianyu
+            Shen, Kunfeng Wang, and Huaping Liu
+          </>
+        ),
+        venue: "IEEE Transactions on Intelligent Transportation Systems, 26(11): 21320–21334, 2025",
+        abstract:
+          "MIPD combines camera, LiDAR, and 4D radar observations with sound, light intensity, vibration, and vehicle speed for embodied driving perception. The dataset contains 126 sequences and more than 8,500 synchronized, annotated frames covering challenging road and lighting conditions.",
+        citation:
+          'Zhiwei Li, Tingzhen Zhang, Meihua Zhou, Dandan Tang, Pengwei Zhang, Wenzhuo Liu, Qiaoning Yang, Tianyu Shen, Kunfeng Wang, and Huaping Liu. "MIPD: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving." IEEE Transactions on Intelligent Transportation Systems, vol. 26, no. 11, pp. 21320–21334, 2025. https://doi.org/10.1109/TITS.2025.3593298.',
+        bibtex: `@article{li2025mipd,
   title={{MIPD}: A Multi-Sensory Interactive Perception Dataset for Embodied Intelligent Driving},
   author={Li, Zhiwei and Zhang, Tingzhen and Zhou, Meihua and Tang, Dandan and Zhang, Pengwei and Liu, Wenzhuo and Yang, Qiaoning and Shen, Tianyu and Wang, Kunfeng and Liu, Huaping},
   journal={IEEE Transactions on Intelligent Transportation Systems},
@@ -183,104 +266,16 @@ const publications: { accepted: Publication[]; preprints: Publication[] } = {
   doi={10.1109/TITS.2025.3593298},
   url={https://doi.org/10.1109/TITS.2025.3593298}
 }`,
-      links: [
-        { label: "Paper", href: "https://ieeexplore.ieee.org/document/11112801/" },
-        { label: "arXiv", href: "https://arxiv.org/abs/2411.05881" },
-        { label: "Code", href: "https://github.com/BUCT-IUSRC/Dataset__MIPD" },
-        { label: "DOI", href: "https://doi.org/10.1109/TITS.2025.3593298" },
-      ],
-    },
-    {
-      id: "monocular-depth-ranging",
-      badge: "ICCE-Taiwan 2023",
-      badgeColor: "#00629b",
-      title: "Customized Training and Application of Monocular Depth Ranging for Assisted Driving",
-      authors: (
-        <>
-          Jingwen Li, Chuhan Wang, <strong>Pengwei Zhang</strong>, Ruipeng Gao,
-          and Dan Tao
-        </>
-      ),
-      venue: "International Conference on Consumer Electronics – Taiwan (ICCE-Taiwan), pp. 391–392, 2023",
-      abstract:
-        "This work integrates monocular depth estimation with a Jetson Nano-based robot car. A depth model fine-tuned on KITTI converts camera images into depth maps, with experiments evaluating the combined hardware and software system for assisted driving.",
-      citation:
-        'Jingwen Li, Chuhan Wang, Pengwei Zhang, Ruipeng Gao, and Dan Tao. "Customized Training and Application of Monocular Depth Ranging for Assisted Driving." 2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan), pp. 391–392, 2023. https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619.',
-      bibtex: `@inproceedings{li2023monocular,
-  title={Customized Training and Application of Monocular Depth Ranging for Assisted Driving},
-  author={Li, Jingwen and Wang, Chuhan and Zhang, Pengwei and Gao, Ruipeng and Tao, Dan},
-  booktitle={2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan)},
-  pages={391--392},
-  year={2023},
-  doi={10.1109/ICCE-Taiwan58799.2023.10226619},
-  url={https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619}
-}`,
-      links: [
-        { label: "Paper", href: "https://ieeexplore.ieee.org/document/10226619/" },
-        { label: "DOI", href: "https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619" },
-      ],
-    },
-  ],
-  preprints: [
-    ...submissions.map((paper): Publication => ({
-      id: paper.id,
-      badge: "Submitted",
-      badgeColor: "#64748b",
-      title: paper.title,
-      authors: paper.authors.map((author, index) => (
-        <span key={author}>
-          {index > 0 ? (index === paper.authors.length - 1 ? ", and " : ", ") : ""}
-          {author === "Pengwei Zhang" ? <strong>{author}</strong> : author}
-        </span>
-      )),
-      venue: `${paper.venue} submission`,
-      citation: `${paper.authors.join(", ")}. "${paper.title}." Manuscript submitted to ${paper.venue}, 2026.`,
-      bibtex: `@unpublished{${paper.id.replaceAll("-", "")}2026,
-  title={${paper.title}},
-  author={${paper.authors.join(" and ")}},
-  year={2026},
-  note={Submitted to ${paper.venue}}
-}`,
-      links: [],
-    })),
-    {
-      id: "dm0",
-      badge: "Preprint",
-      badgeColor: "#64748b",
-      image: "/dm0.webp",
-      imageWidth: 1600,
-      imageHeight: 528,
-      imageAlt: "DM0 architecture connecting a vision-language backbone with a flow-matching action expert",
-      title:
-        "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI",
-      authors: (
-        <>
-          En Yu, Haoran Lv, Jianjian Sun, …, <strong>Pengwei Zhang</strong>,
-          …, Tiancai Wang
-        </>
-      ),
-      venue: "arXiv preprint, 2026",
-      abstract:
-        "DM0 unifies robotic manipulation and navigation through joint learning from web, autonomous driving, and embodied data. A vision-language backbone, flow-matching action expert, and spatial reasoning strategy connect semantic understanding with continuous robot control.",
-      citation:
-        'En Yu, Haoran Lv, Jianjian Sun, Kangheng Lin, Ruitao Zhang, Yukang Shi, Yuyang Chen, Ze Chen, Ziheng Zhang, Fan Jia, Kaixin Liu, Meng Zhang, Ruitao Hao, Saike Huang, Songhan Xie, Yu Liu, Zhao Wu, Bin Xie, Pengwei Zhang, Qi Yang, Xianchi Deng, Yunfei Wei, Enwen Zhang, Hongyang Peng, Jie Zhao, Kai Liu, Wei Sun, Yajun Wei, Yi Yang, Yunqiao Zhang, Ziwei Yan, Haitao Yang, Hao Liu, Haoqiang Fan, Haowei Zhang, Junwen Huang, Yang Chen, Yunchao Ma, Yunhuan Yang, Zhengyuan Du, Ziming Liu, Jiahui Niu, Yucheng Zhao, Daxin Jiang, Wenbin Tang, Xiangyu Zhang, Zheng Ge, Erjin Zhou, and Tiancai Wang. "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI." arXiv preprint arXiv:2602.14974, 2026. https://arxiv.org/abs/2602.14974.',
-      bibtex: `@misc{yu2026dm0,
-  title={DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI},
-  author={Yu, En and Lv, Haoran and Sun, Jianjian and Lin, Kangheng and Zhang, Ruitao and Shi, Yukang and Chen, Yuyang and Chen, Ze and Zhang, Ziheng and Jia, Fan and Liu, Kaixin and Zhang, Meng and Hao, Ruitao and Huang, Saike and Xie, Songhan and Liu, Yu and Wu, Zhao and Xie, Bin and Zhang, Pengwei and Yang, Qi and Deng, Xianchi and Wei, Yunfei and Zhang, Enwen and Peng, Hongyang and Zhao, Jie and Liu, Kai and Sun, Wei and Wei, Yajun and Yang, Yi and Zhang, Yunqiao and Yan, Ziwei and Yang, Haitao and Liu, Hao and Fan, Haoqiang and Zhang, Haowei and Huang, Junwen and Chen, Yang and Ma, Yunchao and Yang, Yunhuan and Du, Zhengyuan and Liu, Ziming and Niu, Jiahui and Zhao, Yucheng and Jiang, Daxin and Tang, Wenbin and Zhang, Xiangyu and Ge, Zheng and Zhou, Erjin and Wang, Tiancai},
-  year={2026},
-  eprint={2602.14974},
-  archivePrefix={arXiv},
-  primaryClass={cs.RO},
-  url={https://arxiv.org/abs/2602.14974}
-}`,
-      links: [
-        { label: "Paper", href: "https://arxiv.org/abs/2602.14974" },
-        { label: "Code", href: "https://github.com/Dexmal/dexbotic" },
-        { label: "BibTeX", href: "https://arxiv.org/bibtex/2602.14974" },
-      ],
-    },
-  ],
-};
+        links: [
+          { label: "Paper", href: "https://ieeexplore.ieee.org/document/11112801/" },
+          { label: "arXiv", href: "https://arxiv.org/abs/2411.05881" },
+          { label: "Code", href: "https://github.com/BUCT-IUSRC/Dataset__MIPD" },
+          { label: "DOI", href: "https://doi.org/10.1109/TITS.2025.3593298" },
+        ],
+      },
+    ],
+  },
+];
 
 const news = [
   {
@@ -398,7 +393,7 @@ function PublicationCard({
     >
       <div className={`publication-row${publication.image ? "" : " publication-row-text"}`}>
         <div className="publication-preview">
-          {publication.links.length > 0 ? <a
+          <a
             className="venue-badge"
             href={publication.links[0].href}
             style={{ backgroundColor: publication.badgeColor }}
@@ -407,11 +402,7 @@ function PublicationCard({
             data-analytics-event={`${publication.id}-badge`}
           >
             {publication.badge}
-          </a> : (
-            <span className="venue-badge" style={{ backgroundColor: publication.badgeColor }}>
-              {publication.badge}
-            </span>
-          )}
+          </a>
           {publication.image ? <a
             className="publication-image-link"
             href={publication.links[0].href}
@@ -431,7 +422,7 @@ function PublicationCard({
         </div>
 
         <div className="publication-details">
-          <h3>{publication.title}</h3>
+          <h4>{publication.title}</h4>
           <p className="authors">{publication.authors}</p>
           <p className="periodical">
             <em>{publication.venue}</em>
@@ -604,37 +595,22 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="publication-group-heading" data-reveal="up">
-            <h3>Peer-reviewed &amp; Accepted</h3>
-            <span>Published research</span>
-          </div>
-          <ol className="bibliography">
-            {publications.accepted.map((publication, index) => (
-              <PublicationCard
-                publication={publication}
-                key={publication.title}
-                revealDelay={index}
-              />
-            ))}
-          </ol>
-
-          {publications.preprints.length > 0 && (
-            <>
+          {publicationGroups.map((group) => (
+            <Fragment key={group.id}>
               <div className="publication-group-heading" data-reveal="up">
-                <h3>Preprints &amp; Under Review</h3>
-                <span>Latest work</span>
+                <h3 id={group.id}>{group.title}</h3>
               </div>
-              <ol className="bibliography">
-                {publications.preprints.map((publication, index) => (
+              <ol className="bibliography" aria-labelledby={group.id}>
+                {group.papers.map((publication, index) => (
                   <PublicationCard
                     publication={publication}
-                    key={publication.title}
+                    key={publication.id}
                     revealDelay={index}
                   />
                 ))}
               </ol>
-            </>
-          )}
+            </Fragment>
+          ))}
 
           <div
             className="publication-group-heading recognition-heading"

@@ -152,7 +152,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, />Cite</);
   assert.match(html, /loading="lazy"/);
   assert.match(html, /restacvla\.webp/);
-  assert.match(html, /Published research|Latest work/);
+  assert.match(html, />First-author Papers<\/h3>/);
   assert.doesNotMatch(html, /Scholar Search/);
   assert.doesNotMatch(html, /class="profile-links"/);
   assert.match(html, /mailto:zhangpengwei2024@ia\.ac\.cn/);

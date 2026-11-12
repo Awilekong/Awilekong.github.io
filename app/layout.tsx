@@ -5,7 +5,6 @@ import Analytics from "./Analytics";
 import PageProgress from "./PageProgress";
 import RevealOnScroll from "./RevealOnScroll";
 import SiteChrome from "./SiteChrome";
-import { submissions } from "./submissions";
 import "./globals.css";
 
 const title = "Pengwei Zhang (张鹏伟) · Robot Learning & Tactile Intelligence";
@@ -20,19 +19,6 @@ const profileImageUrl = `${siteUrl}/profile-search.jpg`;
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    ...submissions.map((paper) => ({
-      "@type": "ScholarlyArticle",
-      "@id": `${siteUrl}/#${paper.id}`,
-      headline: paper.title,
-      author: paper.authors.map((name) =>
-        name === "Pengwei Zhang"
-          ? { "@id": `${siteUrl}/#person` }
-          : { "@type": "Person", name },
-      ),
-      dateCreated: paper.submitted,
-      creativeWorkStatus: "Submitted",
-      description: `Manuscript submitted to ${paper.venue}.`,
-    })),
     {
       "@type": "ImageObject",
       "@id": `${siteUrl}/#profile-image`,
@@ -331,9 +317,10 @@ const structuredData = {
       url: "https://arxiv.org/abs/2602.14974",
       sameAs: "https://doi.org/10.48550/arXiv.2602.14974",
       identifier: "arXiv:2602.14974",
+      genre: "Technical report",
       isPartOf: {
         "@type": "CreativeWork",
-        name: "arXiv preprint",
+        name: "arXiv",
       },
     },
   ],
