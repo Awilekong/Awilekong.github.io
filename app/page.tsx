@@ -6,6 +6,7 @@ import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
 import ShareButton from "./ShareButton";
+import RoamingCat from "./RoamingCat";
 
 type Publication = {
   id: string;
@@ -786,6 +787,7 @@ export default function Home() {
           <ShareButton />
         </div>
       </article>
+      <RoamingCat />
     </main>
   );
 }

@@ -1,0 +1,220 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import "./roaming-cat.css";
+
+type Position = { x: number; y: number };
+
+export default function RoamingCat() {
+  const [paused, setPaused] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const cat = useRef<HTMLDivElement>(null);
+  const position = useRef<Position | null>(null);
+  const attention = useRef({ hover: false, focus: false, loveUntil: 0 });
+  const wake = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    const element = cat.current;
+    if (!element || hidden) return;
+
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let lastTime = 0;
+    let restUntil = performance.now() + 1800;
+    let target: Position | null = null;
+    let obstacles: DOMRect[] = [];
+    let needsLayout = true;
+
+    function bounds() {
+      const size = element!.offsetWidth;
+      const width = document.documentElement.clientWidth;
+      return {
+        minX: Math.min(138, width * 0.3),
+        maxX: Math.max(12, width - size - 64),
+        floor: Math.max(70, window.innerHeight - element!.offsetHeight - 14),
+      };
+    }
+
+    function measureLinks() {
+      obstacles = Array.from(document.querySelectorAll<HTMLElement>(
+        "a, button, summary, input, textarea, select, [role='button']",
+      ))
+        .filter((node) => !node.closest("[data-cat-ui]"))
+        .map((node) => node.getBoundingClientRect())
+        .filter((rect) => rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < window.innerHeight);
+      needsLayout = false;
+    }
+
+    function tick(now: number) {
+      frame = 0;
+      if (document.hidden) return;
+      const { minX, maxX, floor } = bounds();
+      const left = Math.min(minX, maxX);
+      const point = position.current ?? { x: left, y: floor };
+      const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
+      lastTime = now;
+      point.x = Math.max(left, Math.min(maxX, point.x));
+      point.y = Math.max(Math.max(70, floor - 82), Math.min(floor, point.y));
+      if (needsLayout) measureLinks();
+
+      const loved = now < attention.current.loveUntil;
+      const sleeping = paused || motion.matches;
+      let mood = sleeping ? "sleep" : "idle";
+
+      if (loved || attention.current.hover || attention.current.focus || sleeping) {
+        target = null;
+        restUntil = now + 900;
+        if (loved) mood = "love";
+      } else if (now >= restUntil) {
+        if (!target) {
+          // Alternate short curious strolls and longer dashes along the page edge.
+          const randomX = left + Math.random() * (maxX - left);
+          target = { x: randomX, y: floor - Math.random() * Math.min(72, floor - 70) };
+          element!.style.setProperty("--cat-facing", randomX >= point.x ? "1" : "-1");
+        }
+        const dx = target.x - point.x;
+        const dy = target.y - point.y;
+        const distance = Math.hypot(dx, dy);
+        const step = dt * (window.innerWidth < 600 ? 85 : 130);
+        if (distance <= Math.max(step, 2)) {
+          point.x = target.x;
+          point.y = target.y;
+          target = null;
+          restUntil = now + 1600 + Math.random() * 2400;
+        } else {
+          point.x += (dx / distance) * step;
+          point.y += (dy / distance) * step;
+          mood = "run";
+        }
+      }
+
+      position.current = point;
+      element!.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
+      element!.dataset.mood = mood;
+      element!.dataset.ready = "true";
+
+      // Paper links and other page controls keep their click/touch targets.
+      const size = element!.offsetWidth;
+      const overlapsLink = obstacles.some((rect) =>
+        rect.left < point.x + size && rect.right > point.x &&
+        rect.top < point.y + element!.offsetHeight && rect.bottom > point.y,
+      );
+      element!.dataset.overlap = String(overlapsLink);
+      if (!sleeping || loved) frame = requestAnimationFrame(tick);
+    }
+
+    function start() {
+      if (!frame && !document.hidden) {
+        lastTime = 0;
+        frame = requestAnimationFrame(tick);
+      }
+    }
+
+    function layoutChanged() {
+      needsLayout = true;
+      target = null;
+      start();
+    }
+
+    function visibilityChanged() {
+      element!.dataset.background = String(document.hidden);
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else {
+        layoutChanged();
+      }
+    }
+
+    wake.current = start;
+    start();
+    window.addEventListener("resize", layoutChanged);
+    window.addEventListener("scroll", layoutChanged, { passive: true });
+    const resizeObserver = new ResizeObserver(layoutChanged);
+    resizeObserver.observe(document.body);
+    document.addEventListener("visibilitychange", visibilityChanged);
+    motion.addEventListener("change", start);
+    return () => {
+      cancelAnimationFrame(frame);
+      wake.current = () => {};
+      window.removeEventListener("resize", layoutChanged);
+      window.removeEventListener("scroll", layoutChanged);
+      document.removeEventListener("visibilitychange", visibilityChanged);
+      motion.removeEventListener("change", start);
+      resizeObserver.disconnect();
+    };
+  }, [paused, hidden]);
+
+  function pet() {
+    attention.current.loveUntil = performance.now() + 2300;
+    wake.current();
+  }
+
+  return (
+    <aside className="cat-companion" aria-label="Xiaoguo the cat" data-cat-ui>
+      {!hidden && (
+        <div className="roaming-cat" ref={cat} data-mood="idle">
+          <span className="cat-bubble" aria-hidden="true">喵～ ♡</span>
+          <span className="cat-snooze" aria-hidden="true">z z Z</span>
+          <span className="cat-hearts" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i></span>
+          <button
+            className="cat-pet"
+            type="button"
+            aria-label="Pet Xiaoguo the cat"
+            title="摸摸小果 · Pet Xiaoguo"
+            onClick={pet}
+            onPointerEnter={(event) => { if (event.pointerType === "mouse") attention.current.hover = true; }}
+            onPointerLeave={() => { attention.current.hover = false; }}
+            onFocus={(event) => { attention.current.focus = event.currentTarget.matches(":focus-visible"); }}
+            onBlur={() => { attention.current.focus = false; }}
+          >
+            <svg className="cat-art" viewBox="0 0 128 108" fill="none" aria-hidden="true">
+              <ellipse className="cat-shadow" cx="66" cy="98" rx="37" ry="5" fill="#172130" opacity=".15" />
+              <g className="cat-sprite" stroke="#697080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path className="cat-tail" d="M44 76C17 79 12 53 20 39C26 30 35 35 31 43C21 58 29 66 45 64" fill="#b6bdcc" />
+                <g className="cat-body">
+                  <ellipse cx="64" cy="71" rx="29" ry="22" fill="#c9cedb" />
+                  <ellipse cx="72" cy="76" rx="16" ry="17" fill="#f7f4f0" stroke="none" />
+                  <path d="m42 59 9 5m-13 3 9 4m-8 4 8 3" stroke="#929bad" strokeWidth="4" />
+                  <path className="cat-paw cat-paw-back" d="M43 81v9c0 8 18 8 18 0v-6" fill="#edf0f4" />
+                  <path className="cat-paw cat-paw-front" d="M73 80v11c0 8 18 8 18 0V79" fill="#f7f4f0" />
+                </g>
+                <g className="cat-head">
+                  <path d="M51 37 49 9Q50 3 55 7l21 14M89 20l18-15q5-3 6 3l-2 31" fill="#c9cedb" />
+                  <path d="m54 15 2 20 14-11m28 0 10-11-2 23" fill="#f3b9c5" stroke="none" />
+                  <path d="M48 42c0-18 14-25 32-25s34 9 34 27c0 20-16 28-34 28S47 63 48 42Z" fill="#dce0e9" />
+                  <path d="m73 20 2 8m7-9v8m9-6-3 7M51 39l8 3m-9 5 8 2m53-9-8 3m9 5-8 2" stroke="#a0aabc" strokeWidth="3.8" />
+                  <ellipse cx="80" cy="56" rx="19" ry="12" fill="#fff9f4" stroke="none" />
+                  <g className="cat-eyes" fill="#35404e" stroke="none">
+                    <ellipse cx="66" cy="44" rx="5.7" ry="7.3" /><ellipse cx="95" cy="44" rx="5.7" ry="7.3" />
+                    <circle cx="64.5" cy="41.5" r="2" fill="white" /><circle cx="93.5" cy="41.5" r="2" fill="white" />
+                  </g>
+                  <g className="cat-happy-eyes" stroke="#586275" strokeWidth="2.8"><path d="M61 45q5-7 10 0m19 0q5-7 10 0" /></g>
+                  <ellipse cx="58" cy="53" rx="6" ry="3.5" fill="#efb1c0" opacity=".75" stroke="none" />
+                  <ellipse cx="103" cy="53" rx="6" ry="3.5" fill="#efb1c0" opacity=".75" stroke="none" />
+                  <path d="M77 52q3-2 6 0l-3 3Z" fill="#df9ba9" stroke="#c98999" strokeWidth="1.3" />
+                  <path d="M80 55v3m-6 0q3 5 6 0 3 5 6 0" strokeWidth="1.7" />
+                  <path d="m45 51 12 2m-10 5 10-1m48-4 13-2m-12 6 11 1" stroke="#929bad" strokeWidth="1.5" />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      )}
+      <div className="cat-dock">
+        {hidden ? (
+          <button type="button" onClick={() => setHidden(false)} aria-label="Bring Xiaoguo back" title="叫小果回来">
+            <span aria-hidden="true">🐾</span> Xiaoguo
+          </button>
+        ) : (
+          <>
+            <button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused} aria-label={paused ? "Wake Xiaoguo" : "Pause Xiaoguo"} title={paused ? "叫醒小果" : "让小果休息"}>
+              <span aria-hidden="true">{paused ? "☀" : "☾"}</span> {paused ? "Wake up" : "Xiaoguo"}
+            </button>
+            <button className="cat-dismiss" type="button" aria-label="Hide Xiaoguo" title="小果先去休息" onClick={() => { attention.current.hover = false; attention.current.focus = false; setHidden(true); }}>×</button>
+          </>
+        )}
+      </div>
+    </aside>
+  );
+}
