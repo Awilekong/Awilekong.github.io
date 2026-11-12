@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { FaEnvelope, FaGithub } from "react-icons/fa6";
 import { SiGooglescholar, SiXiaohongshu } from "react-icons/si";
 import AbstractDisclosure from "./AbstractDisclosure";
@@ -6,7 +7,25 @@ import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
 import ShareButton from "./ShareButton";
 
-const publications = {
+type Publication = {
+  id: string;
+  badge: string;
+  badgeColor: string;
+  image: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
+  title: string;
+  authors: ReactNode;
+  venue: string;
+  note?: string;
+  abstract: string;
+  citation: string;
+  bibtex: string;
+  links: { label: string; href: string }[];
+};
+
+const publications: { accepted: Publication[]; preprints: Publication[] } = {
   accepted: [
     {
       id: "restacvla",
@@ -40,6 +59,56 @@ const publications = {
         { label: "Paper", href: "https://arxiv.org/abs/2607.03387" },
         { label: "Project", href: "https://awilekong.github.io/ResTacVLA/" },
         { label: "BibTeX", href: "https://arxiv.org/bibtex/2607.03387" },
+      ],
+    },
+    {
+      id: "touchthinker",
+      badge: "EMNLP 2026",
+      badgeColor: "#7253a2",
+      image: "/touchthinker.webp",
+      imageWidth: 793,
+      imageHeight: 198,
+      imageAlt: "Data overview of the TouchThinker framework",
+      title:
+        "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
+      authors: (
+        <>
+          Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
+          Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
+          Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
+        </>
+      ),
+      venue: "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+      abstract:
+        "TouchThinker introduces a million-scale tactile reasoning dataset spanning 410 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
+      citation:
+        'Kailin Lyu, Di Wu, Pengwei Zhang, Yuhang Zheng, Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu, Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan. "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation." Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing, pages 43841–43858. Association for Computational Linguistics, 2026. https://doi.org/10.18653/2026.emnlp-main.1925.',
+      bibtex: `@inproceedings{lyu-etal-2026-touchthinker,
+  title={{T}ouch{T}hinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation},
+  author={Lyu, Kailin and Wu, Di and Zhang, Pengwei and Zheng, Yuhang and Lai, Yingxin and Xiao, Long and Wu, Kangyi and Li, Pengna and Gao, Chen and Hu, Lianyu and Hu, Xiaobin and Hao, Jie and Hao, Ce and Yuan, Weihao and Yan, Shuicheng},
+  booktitle={Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
+  month=oct,
+  year={2026},
+  address={Budapest, Hungary},
+  publisher={Association for Computational Linguistics},
+  pages={43841--43858},
+  url={https://aclanthology.org/2026.emnlp-main.1925/},
+  doi={10.18653/2026.emnlp-main.1925}
+}`,
+      links: [
+        {
+          label: "Paper",
+          href: "https://aclanthology.org/2026.emnlp-main.1925/",
+        },
+        { label: "arXiv", href: "https://arxiv.org/abs/2606.11637" },
+        {
+          label: "Code",
+          href: "https://github.com/lvkailin0118/TouchThinker",
+        },
+        {
+          label: "BibTeX",
+          href: "https://aclanthology.org/2026.emnlp-main.1925.bib",
+        },
       ],
     },
     {
@@ -83,46 +152,62 @@ const publications = {
   ],
   preprints: [
     {
-      id: "touchthinker",
+      id: "dm0",
       badge: "Preprint",
       badgeColor: "#64748b",
-      image: "/touchthinker.webp",
-      imageWidth: 793,
-      imageHeight: 198,
-      imageAlt: "Data overview of the TouchThinker framework",
+      image: "/dm0.webp",
+      imageWidth: 1600,
+      imageHeight: 528,
+      imageAlt: "DM0 architecture connecting a vision-language backbone with a flow-matching action expert",
       title:
-        "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",
+        "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI",
       authors: (
         <>
-          Kailin Lyu, Di Wu, <strong>Pengwei Zhang</strong>, Yuhang Zheng,
-          Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu,
-          Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan
+          En Yu, Haoran Lv, Jianjian Sun, …, <strong>Pengwei Zhang</strong>,
+          …, Tiancai Wang
         </>
       ),
       venue: "arXiv preprint, 2026",
       abstract:
-        "TouchThinker introduces a million-scale tactile reasoning dataset spanning 415 objects, eight scenarios, and seven sensor types. Its action-aware representation focuses reasoning on informative interaction segments and improves open-world tactile commonsense reasoning.",
+        "DM0 unifies robotic manipulation and navigation through joint learning from web, autonomous driving, and embodied data. A vision-language backbone, flow-matching action expert, and spatial reasoning strategy connect semantic understanding with continuous robot control.",
       citation:
-        'Kailin Lyu, Di Wu, Pengwei Zhang, Yuhang Zheng, Yingxin Lai, Long Xiao, Kangyi Wu, Pengna Li, Chen Gao, Lianyu Hu, Xiaobin Hu, Jie Hao, Ce Hao, Weihao Yuan, and Shuicheng Yan. "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation." arXiv preprint arXiv:2606.11637, 2026.',
-      bibtex: `@article{lyu2026touchthinker,
-  title={TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation},
-  author={Lyu, Kailin and Wu, Di and Zhang, Pengwei and Zheng, Yuhang and Lai, Yingxin and Xiao, Long and Wu, Kangyi and Li, Pengna and Gao, Chen and Hu, Lianyu and Hu, Xiaobin and Hao, Jie and Hao, Ce and Yuan, Weihao and Yan, Shuicheng},
-  journal={arXiv preprint arXiv:2606.11637},
-  year={2026}
+        'En Yu, Haoran Lv, Jianjian Sun, Kangheng Lin, Ruitao Zhang, Yukang Shi, Yuyang Chen, Ze Chen, Ziheng Zhang, Fan Jia, Kaixin Liu, Meng Zhang, Ruitao Hao, Saike Huang, Songhan Xie, Yu Liu, Zhao Wu, Bin Xie, Pengwei Zhang, Qi Yang, Xianchi Deng, Yunfei Wei, Enwen Zhang, Hongyang Peng, Jie Zhao, Kai Liu, Wei Sun, Yajun Wei, Yi Yang, Yunqiao Zhang, Ziwei Yan, Haitao Yang, Hao Liu, Haoqiang Fan, Haowei Zhang, Junwen Huang, Yang Chen, Yunchao Ma, Yunhuan Yang, Zhengyuan Du, Ziming Liu, Jiahui Niu, Yucheng Zhao, Daxin Jiang, Wenbin Tang, Xiangyu Zhang, Zheng Ge, Erjin Zhou, and Tiancai Wang. "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI." arXiv preprint arXiv:2602.14974, 2026. https://arxiv.org/abs/2602.14974.',
+      bibtex: `@misc{yu2026dm0,
+  title={DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI},
+  author={Yu, En and Lv, Haoran and Sun, Jianjian and Lin, Kangheng and Zhang, Ruitao and Shi, Yukang and Chen, Yuyang and Chen, Ze and Zhang, Ziheng and Jia, Fan and Liu, Kaixin and Zhang, Meng and Hao, Ruitao and Huang, Saike and Xie, Songhan and Liu, Yu and Wu, Zhao and Xie, Bin and Zhang, Pengwei and Yang, Qi and Deng, Xianchi and Wei, Yunfei and Zhang, Enwen and Peng, Hongyang and Zhao, Jie and Liu, Kai and Sun, Wei and Wei, Yajun and Yang, Yi and Zhang, Yunqiao and Yan, Ziwei and Yang, Haitao and Liu, Hao and Fan, Haoqiang and Zhang, Haowei and Huang, Junwen and Chen, Yang and Ma, Yunchao and Yang, Yunhuan and Du, Zhengyuan and Liu, Ziming and Niu, Jiahui and Zhao, Yucheng and Jiang, Daxin and Tang, Wenbin and Zhang, Xiangyu and Ge, Zheng and Zhou, Erjin and Wang, Tiancai},
+  year={2026},
+  eprint={2602.14974},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2602.14974}
 }`,
       links: [
-        { label: "Paper", href: "https://arxiv.org/abs/2606.11637" },
-        {
-          label: "Code",
-          href: "https://github.com/lvkailin0118/TouchThinker",
-        },
-        { label: "BibTeX", href: "https://arxiv.org/bibtex/2606.11637" },
+        { label: "Paper", href: "https://arxiv.org/abs/2602.14974" },
+        { label: "Code", href: "https://github.com/Dexmal/dexbotic" },
+        { label: "BibTeX", href: "https://arxiv.org/bibtex/2602.14974" },
       ],
     },
   ],
 };
 
 const news = [
+  {
+    date: "Oct 2026",
+    dateTime: "2026-10",
+    content: (
+      <>
+        <a
+          href="https://aclanthology.org/2026.emnlp-main.1925/"
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="news-touchthinker-emnlp"
+        >
+          TouchThinker
+        </a>{" "}
+        was published in the proceedings of EMNLP 2026.
+      </>
+    ),
+  },
   {
     date: "Sep 2026",
     dateTime: "2026-09-10",
@@ -205,8 +290,6 @@ const news = [
     ),
   },
 ];
-
-type Publication = (typeof publications.accepted)[number];
 
 function PublicationCard({
   publication,
@@ -439,19 +522,23 @@ export default function Home() {
             ))}
           </ol>
 
-          <div className="publication-group-heading" data-reveal="up">
-            <h3>Preprints &amp; Under Review</h3>
-            <span>Latest work</span>
-          </div>
-          <ol className="bibliography">
-            {publications.preprints.map((publication, index) => (
-              <PublicationCard
-                publication={publication}
-                key={publication.title}
-                revealDelay={index}
-              />
-            ))}
-          </ol>
+          {publications.preprints.length > 0 && (
+            <>
+              <div className="publication-group-heading" data-reveal="up">
+                <h3>Preprints &amp; Under Review</h3>
+                <span>Latest work</span>
+              </div>
+              <ol className="bibliography">
+                {publications.preprints.map((publication, index) => (
+                  <PublicationCard
+                    publication={publication}
+                    key={publication.title}
+                    revealDelay={index}
+                  />
+                ))}
+              </ol>
+            </>
+          )}
 
           <div
             className="publication-group-heading recognition-heading"

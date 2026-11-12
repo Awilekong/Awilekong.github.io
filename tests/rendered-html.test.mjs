@@ -271,5 +271,5 @@ test("publishes crawler discovery files", async () => {
   );
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/awilekong\.github\.io\/cv\/<\/loc>/);
-  assert.match(sitemap, /<lastmod>2026-09-12<\/lastmod>/);
+  assert.match(sitemap, /<lastmod>2026-11-12<\/lastmod>/);
 });
