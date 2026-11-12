@@ -6,6 +6,7 @@ import CitationMenu from "./CitationMenu";
 import LikeButton from "./LikeButton";
 import ProfilePhoto from "./ProfilePhoto";
 import ShareButton from "./ShareButton";
+import { submissions } from "./submissions";
 
 type Publication = {
   id: string;
@@ -19,7 +20,7 @@ type Publication = {
   authors: ReactNode;
   venue: string;
   note?: string;
-  abstract: string;
+  abstract?: string;
   citation: string;
   bibtex: string;
   links: { label: string; href: string }[];
@@ -221,6 +222,27 @@ const publications: { accepted: Publication[]; preprints: Publication[] } = {
     },
   ],
   preprints: [
+    ...submissions.map((paper): Publication => ({
+      id: paper.id,
+      badge: "Submitted",
+      badgeColor: "#64748b",
+      title: paper.title,
+      authors: paper.authors.map((author, index) => (
+        <span key={author}>
+          {index > 0 ? (index === paper.authors.length - 1 ? ", and " : ", ") : ""}
+          {author === "Pengwei Zhang" ? <strong>{author}</strong> : author}
+        </span>
+      )),
+      venue: `${paper.venue} submission`,
+      citation: `${paper.authors.join(", ")}. "${paper.title}." Manuscript submitted to ${paper.venue}, 2026.`,
+      bibtex: `@unpublished{${paper.id.replaceAll("-", "")}2026,
+  title={${paper.title}},
+  author={${paper.authors.join(" and ")}},
+  year={2026},
+  note={Submitted to ${paper.venue}}
+}`,
+      links: [],
+    })),
     {
       id: "dm0",
       badge: "Preprint",
@@ -376,7 +398,7 @@ function PublicationCard({
     >
       <div className={`publication-row${publication.image ? "" : " publication-row-text"}`}>
         <div className="publication-preview">
-          <a
+          {publication.links.length > 0 ? <a
             className="venue-badge"
             href={publication.links[0].href}
             style={{ backgroundColor: publication.badgeColor }}
@@ -385,7 +407,11 @@ function PublicationCard({
             data-analytics-event={`${publication.id}-badge`}
           >
             {publication.badge}
-          </a>
+          </a> : (
+            <span className="venue-badge" style={{ backgroundColor: publication.badgeColor }}>
+              {publication.badge}
+            </span>
+          )}
           {publication.image ? <a
             className="publication-image-link"
             href={publication.links[0].href}
@@ -414,10 +440,10 @@ function PublicationCard({
             <p className="periodical">{publication.note}</p>
           ) : null}
           <div className="paper-links">
-            <AbstractDisclosure
+            {publication.abstract ? <AbstractDisclosure
               text={publication.abstract}
               publicationId={publication.id}
-            />
+            /> : null}
             {publication.links.map((link) => (
               <a
                 href={link.href}
