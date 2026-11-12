@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Binocular ranging with improved YOLOv5s</title>
+  <desc id="desc">Method schematic based on Zhang and Liu, ICMSP 2023, DOI 10.1109/ICMSP58539.2023.10170936. Stereo images supply YOLOv5s with ECA attention for detection and SGBM for disparity estimation; the results are combined for target ranging. This is an explanatory illustration, not an experimental result.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#547c87" stroke-width="1.8"/></marker>
+  </defs>
+  <rect width="1200" height="440" rx="20" fill="#f4f7f6"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#193b48">
+    <text x="42" y="56" font-size="30" font-weight="700" letter-spacing="2">BINOCULAR VISION</text>
+    <text x="1158" y="55" text-anchor="end" fill="#64818a" font-size="25">Method schematic</text>
+    <rect x="42" y="98" width="256" height="260" rx="18" fill="#e4eeee" stroke="#c7dada" stroke-width="2"/>
+    <g stroke="#2d6d7c" stroke-width="5" fill="#fff">
+      <rect x="94" y="128" width="150" height="70" rx="12"/>
+      <circle cx="170" cy="163" r="21"/>
+      <rect x="94" y="215" width="150" height="70" rx="12"/>
+      <circle cx="170" cy="250" r="21"/>
+    </g>
+    <text x="170" y="331" text-anchor="middle" font-size="32" font-weight="700">Stereo pair</text>
+    <g fill="none" stroke="#547c87" stroke-width="4" marker-end="url(#arrow)">
+      <path d="M298 228H348V157H402"/>
+      <path d="M348 228V301H402"/>
+      <path d="M742 157H797V228H863"/>
+      <path d="M742 301H797V228" marker-end="none"/>
+    </g>
+    <rect x="417" y="101" width="325" height="112" rx="16" fill="#fff" stroke="#3c8990" stroke-width="3"/>
+    <text x="580" y="149" text-anchor="middle" font-size="34" font-weight="700">YOLOv5s + ECA</text>
+    <text x="580" y="187" text-anchor="middle" font-size="28" fill="#64818a">Target detection</text>
+    <rect x="417" y="245" width="325" height="112" rx="16" fill="#fff" stroke="#8194b4" stroke-width="3"/>
+    <text x="580" y="293" text-anchor="middle" font-size="34" font-weight="700">SGBM</text>
+    <text x="580" y="331" text-anchor="middle" font-size="28" fill="#64818a">Stereo disparity</text>
+    <rect x="877" y="98" width="281" height="260" rx="18" fill="#d9ece6" stroke="#b4d5cc" stroke-width="2"/>
+    <g fill="none" stroke="#267967" stroke-width="5">
+      <rect x="975" y="148" width="86" height="86" rx="10" fill="#f7fbf8"/>
+      <path d="M942 136v-15h35M1093 136v-15h-35M942 246v15h35M1093 246v15h-35"/>
+      <path d="M955 285h127M955 276v18M1082 276v18"/>
+    </g>
+    <text x="1018" y="331" text-anchor="middle" font-size="32" font-weight="700">Target range</text>
+    <text x="42" y="410" font-size="26" fill="#64818a">Zhang &amp; Liu · ICMSP 2023</text>
+  </g>
+</svg>

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Monocular depth ranging for assisted driving</title>
+  <desc id="desc">Method schematic based on Li, Wang, Zhang, Gao and Tao, ICCE-Taiwan 2023, DOI 10.1109/ICCE-Taiwan58799.2023.10226619. A camera supplies images to a depth model fine-tuned on KITTI, deployed in a Jetson Nano and Wheeltec robot car system. This is an explanatory illustration, not an experimental result.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8" fill="none" stroke="#547c87" stroke-width="1.8"/></marker>
+  </defs>
+  <rect width="1200" height="440" rx="20" fill="#f4f7f6"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#193b48">
+    <text x="42" y="56" font-size="30" font-weight="700" letter-spacing="2">MONOCULAR DEPTH</text>
+    <text x="1158" y="55" text-anchor="end" fill="#64818a" font-size="25">Method schematic</text>
+    <g stroke-width="2">
+      <rect x="42" y="98" width="286" height="260" rx="18" fill="#e4eeee" stroke="#c7dada"/>
+      <rect x="457" y="98" width="286" height="260" rx="18" fill="#fff" stroke="#c7dada"/>
+      <rect x="872" y="98" width="286" height="260" rx="18" fill="#e8eaf1" stroke="#d1d7e3"/>
+    </g>
+    <g fill="none" stroke="#547c87" stroke-width="4" marker-end="url(#arrow)">
+      <path d="M343 224h89"/>
+      <path d="M758 224h89"/>
+    </g>
+    <g fill="#fff" stroke="#2d6d7c" stroke-width="5">
+      <rect x="102" y="150" width="165" height="112" rx="14"/>
+      <path d="M141 150l12-20h64l12 20"/>
+      <circle cx="185" cy="205" r="34"/>
+      <circle cx="185" cy="205" r="16" fill="#d5e9e6"/>
+    </g>
+    <g stroke="#8ab3b4" stroke-width="3">
+      <path d="M515 158 600 135 685 158 600 203 515 158 600 271 685 158M515 246 600 135 685 246 600 203 515 246 600 271 685 246" fill="none"/>
+    </g>
+    <g fill="#3c8990" stroke="#fff" stroke-width="3">
+      <circle cx="515" cy="158" r="13"/><circle cx="515" cy="246" r="13"/>
+      <circle cx="600" cy="135" r="13"/><circle cx="600" cy="203" r="13"/><circle cx="600" cy="271" r="13"/>
+      <circle cx="685" cy="158" r="13"/><circle cx="685" cy="246" r="13"/>
+    </g>
+    <g fill="none" stroke="#7c76a6" stroke-width="5" stroke-linecap="round">
+      <rect x="929" y="127" width="173" height="151" rx="12" fill="#f8f8fc"/>
+      <path d="M951 161h124M951 194h94M951 227h63"/>
+    </g>
+    <text x="185" y="326" text-anchor="middle" font-size="32" font-weight="700">RGB camera</text>
+    <text x="600" y="326" text-anchor="middle" font-size="32" font-weight="700">Depth model</text>
+    <text x="1015" y="326" text-anchor="middle" font-size="32" font-weight="700">Depth map</text>
+    <text x="42" y="410" font-size="26" fill="#64818a">KITTI fine-tuning · Jetson Nano · Wheeltec robot car</text>
+  </g>
+</svg>

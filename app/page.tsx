@@ -15,6 +15,7 @@ type Publication = {
   imageWidth?: number;
   imageHeight?: number;
   imageAlt?: string;
+  imageFit?: "contain";
   title: string;
   authors: ReactNode;
   venue: string;
@@ -102,6 +103,41 @@ const publicationGroups: { id: string; title: string; papers: Publication[] }[] 
             label: "DOI",
             href: "https://doi.org/10.1007/s11431-026-3364-3",
           },
+        ],
+      },
+      {
+        id: "binocular-stereo-ranging",
+        badge: "ICMSP 2023",
+        badgeColor: "#00629b",
+        image: "/binocular-ranging.svg",
+        imageWidth: 1200,
+        imageHeight: 440,
+        imageAlt: "Method schematic: improved YOLOv5s with ECA attention and SGBM stereo matching for target ranging; not an experimental image",
+        imageFit: "contain",
+        title: "Research on Binocular Stereo Vision Ranging Based on Improved YOLOv5s",
+        authors: (
+          <>
+            <strong>Pengwei Zhang</strong> and Zhenyu Liu
+          </>
+        ),
+        venue: "5th International Conference on Intelligent Control, Measurement and Signal Processing (ICMSP), pp. 1242–1246, 2023",
+        abstract:
+          "This work combines an improved YOLOv5s detector with binocular stereo vision for target ranging. ECA attention enhances detection, while SGBM stereo matching supplies disparity information to estimate the distance of detected objects for low-cost, non-contact measurement.",
+        citation:
+          'Pengwei Zhang and Zhenyu Liu. "Research on Binocular Stereo Vision Ranging Based on Improved YOLOv5s." 2023 5th International Conference on Intelligent Control, Measurement and Signal Processing (ICMSP), pp. 1242–1246, 2023. https://doi.org/10.1109/ICMSP58539.2023.10170936.',
+        bibtex: `@inproceedings{zhang2023binocular,
+  title={Research on Binocular Stereo Vision Ranging Based on Improved {YOLOv5s}},
+  author={Zhang, Pengwei and Liu, Zhenyu},
+  booktitle={2023 5th International Conference on Intelligent Control, Measurement and Signal Processing (ICMSP)},
+  pages={1242--1246},
+  year={2023},
+  publisher={IEEE},
+  doi={10.1109/ICMSP58539.2023.10170936},
+  url={https://doi.org/10.1109/ICMSP58539.2023.10170936}
+}`,
+        links: [
+          { label: "Paper", href: "https://ieeexplore.ieee.org/document/10170936/" },
+          { label: "DOI", href: "https://doi.org/10.1109/ICMSP58539.2023.10170936" },
         ],
       },
     ],
@@ -207,6 +243,11 @@ const publicationGroups: { id: string; title: string; papers: Publication[] }[] 
         id: "monocular-depth-ranging",
         badge: "ICCE-Taiwan 2023",
         badgeColor: "#00629b",
+        image: "/monocular-ranging.svg",
+        imageWidth: 1200,
+        imageHeight: 440,
+        imageAlt: "Method schematic: camera images pass through a KITTI-fine-tuned depth model deployed on a Jetson Nano and Wheeltec robot car; not an experimental image",
+        imageFit: "contain",
         title: "Customized Training and Application of Monocular Depth Ranging for Assisted Driving",
         authors: (
           <>
@@ -411,6 +452,7 @@ function PublicationCard({
             data-analytics-event={`${publication.id}-thumbnail`}
           >
             <img
+              className={publication.imageFit === "contain" ? "publication-image-contain" : undefined}
               src={publication.image}
               alt={publication.imageAlt}
               width={publication.imageWidth}

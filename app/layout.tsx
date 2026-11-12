@@ -162,6 +162,25 @@ const structuredData = {
     },
     {
       "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#binocular-stereo-ranging`,
+      headline: "Research on Binocular Stereo Vision Ranging Based on Improved YOLOv5s",
+      author: [
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Zhenyu Liu" },
+      ],
+      datePublished: "2023-05-19",
+      url: "https://ieeexplore.ieee.org/document/10170936/",
+      sameAs: "https://doi.org/10.1109/ICMSP58539.2023.10170936",
+      identifier: "https://doi.org/10.1109/ICMSP58539.2023.10170936",
+      pagination: "1242–1246",
+      publisher: { "@type": "Organization", name: "IEEE" },
+      isPartOf: {
+        "@type": "CreativeWork",
+        name: "2023 5th International Conference on Intelligent Control, Measurement and Signal Processing (ICMSP)",
+      },
+    },
+    {
+      "@type": "ScholarlyArticle",
       "@id": `${siteUrl}/#touchthinker`,
       headline:
         "TouchThinker: Scaling Tactile Commonsense Reasoning to the Open World with Large-scale Data and Action-aware Representation",

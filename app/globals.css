@@ -793,6 +793,11 @@ img {
   will-change: filter, opacity, scale;
 }
 
+.publication-preview img.publication-image-contain {
+  object-fit: contain;
+  background: #f4f7f6;
+}
+
 .reveal-loading .publication-card .publication-image-link img,
 .reveal-ready
   .publication-card:not([data-reveal-state="visible"])
