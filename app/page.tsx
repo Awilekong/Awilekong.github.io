@@ -11,10 +11,10 @@ type Publication = {
   id: string;
   badge: string;
   badgeColor: string;
-  image: string;
-  imageWidth: number;
-  imageHeight: number;
-  imageAlt: string;
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   title: string;
   authors: ReactNode;
   venue: string;
@@ -189,6 +189,36 @@ const publications: { accepted: Publication[]; preprints: Publication[] } = {
         { label: "DOI", href: "https://doi.org/10.1109/TITS.2025.3593298" },
       ],
     },
+    {
+      id: "monocular-depth-ranging",
+      badge: "ICCE-Taiwan 2023",
+      badgeColor: "#00629b",
+      title: "Customized Training and Application of Monocular Depth Ranging for Assisted Driving",
+      authors: (
+        <>
+          Jingwen Li, Chuhan Wang, <strong>Pengwei Zhang</strong>, Ruipeng Gao,
+          and Dan Tao
+        </>
+      ),
+      venue: "International Conference on Consumer Electronics – Taiwan (ICCE-Taiwan), pp. 391–392, 2023",
+      abstract:
+        "This work integrates monocular depth estimation with a Jetson Nano-based robot car. A depth model fine-tuned on KITTI converts camera images into depth maps, with experiments evaluating the combined hardware and software system for assisted driving.",
+      citation:
+        'Jingwen Li, Chuhan Wang, Pengwei Zhang, Ruipeng Gao, and Dan Tao. "Customized Training and Application of Monocular Depth Ranging for Assisted Driving." 2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan), pp. 391–392, 2023. https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619.',
+      bibtex: `@inproceedings{li2023monocular,
+  title={Customized Training and Application of Monocular Depth Ranging for Assisted Driving},
+  author={Li, Jingwen and Wang, Chuhan and Zhang, Pengwei and Gao, Ruipeng and Tao, Dan},
+  booktitle={2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan)},
+  pages={391--392},
+  year={2023},
+  doi={10.1109/ICCE-Taiwan58799.2023.10226619},
+  url={https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619}
+}`,
+      links: [
+        { label: "Paper", href: "https://ieeexplore.ieee.org/document/10226619/" },
+        { label: "DOI", href: "https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619" },
+      ],
+    },
   ],
   preprints: [
     {
@@ -344,7 +374,7 @@ function PublicationCard({
       data-reveal="up"
       data-reveal-delay={revealDelay}
     >
-      <div className="publication-row">
+      <div className={`publication-row${publication.image ? "" : " publication-row-text"}`}>
         <div className="publication-preview">
           <a
             className="venue-badge"
@@ -356,7 +386,7 @@ function PublicationCard({
           >
             {publication.badge}
           </a>
-          <a
+          {publication.image ? <a
             className="publication-image-link"
             href={publication.links[0].href}
             target="_blank"
@@ -371,7 +401,7 @@ function PublicationCard({
               loading="lazy"
               decoding="async"
             />
-          </a>
+          </a> : null}
         </div>
 
         <div className="publication-details">

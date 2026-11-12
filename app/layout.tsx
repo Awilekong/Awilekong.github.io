@@ -239,6 +239,26 @@ const structuredData = {
     },
     {
       "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#monocular-depth-ranging`,
+      headline: "Customized Training and Application of Monocular Depth Ranging for Assisted Driving",
+      author: [
+        { "@type": "Person", name: "Jingwen Li" },
+        { "@type": "Person", name: "Chuhan Wang" },
+        { "@id": `${siteUrl}/#person` },
+        { "@type": "Person", name: "Ruipeng Gao" },
+        { "@type": "Person", name: "Dan Tao" },
+      ],
+      datePublished: "2023-07-17",
+      url: "https://ieeexplore.ieee.org/document/10226619/",
+      identifier: "https://doi.org/10.1109/ICCE-Taiwan58799.2023.10226619",
+      pagination: "391–392",
+      isPartOf: {
+        "@type": "CreativeWork",
+        name: "2023 International Conference on Consumer Electronics - Taiwan (ICCE-Taiwan)",
+      },
+    },
+    {
+      "@type": "ScholarlyArticle",
       "@id": `${siteUrl}/#dm0`,
       headline:
         "DM0: An Embodied-Native Vision-Language-Action Model towards Physical AI",

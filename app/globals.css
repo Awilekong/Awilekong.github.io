@@ -744,6 +744,11 @@ img {
   min-width: 0;
 }
 
+.publication-row-text {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+}
+
 .publication-image-link {
   display: block;
   overflow: hidden;
