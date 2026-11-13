@@ -39,7 +39,7 @@ export default function ProfilePhoto() {
         data-analytics-event="xiaoguo-easter-egg"
       >
         <img
-          src="/profile.jpg"
+          src="/profile-retouched-v1.webp"
           alt="Pengwei Zhang holding his cat Xiaoguo"
           itemProp="image"
           width="898"
