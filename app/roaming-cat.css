@@ -30,8 +30,63 @@
 .cat-sprite { transform-origin: 65px 95px; animation: cat-breathe 2.6s ease-in-out infinite; }
 .cat-tail { transform-origin: 43px 73px; animation: cat-tail 1.8s ease-in-out infinite; }
 .cat-head { transform-origin: 79px 67px; animation: cat-curious 6s ease-in-out infinite; }
-.cat-eyes { transform-origin: 80px 44px; animation: cat-blink 4.8s infinite; }
-.cat-happy-eyes { display: none; }
+.cat-open-eyes { transform-origin: 80px 44px; animation: cat-blink 4.6s infinite; }
+.cat-eye-left { transform-origin: 66px 44px; }
+.cat-eye-right { transform-origin: 95px 44px; }
+.cat-eye-lines > *, .cat-brows, .cat-puffed-cheeks, .cat-mouth > * { display: none; }
+.cat-mouth .cat-mouth-neutral { display: block; }
+.cat-brow-left { transform-origin: 66px 33px; }
+.cat-brow-right { transform-origin: 95px 33px; }
+.cat-cheek-left { transform-origin: 58px 53px; }
+.cat-cheek-right { transform-origin: 103px 53px; }
+
+/* The face changes independently of walking, rolling, and the page scroll. */
+.roaming-cat:not([data-expression="neutral"]) .cat-mouth-neutral { display: none; }
+.roaming-cat[data-expression="curious"] .cat-brows,
+.roaming-cat[data-expression="pout"] .cat-brows,
+.roaming-cat[data-expression="surprised"] .cat-brows { display: block; }
+.roaming-cat[data-expression="curious"] .cat-brow-left { transform: translateY(-4px) rotate(-12deg); }
+.roaming-cat[data-expression="curious"] .cat-eye-left { transform: translateY(-1px) scale(1.05, 1.12); }
+.roaming-cat[data-expression="curious"] .cat-eye-right { transform: scaleY(.8); }
+.roaming-cat[data-expression="curious"] .cat-mouth-curious { display: block; }
+.roaming-cat[data-mood="idle"][data-expression="curious"] .cat-head { animation: cat-question-tilt 2.4s ease-in-out both; }
+
+.roaming-cat[data-expression="pout"] .cat-brow-left { transform: rotate(14deg); }
+.roaming-cat[data-expression="pout"] .cat-brow-right { transform: rotate(-14deg); }
+.roaming-cat[data-expression="pout"] .cat-eye-left,
+.roaming-cat[data-expression="pout"] .cat-eye-right { transform: scaleY(.72); }
+.roaming-cat[data-expression="pout"] .cat-puffed-cheeks,
+.roaming-cat[data-expression="pout"] .cat-mouth-pout { display: block; }
+.roaming-cat[data-expression="pout"] .cat-puffed-cheeks { transform-origin: 80px 58px; animation: cat-cheek-puff 2.3s ease-in-out both; }
+.roaming-cat[data-mood="idle"][data-expression="pout"] .cat-head { animation: none; transform: rotate(-6deg); }
+
+.roaming-cat[data-expression="wink"] .cat-eye-right { display: none; }
+.roaming-cat[data-expression="wink"] .cat-wink-eye,
+.roaming-cat[data-expression="wink"] .cat-mouth-smile,
+.roaming-cat[data-expression="wink"] .cat-smile-tongue,
+.roaming-cat[data-expression="happy"] .cat-happy-eyes,
+.roaming-cat[data-expression="happy"] .cat-mouth-smile,
+.roaming-cat[data-expression="happy"] .cat-smile-tongue { display: block; }
+.roaming-cat[data-expression="wink"] .cat-open-eyes { animation: none; }
+.roaming-cat[data-expression="wink"] .cat-cheeks,
+.roaming-cat[data-expression="happy"] .cat-cheeks { opacity: 1; }
+.roaming-cat[data-expression="wink"] .cat-cheek-right { transform: scale(1.2); }
+.roaming-cat[data-mood="idle"][data-expression="wink"] .cat-head { animation: cat-wink-nod 1.5s ease-in-out both; }
+
+.roaming-cat[data-expression="cheeky"] .cat-cheeky-eyes,
+.roaming-cat[data-expression="cheeky"] .cat-mouth-cheeky { display: block; }
+.roaming-cat[data-expression="cheeky"] .cat-cheeks { opacity: 1; }
+.roaming-cat[data-expression="happy"] .cat-open-eyes,
+.roaming-cat[data-expression="cheeky"] .cat-open-eyes,
+.roaming-cat[data-expression="sleepy"] .cat-open-eyes { display: none; }
+.roaming-cat[data-mood="idle"][data-expression="cheeky"] .cat-head { animation: cat-cheeky-wiggle 2.2s ease-in-out both; }
+
+.roaming-cat[data-expression="surprised"] .cat-eye-left,
+.roaming-cat[data-expression="surprised"] .cat-eye-right { transform: scale(1.15, 1.18); }
+.roaming-cat[data-expression="surprised"] .cat-brows { transform: translateY(-3px); }
+.roaming-cat[data-expression="surprised"] .cat-mouth-surprised,
+.roaming-cat[data-expression="sleepy"] .cat-sleepy-eyes,
+.roaming-cat[data-expression="sleepy"] .cat-mouth-sleepy { display: block; }
 .cat-ear-left { transform-origin: 61px 30px; animation: cat-ear-twitch 7s ease-in-out infinite; }
 .cat-ear-right { transform-origin: 101px 29px; animation: cat-ear-twitch 7s ease-in-out -3s infinite; }
 .cat-beans, .cat-yawn { opacity: 0; }
@@ -44,14 +99,6 @@
 .roaming-cat[data-mood="run"] .cat-head { animation: none; transform: rotate(4deg); }
 .roaming-cat[data-mood="love"] .cat-sprite { animation: cat-nuzzle .55s ease-in-out infinite alternate; }
 .roaming-cat[data-mood="love"] .cat-head { animation: none; transform: rotate(-8deg); }
-.roaming-cat[data-mood="love"] .cat-eyes,
-.roaming-cat[data-mood="roll"] .cat-eyes,
-.roaming-cat[data-mood="stretch"] .cat-eyes,
-.roaming-cat[data-mood="sleep"] .cat-eyes { display: none; }
-.roaming-cat[data-mood="love"] .cat-happy-eyes,
-.roaming-cat[data-mood="roll"] .cat-happy-eyes,
-.roaming-cat[data-mood="stretch"] .cat-happy-eyes,
-.roaming-cat[data-mood="sleep"] .cat-happy-eyes { display: block; }
 .roaming-cat[data-mood="sleep"] .cat-head { animation: none; transform: rotate(9deg) translateY(3px); }
 .roaming-cat[data-mood="sleep"] .cat-tail,
 .roaming-cat[data-mood="sleep"] .cat-sprite,
@@ -74,14 +121,15 @@
 .roaming-cat[data-mood="pounce"] .cat-tail { animation-duration: .3s; }
 .roaming-cat[data-mood="pounce"] .cat-paw-front { animation: cat-reach 2.1s ease-in-out both; }
 .roaming-cat[data-mood="pounce"] .cat-shadow { transform-origin: 66px 98px; animation: cat-leap-shadow 2.1s ease-in-out both; }
-.cat-bubble, .cat-snooze, .cat-hearts, .cat-sparkles {
+.cat-bubble, .cat-snooze, .cat-hearts, .cat-sparkles, .cat-question, .cat-exclamation {
   position: absolute;
   opacity: 0;
   pointer-events: none;
   user-select: none;
 }
 .cat-bubble {
-  left: 8px;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: calc(100% - 9px);
   padding: 4px 12px;
   border: 1px solid #dfc9d5;
@@ -94,6 +142,10 @@
   box-shadow: 0 4px 12px #0001;
 }
 .roaming-cat[data-mood="love"] .cat-bubble { opacity: 1; }
+.cat-question, .cat-exclamation { top: -9px; right: 3px; font-size: 22px; font-weight: 800; line-height: 1; color: #bd8acd; text-shadow: 0 1px 2px #fff9; }
+.cat-exclamation { color: #d6a15f; }
+.roaming-cat[data-expression="curious"] .cat-question,
+.roaming-cat[data-expression="surprised"] .cat-exclamation { opacity: 1; animation: cat-reaction-mark .45s ease-out both; }
 .cat-snooze { top: -5px; right: 4px; color: var(--accent); font-size: 16px; font-weight: 600; letter-spacing: 4px; }
 .roaming-cat[data-mood="sleep"] .cat-snooze { opacity: 1; }
 .cat-hearts { inset: 0; color: #ef9cb9; font-size: 17px; }
@@ -135,7 +187,12 @@
 @keyframes cat-tail { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(10deg); } }
 @keyframes cat-curious { 0%, 45%, 100% { transform: rotate(0); } 55%, 75% { transform: rotate(-8deg); } }
 @keyframes cat-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.975); } }
-@keyframes cat-blink { 0%, 42%, 46%, 100% { transform: scaleY(1); } 44% { transform: scaleY(.1); } }
+@keyframes cat-blink { 0%, 39%, 45%, 49%, 55%, 100% { transform: scaleY(1); } 42%, 52% { transform: scaleY(.06); } }
+@keyframes cat-question-tilt { 0%, 100% { transform: rotate(0); } 20%, 78% { transform: rotate(-13deg) translateY(-1px); } }
+@keyframes cat-cheek-puff { 0%, 100% { transform: scale(1); } 20%, 75% { transform: scale(1.1, 1.18); } }
+@keyframes cat-wink-nod { 0%, 100% { transform: rotate(0); } 25%, 65% { transform: rotate(8deg) translateY(1px); } }
+@keyframes cat-cheeky-wiggle { 0%, 100% { transform: rotate(0); } 20%, 60% { transform: rotate(-6deg); } 40%, 80% { transform: rotate(6deg); } }
+@keyframes cat-reaction-mark { from { transform: translateY(4px) scale(.7) rotate(-12deg); } to { transform: translateY(0) scale(1) rotate(8deg); } }
 @keyframes cat-nuzzle { from { transform: translateY(0) rotate(-3deg); } to { transform: translateY(-5px) rotate(3deg); } }
 @keyframes cat-heart { from { transform: translateY(0) scale(.7); opacity: 0; } 25% { opacity: 1; } to { transform: translateY(-40px) scale(1.15); opacity: 0; } }
 @keyframes cat-ear-twitch {

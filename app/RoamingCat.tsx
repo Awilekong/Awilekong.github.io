@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CAT_REPLIES, createExpressionController, type CatExpression, type CatReaction } from "./cat-expressions";
 import "./roaming-cat.css";
 
 type Position = { x: number; y: number };
@@ -8,11 +9,15 @@ type Trick = "roll" | "stretch" | "pounce";
 
 const TRICKS: Trick[] = ["roll", "stretch", "pounce"];
 const TRICK_DURATION: Record<Trick, number> = { roll: 3400, stretch: 3600, pounce: 2100 };
+const PET_REACTIONS: CatExpression[] = ["happy", "wink", "pout", "cheeky", "surprised"];
 
 export default function RoamingCat() {
   const [paused, setPaused] = useState(false);
   const [hidden, setHidden] = useState(false);
   const cat = useRef<HTMLDivElement>(null);
+  const bubble = useRef<HTMLSpanElement>(null);
+  const reaction = useRef<CatReaction | null>(null);
+  const petIndex = useRef(0);
   const position = useRef<Position | null>(null);
   const attention = useRef({ hover: false, focus: false, loveUntil: 0, requestedTrick: null as Trick | null });
   const trickIndex = useRef(0);
@@ -31,6 +36,7 @@ export default function RoamingCat() {
     let target: Position | null = null;
     let obstacles: DOMRect[] = [];
     let needsLayout = true;
+    const expressionAt = createExpressionController(performance.now());
 
     function bounds() {
       const size = element!.offsetWidth;
@@ -124,6 +130,11 @@ export default function RoamingCat() {
       position.current = point;
       element!.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
       element!.dataset.mood = mood;
+      const expression = expressionAt(now, sleeping ? "sleep" : mood, reaction.current);
+      if (element!.dataset.expression !== expression) {
+        element!.dataset.expression = expression;
+        if (bubble.current) bubble.current.textContent = CAT_REPLIES[expression];
+      }
       element!.dataset.ready = "true";
 
       // Paper links and other page controls keep their click/touch targets.
@@ -180,11 +191,16 @@ export default function RoamingCat() {
 
   function pet() {
     attention.current.loveUntil = performance.now() + 2300;
+    reaction.current = {
+      expression: PET_REACTIONS[petIndex.current++ % PET_REACTIONS.length],
+      until: attention.current.loveUntil,
+    };
     wake.current();
   }
 
   function play() {
     attention.current.loveUntil = 0;
+    reaction.current = null;
     attention.current.requestedTrick = TRICKS[trickIndex.current++ % TRICKS.length];
     setPaused(false);
     wake.current();
@@ -193,8 +209,10 @@ export default function RoamingCat() {
   return (
     <aside className="cat-companion" aria-label="Xiaoguo the cat" data-cat-ui>
       {!hidden && (
-        <div className="roaming-cat" ref={cat} data-mood="idle">
-          <span className="cat-bubble" aria-hidden="true">喵～ ♡</span>
+        <div className="roaming-cat" ref={cat} data-mood="idle" data-expression="neutral">
+          <span className="cat-bubble" ref={bubble} aria-hidden="true">喵～</span>
+          <span className="cat-question" aria-hidden="true">?</span>
+          <span className="cat-exclamation" aria-hidden="true">!</span>
           <span className="cat-snooze" aria-hidden="true">z z Z</span>
           <span className="cat-hearts" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i></span>
           <span className="cat-sparkles" aria-hidden="true"><i>✧</i><i>✦</i></span>
@@ -202,11 +220,25 @@ export default function RoamingCat() {
             className="cat-pet"
             type="button"
             aria-label="Pet Xiaoguo the cat"
-            title="摸摸小果 · Pet Xiaoguo"
+            title="摸摸小果 · 看她的小表情"
             onClick={pet}
-            onPointerEnter={(event) => { if (event.pointerType === "mouse") attention.current.hover = true; }}
+            onPointerEnter={(event) => {
+              if (event.pointerType === "mouse") {
+                attention.current.hover = true;
+                if (performance.now() >= attention.current.loveUntil) {
+                  reaction.current = { expression: "curious", until: performance.now() + 2000 };
+                  wake.current();
+                }
+              }
+            }}
             onPointerLeave={() => { attention.current.hover = false; }}
-            onFocus={(event) => { attention.current.focus = event.currentTarget.matches(":focus-visible"); }}
+            onFocus={(event) => {
+              attention.current.focus = event.currentTarget.matches(":focus-visible");
+              if (attention.current.focus) {
+                reaction.current = { expression: "curious", until: performance.now() + 2000 };
+                wake.current();
+              }
+            }}
             onBlur={() => { attention.current.focus = false; }}
           >
             <svg className="cat-art" viewBox="0 0 128 108" fill="none" aria-hidden="true">
@@ -244,16 +276,50 @@ export default function RoamingCat() {
                   <path d="M48 42c0-18 14-25 32-25s34 9 34 27c0 20-16 28-34 28S47 63 48 42Z" fill="#dce0e9" />
                   <path d="m73 20 2 8m7-9v8m9-6-3 7M51 39l8 3m-9 5 8 2m53-9-8 3m9 5-8 2" stroke="#a0aabc" strokeWidth="3.8" />
                   <ellipse cx="80" cy="56" rx="19" ry="12" fill="#fff9f4" stroke="none" />
-                  <g className="cat-eyes" fill="#35404e" stroke="none">
-                    <ellipse cx="66" cy="44" rx="5.7" ry="7.3" /><ellipse cx="95" cy="44" rx="5.7" ry="7.3" />
-                    <circle cx="64.5" cy="41.5" r="2" fill="white" /><circle cx="93.5" cy="41.5" r="2" fill="white" />
-                    <circle cx="68" cy="47" r="1" fill="#fff9f4" /><circle cx="97" cy="47" r="1" fill="#fff9f4" />
+                  <g className="cat-brows" stroke="#697080" strokeWidth="2">
+                    <path className="cat-brow-left" d="M60 33q6-3 12 0" />
+                    <path className="cat-brow-right" d="M89 33q6-3 12 0" />
                   </g>
-                  <g className="cat-happy-eyes" stroke="#586275" strokeWidth="2.8"><path d="M61 45q5-7 10 0m19 0q5-7 10 0" /></g>
-                  <ellipse cx="58" cy="53" rx="6" ry="3.5" fill="#efb1c0" opacity=".75" stroke="none" />
-                  <ellipse cx="103" cy="53" rx="6" ry="3.5" fill="#efb1c0" opacity=".75" stroke="none" />
+                  <g className="cat-open-eyes" fill="#35404e" stroke="none">
+                    <g className="cat-eye-left">
+                      <ellipse cx="66" cy="44" rx="5.7" ry="7.3" />
+                      <circle cx="64.5" cy="41.5" r="2.2" fill="white" />
+                      <circle cx="68" cy="47" r="1" fill="#fff9f4" />
+                    </g>
+                    <g className="cat-eye-right">
+                      <ellipse cx="95" cy="44" rx="5.7" ry="7.3" />
+                      <circle cx="93.5" cy="41.5" r="2.2" fill="white" />
+                      <circle cx="97" cy="47" r="1" fill="#fff9f4" />
+                    </g>
+                  </g>
+                  <g className="cat-eye-lines" stroke="#586275" strokeWidth="2.8">
+                    <path className="cat-happy-eyes" d="M60 45q6-9 12 0m17 0q6-9 12 0" />
+                    <path className="cat-wink-eye" d="m89 42 6 3-6 3m6-3 6 1" />
+                    <path className="cat-sleepy-eyes" d="M60 44q6 6 12 0m17 0q6 6 12 0" />
+                    <path className="cat-cheeky-eyes" d="m60 41 7 4-7 4m41-8-7 4 7 4" />
+                  </g>
+                  <g className="cat-cheeks" fill="#efb1c0" stroke="none" opacity=".75">
+                    <ellipse className="cat-cheek-left" cx="58" cy="53" rx="6" ry="3.5" />
+                    <ellipse className="cat-cheek-right" cx="103" cy="53" rx="6" ry="3.5" />
+                  </g>
+                  <g className="cat-puffed-cheeks" fill="#f8d9df" stroke="#dfa8b7" strokeWidth="1.2">
+                    <ellipse cx="63" cy="58" rx="8" ry="5.5" />
+                    <ellipse cx="97" cy="58" rx="8" ry="5.5" />
+                  </g>
                   <path d="M77 52q3-2 6 0l-3 3Z" fill="#df9ba9" stroke="#c98999" strokeWidth="1.3" />
-                  <path className="cat-mouth" d="M80 55v3m-6 0q3 5 6 0 3 5 6 0" strokeWidth="1.7" />
+                  <g className="cat-mouth" strokeWidth="1.7">
+                    <path className="cat-mouth-neutral" d="M80 55v3m-6 0q3 5 6 0 3 5 6 0" />
+                    <path className="cat-mouth-curious" d="M77 60q3-2 6 0" />
+                    <path className="cat-mouth-pout" d="M77 57q6-3 8 1l-3 2q4 3-4 3" fill="#f1b7c6" stroke="#b8798e" strokeWidth="2" />
+                    <path className="cat-mouth-smile" d="M73 57q7 3 14 0-2 10-7 10t-7-10Z" fill="#9b6178" />
+                    <path className="cat-smile-tongue" d="M77 64q3-3 6 0" stroke="#f1b7c6" strokeWidth="3" />
+                    <g className="cat-mouth-cheeky">
+                      <path d="M73 57q7 6 14 0" />
+                      <path d="M80 60v3c0 5 7 5 7 0v-4" fill="#edacc0" stroke="#b8798e" strokeWidth="1.4" />
+                    </g>
+                    <ellipse className="cat-mouth-surprised" cx="80" cy="61" rx="3.5" ry="4.6" fill="#9b6178" />
+                    <path className="cat-mouth-sleepy" d="M77 59q3 2 6 0" />
+                  </g>
                   <g className="cat-yawn">
                     <ellipse cx="80" cy="60" rx="4.2" ry="5" fill="#a86c82" strokeWidth="1.3" />
                     <path d="M77 62q3-3 6 0" stroke="#f3b9c5" strokeWidth="2.5" />
