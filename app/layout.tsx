@@ -430,13 +430,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html lang="en" data-theme="system" suppressHydrationWarning>
       <head>
         <link rel="image_src" href={profileImageUrl} />
         <script
           dangerouslySetInnerHTML={{
             __html:
-              'try{const theme=localStorage.getItem("pengwei-theme");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme}}catch{}',
+              '(()=>{let saved=null;try{saved=localStorage.getItem("pengwei-theme")}catch{}const theme=saved==="light"||saved==="dark"?saved:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.dataset.theme=theme})()',
           }}
         />
         <script

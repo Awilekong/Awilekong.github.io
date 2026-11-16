@@ -14,7 +14,8 @@ const HOME_RESTORE_KEY = "pengwei-home-restore";
 
 export default function SiteChrome() {
   const pathname = usePathname();
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme | null>(null);
+  const themePreference = useRef<Theme | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<HomeSection>("about");
   const [indicator, setIndicator] = useState({ left: 0, width: 0, opacity: 0 });
@@ -26,16 +27,40 @@ export default function SiteChrome() {
     normalizedPathname === "/cv" ? "cv" : activeSection;
 
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem("pengwei-theme");
-    const currentTheme =
-      savedTheme === "dark" || savedTheme === "light"
-        ? savedTheme
-        : document.documentElement.dataset.theme === "dark"
-          ? "dark"
-          : "light";
-    const frame = window.requestAnimationFrame(() => setTheme(currentTheme));
+    let savedTheme: string | null = null;
+    try {
+      savedTheme = window.localStorage.getItem("pengwei-theme");
+    } catch {
+      // Private browsing may disable storage; system appearance still works.
+    }
+    themePreference.current = savedTheme === "dark" || savedTheme === "light" ? savedTheme : null;
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+    let frame = 0;
 
-    return () => window.cancelAnimationFrame(frame);
+    function syncTheme() {
+      const currentTheme = themePreference.current ?? (systemTheme.matches ? "dark" : "light");
+      document.documentElement.dataset.theme = currentTheme;
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        // A manual choice made before this frame should win over the initial sync.
+        setTheme(themePreference.current ?? (systemTheme.matches ? "dark" : "light"));
+      });
+    }
+
+    function syncPreference(event: StorageEvent) {
+      if (event.key !== "pengwei-theme" && event.key !== null) return;
+      themePreference.current = event.newValue === "dark" || event.newValue === "light" ? event.newValue : null;
+      syncTheme();
+    }
+
+    syncTheme();
+    systemTheme.addEventListener("change", syncTheme);
+    window.addEventListener("storage", syncPreference);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      systemTheme.removeEventListener("change", syncTheme);
+      window.removeEventListener("storage", syncPreference);
+    };
   }, []);
 
   useEffect(() => {
@@ -147,13 +172,19 @@ export default function SiteChrome() {
   }, [activeNav, isScrolled]);
 
   function applyTheme(nextTheme: Theme) {
+    themePreference.current = nextTheme;
     document.documentElement.dataset.theme = nextTheme;
-    window.localStorage.setItem("pengwei-theme", nextTheme);
+    try {
+      window.localStorage.setItem("pengwei-theme", nextTheme);
+    } catch {
+      // Keep manual switching available even when preferences cannot be saved.
+    }
     flushSync(() => setTheme(nextTheme));
   }
 
   function toggleTheme(event: MouseEvent<HTMLButtonElement>) {
-    const nextTheme = theme === "light" ? "dark" : "light";
+    const currentTheme = theme ?? (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+    const nextTheme = currentTheme === "light" ? "dark" : "light";
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -274,10 +305,10 @@ export default function SiteChrome() {
             className="theme-toggle"
             type="button"
             onClick={toggleTheme}
-            aria-label={theme === "light" ? "Use dark theme" : "Use light theme"}
-            title={theme === "light" ? "Use dark theme" : "Use light theme"}
+            aria-label={theme === null ? "Toggle theme" : theme === "light" ? "Use dark theme" : "Use light theme"}
+            title={theme === null ? "Toggle theme" : theme === "light" ? "Use dark theme" : "Use light theme"}
           >
-            <span aria-hidden="true">{theme === "light" ? "☀" : "☾"}</span>
+            <span aria-hidden="true">{theme === null ? "◐" : theme === "light" ? "☀" : "☾"}</span>
           </button>
         </div>
       </nav>

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { runInNewContext } from "node:vm";
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -49,7 +50,7 @@ test("renders indexable homepage metadata", async () => {
   assert.match(html, /"@type":"ScholarlyArticle"/i);
   assert.match(html, /Vision-Tactile Multimodal Learning/i);
   assert.doesNotMatch(html, /Vision-Force Multimodal Learning/i);
-  assert.match(html, /<html lang="en" data-theme="dark"/i);
+  assert.match(html, /<html lang="en" data-theme="system"/i);
   assert.doesNotMatch(html, /noindex/i);
   assert.match(
     html,
@@ -64,6 +65,34 @@ test("renders indexable homepage metadata", async () => {
     /https:\/\/scholar\.google\.com\/citations\?user=Fb-JqDYAAAAJ&amp;hl=zh-CN/i,
   );
   assert.doesNotMatch(html, /rel="icon" href="[^"]*profile-search\.jpg"/i);
+});
+
+test("chooses the system appearance before paint, preserving only explicit theme choices", async () => {
+  const html = await (await render()).text();
+  const bootstrap = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)]
+    .map((match) => match[1])
+    .find((script) => script.includes('localStorage.getItem("pengwei-theme")'));
+  assert.ok(bootstrap, "Theme bootstrap is included in the server-rendered page");
+
+  for (const systemDark of [false, true]) {
+    for (const saved of [null, "system", "invalid", "light", "dark"]) {
+      const root = { dataset: { theme: "system" } };
+      runInNewContext(bootstrap, {
+        document: { documentElement: root },
+        localStorage: { getItem: () => saved },
+        matchMedia: () => ({ matches: systemDark }),
+      });
+      assert.equal(root.dataset.theme, saved === "light" || saved === "dark" ? saved : systemDark ? "dark" : "light");
+    }
+
+    const root = { dataset: { theme: "system" } };
+    runInNewContext(bootstrap, {
+      document: { documentElement: root },
+      localStorage: { getItem: () => { throw new Error("Storage unavailable"); } },
+      matchMedia: () => ({ matches: systemDark }),
+    });
+    assert.equal(root.dataset.theme, systemDark ? "dark" : "light");
+  }
 });
 
 test("bundles the intended academic typography", async () => {
