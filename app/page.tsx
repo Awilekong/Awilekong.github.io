@@ -726,7 +726,7 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-beijing-daily"
                 >
-                  Beijing Jiaotong University profile on Beijing Daily’s Beijing Hao platform: Finding My Direction Through Learning and Growth
+                  Beijing Daily Profile: Finding My Direction Through Learning and Growth
                 </a>
               </strong>
               <time dateTime="2024">2024</time>
