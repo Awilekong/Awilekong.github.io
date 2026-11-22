@@ -146,7 +146,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /featured ResTacVLA in “Robots Are Learning to Feel,”/);
   assert.match(
     html,
-    /IEEE Spectrum 专题报道｜Robots Are Learning to Feel：ResTacVLA 迈向触觉驱动的 Physical AI/,
+    /IEEE Spectrum feature on ResTacVLA: Robots Are Learning to Feel/,
   );
   assert.match(html, /spectrum\.ieee\.org\/tactile-data-robots/);
   assert.match(html, /dateTime="2026-07">Jul 2026<\/time>/);
@@ -155,7 +155,7 @@ test("renders the v1 layout with the selected enhancements", async () => {
   assert.match(html, /spotlighted our ResTacVLA work in an official feature/);
   assert.match(
     html,
-    /北京中关村学院官方聚焦｜ResTacVLA：迈向更可靠的视觉–触觉具身智能新范式/,
+    /Zhongguancun Academy spotlight: ResTacVLA and More Reliable Vision–Tactile Embodied Intelligence/,
   );
   assert.match(html, /Q_Q9xwdPnEaffNV-SNBlyQ/);
   assert.match(html, /dateTime="2026-05">May 2026<\/time>/);
