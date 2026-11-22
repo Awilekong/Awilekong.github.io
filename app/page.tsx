@@ -672,8 +672,7 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-restacvla-ieee-spectrum"
                 >
-                  IEEE Spectrum feature: “Robots Are Learning to Feel” — ResTacVLA
-                  Towards Tactile-Driven Physical AI
+                  IEEE Spectrum feature: Robots Are Learning to Feel
                 </a>
               </strong>
               <time dateTime="2026">2026</time>
