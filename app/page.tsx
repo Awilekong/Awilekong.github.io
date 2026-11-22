@@ -672,8 +672,8 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-restacvla-ieee-spectrum"
                 >
-                  IEEE Spectrum 专题报道｜Robots Are Learning to Feel：ResTacVLA
-                  迈向触觉驱动的 Physical AI
+                  IEEE Spectrum feature: “Robots Are Learning to Feel” — ResTacVLA
+                  Towards Tactile-Driven Physical AI
                 </a>
               </strong>
               <time dateTime="2026">2026</time>
@@ -696,7 +696,7 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-restacvla-zgca"
                 >
-                  北京中关村学院官方聚焦｜ResTacVLA：迈向更可靠的视觉–触觉具身智能新范式
+                  Zhongguancun Academy spotlight: ResTacVLA and More Reliable Vision–Tactile Embodied Intelligence
                 </a>
               </strong>
               <time dateTime="2026">2026</time>
@@ -727,7 +727,7 @@ export default function Home() {
                   rel="noreferrer"
                   data-analytics-event="recognition-beijing-daily"
                 >
-                  北京日报人物报道｜在学习与成长中寻找自己的方向
+                  Beijing Jiaotong University profile on Beijing Daily’s Beijing Hao platform: Finding My Direction Through Learning and Growth
                 </a>
               </strong>
               <time dateTime="2024">2024</time>
