@@ -544,7 +544,7 @@ export default function Home() {
               >
                 Prof. Long Cheng
               </a>
-              .
+              {" (IEEE Fellow)"}.
             </p>
             <p>
               I received my Bachelor&apos;s degree in Automation from{" "}
